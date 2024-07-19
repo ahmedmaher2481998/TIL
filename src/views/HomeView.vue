@@ -1,7 +1,5 @@
-<script setup lang="ts">
-import {} from 'native-ui'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <main></main>
+  <main>Shape the world !</main>
 </template>
