@@ -12,6 +12,6 @@
   "framework": "vite",
   "aliases": {
     "components": "src/components",
-    "utils": "src/utils"
+    "utils": "@/utils"
   }
 }
