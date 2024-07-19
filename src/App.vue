@@ -4,7 +4,6 @@
   <header>
     <nav></nav>
   </header>
-
   <RouterView />
 </template>
 

@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import {} from 'native-ui'
+</script>
 
 <template>
-  <main>Hi there</main>
+  <main></main>
 </template>
