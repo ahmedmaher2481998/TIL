@@ -51,6 +51,9 @@ importers:
       '@types/node':
         specifier: ^20.14.11
         version: 20.14.11
+      '@vicons/material':
+        specifier: ^0.12.0
+        version: 0.12.0
       '@vitejs/plugin-vue':
         specifier: ^5.0.5
         version: 5.0.5(vite@5.3.4(@types/node@20.14.11))(vue@3.4.32(typescript@5.4.5))
@@ -81,6 +84,9 @@ importers:
       eslint-plugin-vue:
         specifier: ^9.23.0
         version: 9.27.0(eslint@8.57.0)
+      i:
+        specifier: ^0.3.7
+        version: 0.3.7
       jsdom:
         specifier: ^24.1.0
         version: 24.1.0
@@ -750,6 +756,9 @@ packages:
 
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
+
+  '@vicons/material@0.12.0':
+    resolution: {integrity: sha512-chv1CYAl8P32P3Ycwgd5+vw/OFNc2mtkKdb1Rw4T5IJmKy6GVDsoUKV3N2l208HATn7CCQphZtuPDdsm7K2kmA==}
 
   '@vitejs/plugin-vue@5.0.5':
     resolution: {integrity: sha512-LOjm7XeIimLBZyzinBQ6OSm3UBCNVCpLkxGC0oWmm2YPzVZoxMsdvNVimLTBzpAnR9hl/yn1SHGuRfe6/Td9rQ==}
@@ -1692,6 +1701,10 @@ packages:
   human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
     engines: {node: '>=16.17.0'}
+
+  i@0.3.7:
+    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
+    engines: {node: '>=0.4'}
 
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
@@ -3580,6 +3593,8 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
+  '@vicons/material@0.12.0': {}
+
   '@vitejs/plugin-vue@5.0.5(vite@5.3.4(@types/node@20.14.11))(vue@3.4.32(typescript@5.4.5))':
     dependencies:
       vite: 5.3.4(@types/node@20.14.11)
@@ -4686,6 +4701,8 @@ snapshots:
   human-signals@2.1.0: {}
 
   human-signals@5.0.0: {}
+
+  i@0.3.7: {}
 
   iconv-lite@0.6.3:
     dependencies:

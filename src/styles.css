@@ -1,6 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.glassy-feel {
+  /* From https://css.glass */
+  background: rgba(7, 7, 7, 0.5);
+  /* border-radius: 16px; */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
 
 @layer base {
   :root {
@@ -72,4 +81,9 @@
   body {
     @apply bg-background text-foreground font-main;
   }
+}
+
+body {
+  background-color: black;
+  /* color: white; */
 }
