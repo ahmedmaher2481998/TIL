@@ -82,8 +82,3 @@
     @apply bg-background text-foreground font-main;
   }
 }
-
-body {
-  background-color: black;
-  /* color: white; */
-}
