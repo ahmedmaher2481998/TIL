@@ -17,6 +17,9 @@ importers:
       '@vee-validate/zod':
         specifier: ^4.13.2
         version: 4.13.2(vue@3.4.32(typescript@5.4.5))
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.32(typescript@5.4.5))
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0

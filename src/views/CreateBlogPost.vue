@@ -20,6 +20,7 @@ import { createBlogZodSchema } from '@/types'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { FormInputField } from '@/components'
+import TagSelector from '@/components/createNewBlog/TagSelector.vue'
 
 const createBlogSchema = toTypedSchema(createBlogZodSchema)
 const form = useForm({
@@ -52,6 +53,7 @@ const onSubmit = handleSubmit((values) => {
         <FormInputField name="title" placeholder="Subject title...." label="Post title" />
         <FormInputField name="tldr" placeholder="summary of the article" label="Tldr" />
         <FormInputField name="description" placeholder="a sneak peak into post content" label="Description" />
+        <TagSelector />
       </CardContent>
 
       <CardFooter class="flex justify-between px-6 pb-6">
