@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "@fontsource-variable/fira-code": "^5.0.18",
+    "@supabase/supabase-js": "^2.44.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.12",
     "lucide-vue-next": "^0.408.0",
     "pinia": "^2.1.7",
     "radix-vue": "^1.9.1",
