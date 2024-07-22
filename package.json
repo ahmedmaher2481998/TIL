@@ -24,6 +24,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.12",
     "lucide-vue-next": "^0.408.0",
+    "md-editor-v3": "^4.17.4",
     "pinia": "^2.1.7",
     "radix-vue": "^1.9.1",
     "tailwind-merge": "^2.4.0",
