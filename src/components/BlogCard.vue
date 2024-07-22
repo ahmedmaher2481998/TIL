@@ -1,16 +1,12 @@
 <template lang="html">
-  <Card
-    class="bg-green-100 text-white max-w-screen-lg relative overflow-hidden max-h-[500px] mx-2 md:mx-4"
-  >
+  <Card class="bg-green-100 text-white max-w-screen-lg relative overflow-hidden max-h-[500px] mx-2 md:mx-4">
     <img class="bg-cover w-full rounded-lg" :src="props.blog.image" alt="{{ props.blog..title }}" />
     <div class="absolute bottom-0 glassy-feel w-full">
       <CardHeader>
         <!-- title with tldr  -->
         <div class="flex justify-between items-center w-full h-auto">
           <CardTitle class="font-semibold">{{ props.blog.title }}</CardTitle>
-          <span
-            class="h-10 text-sm w-10 rotate-45 hover:translate-x-1 hover:-translate-y-1 transition"
-          >
+          <span class="h-10 text-sm w-10 rotate-45 hover:translate-x-1 hover:-translate-y-1 transition">
             <ArrowUpwardOutlined class="font-thin" />
           </span>
         </div>
@@ -39,7 +35,7 @@
         </div>
         <!-- tags  -->
         <div class="">
-          <TagChip v-for="tag in props.blog.tags" :href="tag.slug" :tag="tag.title" :key="tag.id" />
+          <TagChip v-for="tag in props.blog.tags" :href="tag.slug" :name="tag.title" :key="tag.id" />
         </div>
       </CardFooter>
     </div>
