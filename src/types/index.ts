@@ -91,9 +91,9 @@ export const exampleComment: CommentType = {
 
 export const createBlogZodSchema = z.object({
   slug: z.string().min(1).max(255),
-  title: z.string().min(50).max(255),
-  description: z.string().min(100).max(1000).nullable(),
-  tldr: z.string().min(100).max(500).nullable(),
+  title: z.string().min(20).max(255),
+  description: z.string().min(50).max(1000).nullable(),
+  tldr: z.string().min(50).max(500).nullable(),
   content: z.string().min(500),
   image: z.string().url(),
   readCount: z.number().int().nonnegative().default(0),

@@ -16,7 +16,6 @@ export const useTags = defineStore('tags', () => {
     if (error) throw error
     // @ts-ignore
     storeDate.tags = data as TagsWithBlogsType
-    console.log('🚀 ~ getAllTags ~ data:', storeDate)
     return data
   }
 
@@ -40,8 +39,6 @@ export const useTags = defineStore('tags', () => {
     } else {
       // @ts-ignore
       storeDate.tags.push(data[0] as TagType)
-      console.log("🚀 ~ createNewTag ~ data:", data[0])
-      console.log("🚀 ~ createNewTag ~ storeDate.tags:", storeDate.tags)
       return
     }
   }
