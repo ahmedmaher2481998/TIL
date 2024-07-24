@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { NavBar } from '@/components'
+import { NavBar, Toaster } from '@/components'
 </script>
 
 <template>
+  <Toaster />
   <header>
     <NavBar />
   </header>
