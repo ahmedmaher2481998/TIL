@@ -1,4 +1,10 @@
 <script setup lang="ts">
+// TODO 
+// content 
+// validate data
+//  submitting 
+// redirecting to the blog page 
+// auth 
 import {
   Card,
   CardContent,
@@ -7,28 +13,55 @@ import {
   CardHeader,
   CardTitle,
   FormInputField,
-  FormControl,
   TagSelector,
-  ImageUpload, Button, Form, MarkDownContentInput,
+  ImageUpload, Button, MarkDownContentInput,
+  FormField, useToast,
 } from '@/components'
 import { createBlogZodSchema } from '@/types'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
+import { slugify } from '@/utils';
+import { computed, } from 'vue';
 
-
+const defaultBlogData = {
+  slug: 'default-slug',
+  title: 'This is a default blog title with more than twenty characters',
+  description: 'This is a default description with more than fifty characters to meet the minimum length requirement.',
+  tldr: 'This is a default TL;DR with more than fifty characters to meet the minimum length requirement.',
+  content: 'This is a default content with more than five hundred characters to meet the minimum length requirement.\n'.trim().repeat(10),
+  tags: undefined,
+  image: undefined,
+  readCount: 0,
+  author_id: 1
+};
+const { toast } = useToast()
 const createBlogSchema = toTypedSchema(createBlogZodSchema)
-const form = useForm({
-  validationSchema: createBlogSchema
+
+const { handleSubmit, values: formValues, resetForm } = useForm({
+  validationSchema: createBlogSchema,
+  initialValues: defaultBlogData
+
 })
-const { handleSubmit, resetForm } = form
-const onSubmit = handleSubmit((values) => {
+// @ts-ignore
+function onInvalidSubmit({ values, errors, results }) {
+  toast({
+    title: 'Uh oh! please make sure all fields are valid.',
+    description: `please enter: ${Object.keys(errors).join(', ')}`,
+    variant: 'destructive',
+  });
+}
+// @ts-ignore
+function onSuccess(values) {
   console.log('Form submitted!', values)
+}
+
+const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
+const computedTitleSlug = computed(() => {
+  // return a computed slug of the title 
+  return slugify(formValues.title ?? "")
 })
-// content 
-// validate data
-//  submitting 
-// redirecting to the blog page 
-// auth 
+
+
 </script>
 <template>
   <Card class="max-w-screen-lg mx-auto px-4">
@@ -36,15 +69,18 @@ const onSubmit = handleSubmit((values) => {
       <CardTitle>Add new blog post</CardTitle>
       <CardDescription>Give your ideas the exposure it deserve</CardDescription>
     </CardHeader>
-    <Form @submit.prevent="onSubmit">
+    <form @submit="onSubmit" keep-values>
       <CardContent class="space-y-4">
-        <!-- Form Fields  -->
-        <!-- blog Title -->
-        <FormInputField name="title" placeholder="Subject title...." label="Post title" />
+        <!-- Form Fields -->
+        <!-- blog Title / slug  -->
+        <FormInputField field-name="title" placeholder="Subject title...." field-label="Post title" />
+
+        <FormField name="slug" v-model="computedTitleSlug" class="hidden" />
         <!-- blog Tldr -->
-        <FormInputField name="tldr" placeholder="summary of the article" label="Tldr" />
+        <FormInputField field-name="tldr" placeholder="summary of the article" field-label="Tldr" />
         <!-- blog Description -->
-        <FormInputField name="description" placeholder="a sneak peak into post content" label="Description" />
+        <FormInputField field-name="description" placeholder="a sneak peak into post content"
+          field-label="Description" />
         <!-- blog tag Selector  -->
         <TagSelector />
         <!-- Upload blog cover  -->
@@ -56,7 +92,7 @@ const onSubmit = handleSubmit((values) => {
         <Button type="button" variant="destructive" @click="resetForm"> clear </Button>
         <Button type="submit">Publish</Button>
       </CardFooter>
-    </Form>
+    </form>
   </Card>
 </template>
 

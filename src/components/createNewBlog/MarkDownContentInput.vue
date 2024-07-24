@@ -1,19 +1,26 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { FormItem, FormMessage, Label, FormField } from '@/components'
+import { MdEditor } from 'md-editor-v3'
+import { useField } from 'vee-validate';
+
+const {
+  value,
+  errors, errorMessage
+} = useField('content',);
+</script>
 <template lang="html">
   <div class="mt-10">
-    <MdEditor v-model="blogBody" language="en-US">
 
-    </MdEditor>
+    <FormItem>
+      <Label :class="{ 'text-red-600': errors.length }">post Content</Label>
+      <MdEditor v-model="value as string" language="en-US"> </MdEditor>
+      <p v-if="errors.length" class="text-sm font-medium text-destructive">
+        {{ errorMessage }}
+      </p>
+    </FormItem>
+
   </div>
 </template>
-<script setup lang="ts">
-import { ref } from 'vue';
-import { Label } from "@/components"
-// @ts-ignore
-import { MdEditor } from 'md-editor-v3';
-
-const blogBody = ref('# Hello Editor');
-
-
-</script>
 <!-- Add Multiselect CSS. Can be added as a static asset or inside a component. -->
 <style src="md-editor-v3/lib/style.css"></style>
