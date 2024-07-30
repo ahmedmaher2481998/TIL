@@ -19,9 +19,12 @@ export type BlogType = {
   description: string
   tldr: string
   content: string
-  image: string
+  image: string,
+  image_id: string,
+  comments: CommentType[],
+  user: UserType,
   tags: TagType[]
-  readCount: number
+  read_count: number
   author: UserType
   created_at: string
 }
@@ -89,10 +92,12 @@ export const exampleBlog: BlogType = {
   tldr: 'Example blog tldr',
   content: 'This is the content of the example blog.',
   image,
+  image_id: "",
+  comments: [],
   tags: [],
-  readCount: 0,
+  read_count: 0,
   author: exampleUser,
-  created_at: new Date().toUTCString()
+  created_at: new Date().toUTCString(), user: {} as UserType,
 }
 
 export const exampleTag: TagType = {
