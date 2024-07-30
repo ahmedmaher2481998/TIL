@@ -33,4 +33,9 @@ export function slugify(text: string, ampersand = 'and') {
     .replace(/[^\w-]+/g, '')
     .replace(/--+/g, '-')
     .replace(/^-+|-+$/g, '')
-}   
+}
+
+
+export function getImageUploadPath({ img, str, type }: { img: File, str: string, type: "cover" }) {
+  if (type === "cover") return `blogs/covers/${str}-${Date.now()}-${slugify(img?.name)}`
+}
