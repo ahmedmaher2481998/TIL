@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "db:types": "dotenv -e .env.local -- sh -c 'pnpx supabase gen types typescript --project-id $PROJECT_ID > ./src/types/database.types.ts'",
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
