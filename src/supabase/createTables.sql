@@ -6,7 +6,6 @@ CREATE TABLE users (
     avatar TEXT NOT NULL,
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
 );
 
 -- * Create the 'blogs' table
@@ -17,7 +16,9 @@ CREATE TABLE blogs (
     description Text NOT NULL,
     tldr Text NOT NULL,
     content TEXT NOT NULL,
+    -- image_url VARCHAR(500) NOT NULL,
     image VARCHAR(500) NOT NULL,
+    image_id uuid NOT NULL,
     readCount INTEGER NOT NULL DEFAULT 0,
     author_id INTEGER NOT NULL,
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -54,29 +55,27 @@ CREATE TABLE blog_tags (
 );
 
 -- Create the trigger function
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = NOW();
-    RETURN NEW;
+CREATE
+OR REPLACE FUNCTION update_updated_at_column() RETURNS TRIGGER AS $ $ BEGIN NEW.updated_at = NOW();
+
+RETURN NEW;
+
 END;
-$$ LANGUAGE plpgsql;
+
+$ $ LANGUAGE plpgsql;
 
 --  Create the trigger for each table that has updatedAt  column
 -- update updatedAt column in the users table 
-CREATE TRIGGER update_users_updated_at
-BEFORE UPDATE ON users
-FOR EACH ROW
-EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_users_updated_at BEFORE
+UPDATE
+    ON users FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- update updatedAt column in the blogs table 
-CREATE TRIGGER update_blogs_updated_at
-BEFORE UPDATE ON blogs
-FOR EACH ROW
-EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_blogs_updated_at BEFORE
+UPDATE
+    ON blogs FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- update updatedAt column in the comment table 
-CREATE TRIGGER update_comments_updated_at
-BEFORE UPDATE ON comments
-FOR EACH ROW
-EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_comments_updated_at BEFORE
+UPDATE
+    ON comments FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
