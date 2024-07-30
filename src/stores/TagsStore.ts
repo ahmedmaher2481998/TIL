@@ -6,7 +6,7 @@ import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 
 export const useTags = defineStore('tags', () => {
-  const storeDate = reactive<{ tags: TagType[] }>({ tags: [] })
+  const tags = reactive<{ tags: TagType[] }>({ tags: [] })
   const selectAllTagsQuery = `id,title,slug,${Tables.Blogs} (*)`
   const tagsWithBlogsQuery = supabase.from(Tables.Tags).select(selectAllTagsQuery)
   type TagsWithBlogsType = QueryData<typeof tagsWithBlogsQuery>
@@ -15,7 +15,7 @@ export const useTags = defineStore('tags', () => {
     const { data, error } = await tagsWithBlogsQuery
     if (error) throw error
     // @ts-ignore
-    storeDate.tags = data as TagsWithBlogsType
+    tags.tags = data as TagsWithBlogsType
     return data
   }
 
@@ -38,14 +38,14 @@ export const useTags = defineStore('tags', () => {
       return
     } else {
       // @ts-ignore
-      storeDate.tags.push(data[0] as TagType)
+      tags.tags.push(data[0] as TagType)
       return
     }
   }
 
   return {
     getAllTags,
-    tags: storeDate,
+    tags,
     createNewTag
   }
 })
