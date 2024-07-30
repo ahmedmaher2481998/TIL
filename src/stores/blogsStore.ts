@@ -1,51 +1,87 @@
+import { useToast } from '@/components'
 import supabase from '@/supabase'
-import { Tables, createBlogZodSchema, Bucket } from '@/types'
-import type { QueryData } from '@supabase/supabase-js'
+import { Bucket, createBlogZodSchema, db_functions, type BlogType, type createBlogWithTagsType } from '@/types'
+import { getImageUploadPath } from '@/utils'
+// import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import type { z } from 'zod'
+import z from 'zod'
 
-export const useTags = defineStore('tags', () => {
+export const useBlogs = defineStore('blogs', () => {
+  const blogs = reactive({
+    blogs: [] as BlogType[]
+  })
+  // const selectAllBlogsQuery = `* ,${Tables.Comments} (*),${Tables.BlogTags} (*)`
+  // const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery)
+  // type BlogsType = QueryData<typeof blogsWithBlogsQuery>
 
-  const selectAllTagsQuery = `id,title,slug,${Tables.Blogs} (*)`
-  const tagsWithBlogsQuery = supabase.from(Tables.Tags).select(selectAllTagsQuery)
-  type TagsWithBlogsType = QueryData<typeof tagsWithBlogsQuery>
-  async function uploadBlogCover(imf: File) {
-    supabase.storage("")
+  function abort(str: string) {
+    console.log("error ....", str)
+
   }
-  async function createNewBlog(values: z.infer<typeof createBlogZodSchema>) {
-    const { data, error } = await tagsWithBlogsQuery
-    if (error) throw error
-    // @ts-ignore
-    storeDate.tags = data as TagsWithBlogsType
-    return data
+  async function CreateBlogPost(blog: z.infer<typeof createBlogZodSchema>) {
+
+    const uploadPath = getImageUploadPath({
+      img: blog.image as File,
+      str: blog.slug,
+      type: 'cover' as const // 'cover' is the type of blog cover image
+    })
+
+    if (!uploadPath) return abort("image processing failed ..")
+
+    const img = await uploadBlogCover(blog.image as File, uploadPath as string)
+    console.log('----------------------', 'submitted data', blog, 'image object', img)
+
+    if (!img) return abort('image upload failed ..')
+    const { data, error } = await supabase.rpc<db_functions, createBlogWithTagsType>(db_functions.createBlogWithTags, {
+      blog_title: blog.title,
+      blog_slug: blog.slug,
+      blog_description: blog.description,
+      blog_tldr: blog.tldr,
+      blog_content: blog.content,
+      blog_image_url: img.url,
+      blog_image_id: img.id,
+      blog_author_id: blog.author_id,
+      blog_tag_ids: blog.tags
+    });
+
+
+    if (error) {
+      console.error('Error creating post and comment:', error);
+    } else {
+      console.log('Post and comment created successfully:', data);
+    }
+
+
   }
-
-  // async function createNewTag(name: string) {
-  /* to decrease chances of duplicated tags 
-   const randomId = Math.random()
-    .toString(36)
-     .substring(2, 2 + length) */
-  // console.log('Adding', name)
-  // const { data, error } = await supabase
-  //   .from(Tables.Tags)
-  //   .insert({
-  //     title: name,
-  //     slug: slugify(`${name}`)
-  //   })
-  //   .select(selectAllTagsQuery)
-
-  // if (error) {
-  //   console.error(error)
-  //   return
-  // } else {
-  //   // @ts-ignore
-  //   storeDate.tags.push(data[0] as TagType)
-  //   return
-  // }
-  // }
+  async function uploadBlogCover(img: File, path: string): Promise<{
+    id: string;
+    url: string;
+    path: string;
+  }> {
+    const { data: uploadData, error } = await supabase.storage.from(Bucket).upload(path, img)
+    if (error) {
+      const { toast } = useToast()
+      toast({
+        title: 'sorry! something went wrong .',
+        description: `${error.message}`,
+        variant: 'destructive'
+      })
+    }
+    if (!uploadData) {
+      console.log('error', error)
+      console.log('upload data', uploadData)
+      throw new Error("upload data returned empty")
+    }
+    const { data: imageData } = supabase.storage.from(Bucket).getPublicUrl(uploadData?.path)
+    return {
+      id: uploadData.id,
+      url: imageData.publicUrl,
+      path: uploadData.path
+    }
+  }
 
   return {
-
+    uploadBlogCover, CreateBlogPost, blogs
   }
 })

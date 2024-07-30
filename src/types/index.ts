@@ -1,8 +1,6 @@
 import { z } from 'zod'
 
 // UserType definition
-const image =
-  'https://images.unsplash.com/flagged/1/apple-gear-looking-pretty.jpg?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 export type UserType = {
   id: number
   name: string
@@ -43,7 +41,22 @@ export type CommentType = {
   blogPost: BlogType
   user: UserType
 }
+// Supabase Constants
+export type createBlogWithTagsType = {
+  blog_title: string;
+  blog_slug: string;
+  blog_description: string;
+  blog_tldr: string;
+  blog_content: string;
+  blog_image_url: string;
+  blog_image_id: string;
+  blog_author_id: number,
+  blog_tag_ids: number[]
+}
+export enum db_functions {
+  createBlogWithTags = "create_blog_with_tags"
 
+}
 export type TableNameType = 'users' | 'blogs' | '' | 'comments' | 'tags' | 'blog_tags'
 export const Bucket = "blogs-bucket"
 export enum Tables {
@@ -53,6 +66,11 @@ export enum Tables {
   Tags = 'tags',
   BlogTags = 'blog_tags'
 }
+
+// mock data 
+/************************************************************ */
+const image =
+  'https://images.unsplash.com/flagged/1/apple-gear-looking-pretty.jpg?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 // Usage Example
 export const exampleUser: UserType = {
   id: 1,
@@ -90,13 +108,14 @@ export const exampleComment: CommentType = {
   blogPost: exampleBlog,
   user: exampleUser
 }
-
+/************************************************************ */
+// error message generator 
 const errorMsg = (name: string) => ({
   max: (max: number) => `${name} can't be more than ${max} chars`,
   min: (min: number) => `${name} is ${min} chars min`,
   require: () => `${name} is required`
 })
-
+// schema 
 export const createBlogZodSchema = z
   .object({
     slug: z
