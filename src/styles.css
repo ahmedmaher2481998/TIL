@@ -81,4 +81,7 @@
   body {
     @apply bg-background text-foreground font-main;
   }
+  #app {
+    @apply min-h-screen;
+  }
 }
