@@ -8,6 +8,12 @@ import { NavBar, Toaster } from '@/components'
     <NavBar />
   </header>
   <RouterView />
+
+  <footer
+    class="w-full my-auto bg-primary text-primary-foreground items-center justify-center flex h-24 p-6"
+  >
+    all rights reserved Ahmed maher 2024&copy;
+  </footer>
 </template>
 
 <style scoped></style>
