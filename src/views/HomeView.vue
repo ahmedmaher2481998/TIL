@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import Button from '@/components/ui/button/index'
+import { Button } from '@/components'
 import { exampleBlog } from '@/types'
 import { BlogCard } from '@/components'
+import { useBlogs } from '@/stores/blogsStore'
+
+const { getBlogs, blogs } = useBlogs()
+await getBlogs()
 </script>
 
 <template>
@@ -20,5 +24,5 @@ import { BlogCard } from '@/components'
   <!-- Components ,Blog card, Tag chip -->
 
   <main class="bg-green-400">All goes here</main>
-  <BlogCard :blog="exampleBlog" />
+  <!-- <BlogCard v-for="blog in blogs" :blog="" /> -->
 </template>

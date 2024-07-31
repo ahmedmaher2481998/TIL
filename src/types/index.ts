@@ -23,10 +23,11 @@ export type BlogType = {
   image_id: string,
   comments: CommentType[],
   user: UserType,
-  tags: TagType[]
+  tags?: TagType[]
   read_count: number
-  author: UserType
-  created_at: string
+  author_id: number;
+  createdat: string
+  updatedat: string | null
 }
 
 // TagType definition
@@ -70,50 +71,6 @@ export enum Tables {
   BlogTags = 'blog_tags'
 }
 
-// mock data 
-/************************************************************ */
-const image =
-  'https://images.unsplash.com/flagged/1/apple-gear-looking-pretty.jpg?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-// Usage Example
-export const exampleUser: UserType = {
-  id: 1,
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-  avatar: image,
-  posts: [],
-  createdAt: new Date(),
-  comments: []
-}
-export const exampleBlog: BlogType = {
-  id: 1,
-  slug: 'example-blog',
-  title: 'Example Blog',
-  description: 'This is an example blog.',
-  tldr: 'Example blog tldr',
-  content: 'This is the content of the example blog.',
-  image,
-  image_id: "",
-  comments: [],
-  tags: [],
-  read_count: 0,
-  author: exampleUser,
-  created_at: new Date().toUTCString(), user: {} as UserType,
-}
-
-export const exampleTag: TagType = {
-  id: 1,
-  title: 'Example Tag',
-  slug: 'example-tag',
-  blogPosts: []
-}
-
-export const exampleComment: CommentType = {
-  id: 1,
-  content: 'This is an example comment.',
-  blogPost: exampleBlog,
-  user: exampleUser
-}
-/************************************************************ */
 // error message generator 
 const errorMsg = (name: string) => ({
   max: (max: number) => `${name} can't be more than ${max} chars`,
@@ -151,7 +108,7 @@ export const createBlogZodSchema = z
       .instanceof(File, { message: errorMsg('image').require() })
       .refine((file) => file.type.startsWith('image/'), {
         message: 'Image upload failed, file must be an image'
-      }),
+      }).refine((f: File) => (f.size / (1024 * 1024)) > 5, { message: "max image size is 5mb" }),
     // .url("image upload failed"),
     readCount: z.number().int().nonnegative().default(0),
     author_id: z.number().int().positive().default(1)
