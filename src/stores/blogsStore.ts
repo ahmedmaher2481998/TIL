@@ -1,23 +1,31 @@
 import { useToast } from '@/components'
 import supabase from '@/supabase'
-import { Bucket, createBlogZodSchema, db_functions, type BlogType, type createBlogWithTagsType } from '@/types'
+import { Bucket, createBlogZodSchema, db_functions, Tables, type BlogType, type createBlogWithTagsType } from '@/types'
 import { getImageUploadPath } from '@/utils'
+import type { QueryData } from '@supabase/supabase-js'
 // import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { ref } from 'vue'
 import z from 'zod'
 
 export const useBlogs = defineStore('blogs', () => {
-  const blogs = reactive({
-    blogs: [] as BlogType[]
-  })
-  // const selectAllBlogsQuery = `* ,${Tables.Comments} (*),${Tables.BlogTags} (*)`
-  // const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery)
-  // type BlogsType = QueryData<typeof blogsWithBlogsQuery>
+  const blogs = ref<BlogsType>([])
+  const selectAllBlogsQuery = `* ,${Tables.Comments} (*),${Tables.Tags} (*)`
+  const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery)
+  type BlogsType = QueryData<typeof blogsWithBlogsQuery>
 
   function abort(str: string) {
     console.log("error ....", str)
 
+  }
+  async function getBlogs() {
+    const { data: blogsData, error: blogsError } = await blogsWithBlogsQuery
+    if (blogsError) {
+      console.log("error")
+      return abort("unable to fetch blogs")
+    }
+    blogs.value = blogsData
+    console.log(blogs.value)
   }
   async function CreateBlogPost(blog: z.infer<typeof createBlogZodSchema>) {
 
@@ -82,6 +90,6 @@ export const useBlogs = defineStore('blogs', () => {
   }
 
   return {
-    uploadBlogCover, CreateBlogPost, blogs
+    uploadBlogCover, CreateBlogPost, blogs, getBlogs
   }
 })
