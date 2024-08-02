@@ -35,7 +35,7 @@ export type TagType = {
   id: number
   title: string
   slug: string
-  blogPosts: BlogType[]
+  blogPosts?: BlogType[]
 }
 
 // CommentType definition
@@ -45,6 +45,10 @@ export type CommentType = {
   blogPost: BlogType
   user: UserType
 }
+
+
+
+
 // Supabase Constants
 export type createBlogWithTagsType = {
   blog_title: string;
@@ -108,7 +112,7 @@ export const createBlogZodSchema = z
       .instanceof(File, { message: errorMsg('image').require() })
       .refine((file) => file.type.startsWith('image/'), {
         message: 'Image upload failed, file must be an image'
-      }).refine((f: File) => (f.size / (1024 * 1024)) > 5, { message: "max image size is 5mb" }),
+      }).refine((f: File) => (f.size / (1024 * 1024)) < 5, { message: "max image size is 5mb" }),
     // .url("image upload failed"),
     readCount: z.number().int().nonnegative().default(0),
     author_id: z.number().int().positive().default(1)
@@ -117,3 +121,8 @@ export const createBlogZodSchema = z
     ...values,
     tags: values.tags.map((t) => t.value)
   }))
+
+
+
+// Ui Related Types 
+export type ViewType = "login" | "register " | "logout" | "addNewTag"
