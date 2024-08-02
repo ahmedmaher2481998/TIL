@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { NavBar, Toaster } from '@/components'
+import { NavBar, Toaster, PopUp } from '@/components'
 </script>
 
 <template>
   <Toaster />
+  <PopUp />
   <header>
     <NavBar />
   </header>

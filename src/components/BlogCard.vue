@@ -14,7 +14,9 @@ const ago = ref(formatDisplayDate(blog.createdat))
   <Card
     class="bg-green-100 text-white max-w-screen-lg relative overflow-hidden max-h-[500px] mx-2 md:mx-4"
   >
-    <img class="bg-cover w-full rounded-lg" :src="blog.image" alt="{{ blog..title }}" />
+    <router-link class="bg-cover w-full rounded-lg" :to="'/blog/' + blog.id">
+      <img class="bg-cover w-full rounded-lg" :src="blog.image" alt="{{ blog..title }}" />
+    </router-link>
     <div class="absolute bottom-0 glassy-feel w-full">
       <CardHeader>
         <!-- title with tldr  -->
@@ -23,13 +25,15 @@ const ago = ref(formatDisplayDate(blog.createdat))
           <span
             class="h-10 text-sm w-10 rotate-45 hover:translate-x-1 hover:-translate-y-1 transition"
           >
-            <ArrowUpwardOutlined class="font-thin" />
+            <ArrowUpwardOutlined class="font-thin hidden lg:inline-block" />
           </span>
         </div>
         <CardDescription class="text-slate-100 truncate">{{ blog.tldr }}</CardDescription>
       </CardHeader>
 
-      <CardFooter class="flex items-center text-sm justify-between">
+      <CardFooter
+        class="flex flex-col gap-3 lg:gap-0 lg:flex-row items-center text-sm justify-between"
+      >
         <!-- author avatar with name  -->
         <div class="flex items-center justify-start">
           <div class="flex items-center justify-start gap-3">
