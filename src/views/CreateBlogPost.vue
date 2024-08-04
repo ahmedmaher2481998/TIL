@@ -108,7 +108,7 @@ const computedTitleSlug = computed(() => {
         <!-- blog tag Selector  -->
         <TagSelector />
         <!-- Upload blog cover  -->
-        <ImageUpload />
+        <ImageUpload title="Blog Cover" name="picture" />
         <!-- write markdown blog Content -->
         <MarkDownContentInput />
       </CardContent>

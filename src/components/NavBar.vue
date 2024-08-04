@@ -12,17 +12,21 @@ const { openView } = usePopUp()
     <div class="w-full container flex min-h-20 pt-4 mb-6 p-2 items-center justify-between">
       <router-link to="/" class="font-bold font-main">Blogy</router-link>
       <div class="text-white flex items-center justify-center space-x-6">
-        <Button v-if="isAuth" variant="ghost" @click="openView('logout')"> log out </Button>
+        <!-- logged-in show logout & create new blog post  -->
+        <div v-if="isAuth">
+          <RouterLink :to="{ name: 'new' }">
+            <Button class="flex gap-3" variant="ghost">
+              new Blog
+              <NoteAltOutlined class="h-6 w-6" />
+            </Button>
+          </RouterLink>
+          <Button variant="ghost" @click="openView('logout')"> log out </Button>
+        </div>
+        <!-- logged-in show login ot register   -->
         <div v-else>
           <Button variant="ghost" @click="openView('register ')"> register </Button>
           <Button variant="ghost" @click="openView('login')"> log in </Button>
         </div>
-        <RouterLink :to="{ name: 'new' }">
-          <Button class="flex gap-3" variant="ghost">
-            new Blog
-            <NoteAltOutlined class="h-6 w-6" />
-          </Button>
-        </RouterLink>
       </div>
     </div>
   </nav>

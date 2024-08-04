@@ -6,6 +6,7 @@
 - [*] create blog page
 - [*] pinia and state management
 - [ ] add Auth (log in & sign up & log out )
+- [ ] make add tag a pop up
 - [ ] add auth with Oauth & email - pass
 - [ ] add tag filters on the home page
 - [ ] adjust the style for better layout (use dark ballet)

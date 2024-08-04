@@ -1,11 +1,10 @@
-import { useToast } from '@/components'
-import supabase from '@/supabase'
-import { Bucket, createBlogZodSchema, db_functions, Tables, type BlogType, type createBlogWithTagsType } from '@/types'
+import supabase, { uploadImageFile as uploadBlogCover } from '@/supabase'
+import { createBlogZodSchema, db_functions, Tables } from '@/types'
 import { getImageUploadPath } from '@/utils'
 import type { QueryData } from '@supabase/supabase-js'
 // import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
-import { onBeforeMount, reactive, ref } from 'vue'
+import { onBeforeMount, reactive } from 'vue'
 import z from 'zod'
 
 export const useBlogs = defineStore('blogs', () => {
@@ -77,32 +76,7 @@ export const useBlogs = defineStore('blogs', () => {
       console.log('Post and comment created successfully:', data);
     }
   }
-  async function uploadBlogCover(img: File, path: string): Promise<{
-    id: string;
-    url: string;
-    path: string;
-  }> {
-    const { data: uploadData, error } = await supabase.storage.from(Bucket).upload(path, img)
-    if (error) {
-      const { toast } = useToast()
-      toast({
-        title: 'sorry! something went wrong .',
-        description: `${error.message}`,
-        variant: 'destructive'
-      })
-    }
-    if (!uploadData) {
-      console.log('error', error)
-      console.log('upload data', uploadData)
-      throw new Error("upload data returned empty")
-    }
-    const { data: imageData } = supabase.storage.from(Bucket).getPublicUrl(uploadData?.path)
-    return {
-      id: uploadData.id,
-      url: imageData.publicUrl,
-      path: uploadData.path
-    }
-  }
+
 
   return {
     uploadBlogCover, CreateBlogPost, blogsStoreData, getAllBlogs,

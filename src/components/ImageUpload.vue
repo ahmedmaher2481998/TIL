@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import { Label, Input, FormItem } from '@/components'
 import { UploadOutlined } from '@vicons/material'
-import { ref, watch } from 'vue'
+import { ref, watch, toRefs, defineProps, withDefaults } from 'vue'
 import { useField } from 'vee-validate'
-const { handleBlur, handleChange, errorMessage, value } = useField<File | null>(
-  'image',
-  undefined,
-  {
-    initialValue: null
-  }
-)
+import type { ClassValue } from 'clsx'
+import clsx from 'clsx'
+
+type propsType = {
+  title: string
+  name: string
+  displayClasses?: ClassValue
+}
+const props = withDefaults(defineProps<propsType>(), {
+  displayClasses: ''
+})
+const { title, name } = toRefs(props)
+
+const { handleBlur, handleChange, errorMessage, value } = useField<File | null>(name, undefined, {
+  initialValue: null
+})
 const blogCover = ref<HTMLImageElement | null>(null)
 // display image when it's selected
 watch(value, () => {
@@ -24,12 +33,12 @@ watch(value, () => {
 </script>
 <template lang="html">
   <FormItem class="grid justify-start w-full items-center gap-1.5">
-    <Label for="picture" class="mb-2 bg-" :class="{ 'text-red-600': Boolean(errorMessage) }">
-      Blog Cover</Label
+    <Label :for="name" class="mb-2 bg-" :class="{ 'text-red-600': Boolean(errorMessage) }">
+      {{ title }}</Label
     >
     <label
       class="relative w-auto flex border p-2 rounded-lg cursor-pointer items-center"
-      for="picture"
+      :for="name"
     >
       <span v-if="!value" class="flex items-center justify-center px-2">
         <UploadOutlined class="size-6 text-muted-foreground" />
@@ -39,7 +48,8 @@ watch(value, () => {
           v-if="value"
           src=""
           ref="blogCover"
-          class="w-full shadow-lg rounded-lg h-auto object-cover"
+          class="shadow-lg rounded-lg object-cover"
+          :class="displayClasses ? displayClasses : 'w-full h-auto'"
         />
         <span class="text-sm truncate text-gray-600 mt-4 text-center">
           {{ value ? value.name : 'Choose image' }}
@@ -48,7 +58,7 @@ watch(value, () => {
 
       <Input
         accept="image/*"
-        id="picture"
+        :id="name"
         type="file"
         class="pl-10 cursor-pointer hidden bg-green-600"
         @change="handleChange"

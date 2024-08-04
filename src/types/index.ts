@@ -2,11 +2,11 @@ import { z } from 'zod'
 
 // UserType definition
 export type UserType = {
-  id: number
+  id: string
   name: string
   email: string
-  posts: BlogType[]
-  comments: CommentType[]
+  posts?: BlogType[]
+  comments?: CommentType[]
   createdAt: Date
   avatar: string
 }
@@ -121,7 +121,35 @@ export const createBlogZodSchema = z
     ...values,
     tags: values.tags.map((t) => t.value)
   }))
+export const registerSchemaZod = z
+  .object({
+    email: z.string().email('invalid email').min(1, 'Email is required'),
+    avatar: z
+      .instanceof(File, { message: errorMsg('image').require() })
+      .refine((file) => file.type.startsWith('image/'), {
+        message: 'Image upload failed, file must be an image'
+      }).refine((f: File) => (f.size / (1024 * 1024)) < 5, { message: "max image size is 5mb" }),
 
+    name: z
+      .string()
+      .min(1, 'Name is required')
+      .refine(
+        (value) => {
+          const words = value.trim().split(/\s+/)
+          return words.length === 2
+        },
+        {
+          message: 'Name must contain your first and last name separated by a space',
+          path: ['name']
+        }
+      ),
+    password: z.string().min(8, 'Password must be at least 8 characters long'),
+    confirmPassword: z.string().min(8, 'Password must be at least 8 characters long')
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword']
+  })
 
 
 // Ui Related Types 

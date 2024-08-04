@@ -1,44 +1,131 @@
 <script setup lang="ts">
 import {
   Button,
-  Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-  Input,
-  Label
+  FormInputField,
+  useToast
 } from '@/components'
+import { VisibilityOutlined, VisibilityOffOutlined } from '@vicons/material'
 import { useAuth } from '@/stores/authStore'
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
 import { ref } from 'vue'
-const { logIn } = useAuth()
-const email = ref('')
-const password = ref('')
+// import { storeToRefs } from 'pinia'
+const loginSchemaZod = z.object({
+  email: z.string().email('invalid email').min(1, 'Email is required'),
+  password: z.string().min(8, 'password must be at least 8 characters long')
+})
+const loginSchemaType = toTypedSchema(loginSchemaZod)
+const auth = useAuth()
+// const { } = storeToRefs(auth)
+const { toast } = useToast()
+const showPassword = ref(false)
+function toggleShowPassword() {
+  showPassword.value = !showPassword.value
+}
+const {
+  handleSubmit,
+  values: formValues,
+
+  errors: formErrors
+} = useForm({
+  validationSchema: loginSchemaType
+})
+
+function onInvalidSubmit({
+  errors,
+  ...rest
+}: {
+  values: typeof formValues
+  errors: typeof formErrors
+  rest: any
+}) {
+  toast({
+    title: 'Uh oh! please make sure all fields are valid.',
+    description: `please enter: ${Object.keys(errors).join(', ')}`,
+    variant: 'destructive'
+  })
+}
+
+async function onSuccess(values: z.infer<typeof loginSchemaZod>) {
+  console.log('Login forms values-->', values)
+  await auth.logIn({ email: values.email, password: values.password })
+}
+// @ts-ignore
+const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
   <DialogContent class="sm:max-w-[425px]">
-    <DialogHeader>
-      <DialogTitle>login to your account</DialogTitle>
-      <DialogDescription>
-        personalize your experience ,explore & write your fav content.
-      </DialogDescription>
-    </DialogHeader>
-    <div class="grid gap-4 py-4">
-      <div class="grid grid-cols-4 items-center gap-4">
-        <Label for="name" class="text-right"> email </Label>
-        <Input id="tag" v-model="email" type="email" class="col-span-3" required />
-      </div>
+    <form @submit="onSubmit" keep-values class="w-full">
+      <DialogHeader>
+        <DialogTitle>login to your account</DialogTitle>
+        <DialogDescription>
+          to view your personalized content , experience ,explore and write your fav content.
+        </DialogDescription>
+      </DialogHeader>
 
-      <div class="grid grid-cols-4 items-center gap-4">
-        <Label for="name" class="text-right"> password </Label>
-        <Input id="tag" v-model="password" type="password" class="col-span-3" required />
+      <div class="w-full space-y-3 mb-4">
+        <div>
+          <FormInputField
+            field-name="email"
+            placeholder="username@email.com"
+            field-label="Email *"
+            type="email"
+            :required="true"
+          />
+        </div>
+        <div>
+          <FormInputField
+            field-name="password"
+            placeholder="xxxx-xxxx"
+            field-label="password *"
+            :type="showPassword ? 'text' : 'password'"
+            inputClasses="pr-10"
+            :required="true"
+          >
+            <template #afterInput>
+              <span
+                class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2"
+              >
+                <transition name="fade" mode="out-in">
+                  <VisibilityOffOutlined
+                    v-if="showPassword"
+                    class="size-6 text-muted-foreground"
+                    @click="toggleShowPassword"
+                  />
+                  <VisibilityOutlined
+                    class="size-6 text-muted-foreground"
+                    v-else
+                    @click="toggleShowPassword"
+                  />
+                </transition>
+              </span>
+            </template>
+          </FormInputField>
+        </div>
       </div>
-    </div>
-    <DialogFooter>
-      <Button type="button" @click="logIn"> login </Button>
-    </DialogFooter>
+      <DialogFooter>
+        <Button type="submit"> login </Button>
+      </DialogFooter>
+    </form>
   </DialogContent>
 </template>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  scale: 0.8;
+  /* transform: translateX(20px); */
+}
+</style>

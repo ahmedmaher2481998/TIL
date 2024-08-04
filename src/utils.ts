@@ -36,6 +36,7 @@ export function slugify(text: string, ampersand = 'and') {
 }
 
 
-export function getImageUploadPath({ img, str, type }: { img: File, str: string, type: "cover" }) {
+export function getImageUploadPath({ img, str, type }: { img: File, str: string, type: "cover" | "avatar" }) {
   if (type === "cover") return `blogs/covers/${str}-${Date.now()}-${slugify(img?.name)}`
+  if (type === "avatar") return `avatars/${str}-${Date.now()}-${slugify(img?.name)}`
 }

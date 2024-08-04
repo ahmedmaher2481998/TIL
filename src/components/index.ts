@@ -19,11 +19,11 @@ export { default as BlogCard } from './BlogCard.vue'
 export { default as TagChip } from './TagChip.vue'
 export { default as NavBar } from './NavBar.vue'
 export { default as PopUp } from './PopUp.vue'
-// Create New Blog Components 
 export { default as FormInputField } from './createNewBlog/FormInputField.vue'
+export { default as ImageUpload } from './ImageUpload.vue'
+// Create New Blog Components 
 export { default as TagSelector } from './createNewBlog/TagSelector.vue'
 export { default as CreateNewTagPopOver } from './createNewBlog/CreateNewTag.vue'
-export { default as ImageUpload } from './createNewBlog/ImageUpload.vue'
 export { default as MarkDownContentInput } from './createNewBlog/MarkDownContentInput.vue'
 
 // auth components 
