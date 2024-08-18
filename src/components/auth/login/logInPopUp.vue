@@ -15,15 +15,14 @@ import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import { ref } from 'vue'
-// import { storeToRefs } from 'pinia'
+import { notify } from '@/utils'
 const loginSchemaZod = z.object({
   email: z.string().email('invalid email').min(1, 'Email is required'),
   password: z.string().min(8, 'password must be at least 8 characters long')
 })
 const loginSchemaType = toTypedSchema(loginSchemaZod)
-const auth = useAuth()
-// const { } = storeToRefs(auth)
-const { toast } = useToast()
+const { login } = useAuth()
+
 const showPassword = ref(false)
 function toggleShowPassword() {
   showPassword.value = !showPassword.value
@@ -34,27 +33,32 @@ const {
 
   errors: formErrors
 } = useForm({
-  validationSchema: loginSchemaType
+  validationSchema: loginSchemaType,
+  initialValues: {
+    email: 'ahmedmaher@gmail.com',
+    password: '123123123'
+  }
 })
 
 function onInvalidSubmit({
-  errors,
-  ...rest
+  errors
 }: {
   values: typeof formValues
   errors: typeof formErrors
   rest: any
 }) {
-  toast({
+  notify.error({
     title: 'Uh oh! please make sure all fields are valid.',
-    description: `please enter: ${Object.keys(errors).join(', ')}`,
-    variant: 'destructive'
+    description: `please enter: ${Object.keys(errors).join(', ')}`
   })
 }
 
 async function onSuccess(values: z.infer<typeof loginSchemaZod>) {
   console.log('Login forms values-->', values)
-  await auth.logIn({ email: values.email, password: values.password })
+  login({
+    email: values.email,
+    password: values.password
+  })
 }
 // @ts-ignore
 const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)

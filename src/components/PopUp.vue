@@ -17,15 +17,12 @@ import { storeToRefs } from 'pinia'
 import { usePopUp } from '@/stores/popUpStore'
 
 import { KeepAlive } from 'vue'
-const popUp = usePopUp()
-const { open, viewComponent } = storeToRefs(popUp)
+const { open, viewComponent } = storeToRefs(usePopUp())
 </script>
 
 <template>
   <Dialog v-model:open="open">
     <!-- Component changes when view in popup store changes  -->
-    <KeepAlive>
-      <component :is="viewComponent"></component>
-    </KeepAlive>
+    <component :is="viewComponent"></component>
   </Dialog>
 </template>

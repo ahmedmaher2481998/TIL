@@ -1,15 +1,14 @@
-import { type UserType, type ViewType } from '@/types'
+import { type ViewType } from '@/types'
 // import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import {
-  LoginPopUp, LogoutPopUp, RegisterPopUp
-} from '@/components'
+import { LoginPopUp, LogoutPopUp, RegisterPopUp } from '@/components'
 export const usePopUp = defineStore('popUp', () => {
   const view = ref<ViewType | null>(null)
   const open = ref<boolean>(false)
   const viewComponent = computed(() => {
-    switch (view.value) {
+    const openedView = view.value
+    switch (openedView) {
       case 'login':
         return LoginPopUp
       case 'register ':
@@ -23,14 +22,18 @@ export const usePopUp = defineStore('popUp', () => {
     }
   })
   function openView(openedView: ViewType) {
-    open.value = true
     view.value = openedView
-
+    open.value = true
   }
   function closeCurrentView() {
-    open.value = false;
+    open.value = false
+    view.value = null
   }
   return {
-    view, openView, closeCurrentView, open, viewComponent
+    view,
+    openView,
+    closeCurrentView,
+    open,
+    viewComponent
   }
 })

@@ -19,20 +19,16 @@ import { createBlogZodSchema } from '@/types'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { slugify } from '@/utils'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useBlogs } from '@/stores/blogsStore'
 import type { z } from 'zod'
 
 const defaultBlogData = {
-  slug: 'default-slug',
-  title: 'This is a default blog title with more than twenty characters',
-  description:
-    'This is a default description with more than fifty characters to meet the minimum length requirement.',
-  tldr: 'This is a default TL;DR with more than fifty characters to meet the minimum length requirement.',
-  content:
-    'This is a default content with more than five hundred characters to meet the minimum length requirement.\n'
-      .trim()
-      .repeat(10),
+  slug: '',
+  title: '',
+  description: '',
+  tldr: '',
+  content: '',
   tags: undefined,
   image: undefined,
   readCount: 0,
@@ -44,6 +40,7 @@ const {
   handleSubmit,
   values: formValues,
   resetForm,
+  setFieldValue,
   errors: formErrors
 } = useForm({
   validationSchema: createBlogSchema,
@@ -73,10 +70,9 @@ async function onSuccess(values: z.infer<typeof createBlogZodSchema>) {
 }
 // @ts-ignore
 const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
-
-const computedTitleSlug = computed(() => {
-  // return a computed slug of the title
-  return slugify(formValues.title ?? '')
+// create slug out of the title onchange
+watch(formValues, () => {
+  setFieldValue('slug', slugify(formValues.title ?? ''), true)
 })
 </script>
 
@@ -96,7 +92,6 @@ const computedTitleSlug = computed(() => {
           field-label="Post title"
         />
 
-        <FormField name="slug" v-model="computedTitleSlug" class="hidden" />
         <!-- blog Tldr -->
         <FormInputField field-name="tldr" placeholder="summary of the article" field-label="Tldr" />
         <!-- blog Description -->

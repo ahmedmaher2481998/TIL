@@ -37,13 +37,13 @@ watch(value, () => {
       {{ title }}</Label
     >
     <label
-      class="relative w-auto flex border p-2 rounded-lg cursor-pointer items-center"
+      class="relative w-auto flex border p-2 rounded-lg cursor-pointer items-center justify-center"
       :for="name"
     >
-      <span v-if="!value" class="flex items-center justify-center px-2">
+      <span v-if="!value" class="h-full 00 flex items-center justify-center px-2">
         <UploadOutlined class="size-6 text-muted-foreground" />
       </span>
-      <span class="flex flex-col">
+      <span class="flex flex-col items-center justify-center">
         <img
           v-if="value"
           src=""
@@ -51,7 +51,7 @@ watch(value, () => {
           class="shadow-lg rounded-lg object-cover"
           :class="displayClasses ? displayClasses : 'w-full h-auto'"
         />
-        <span class="text-sm truncate text-gray-600 mt-4 text-center">
+        <span :class="`text-sm truncate text-gray-600 text-center ${value ? 'mt-4' : ''}`">
           {{ value ? value.name : 'Choose image' }}
         </span>
       </span>

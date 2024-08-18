@@ -1,80 +1,127 @@
 import supabase, { uploadImageFile } from '@/supabase'
 import { registerSchemaZod, type UserType } from '@/types'
-import { getImageUploadPath, slugify } from '@/utils'
+import { notify, slugify } from '@/utils'
 // import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, onBeforeMount, reactive, ref } from 'vue'
 import type { z } from 'zod'
 import { usePopUp } from './popUpStore'
+import type {
+  Session as SupaBaseSessionType,
+  User as SupaBaseUserType
+} from '@supabase/supabase-js'
 
 export const useAuth = defineStore('auth', () => {
-  const isAuth = ref(false)
-  const user = ref<UserType | null>(null)
-  const { closeCurrentView } = usePopUp()
-  async function loginWithGoogle() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google'
-    })
+  const user = ref<any | null>(null)
+  const session = ref<SupaBaseSessionType | null>(null)
+
+  const isAuth = computed(() => {
+    if (user.value && session.value) return true
+    else return false
+  })
+  function getUserDataFromUserObject(user: SupaBaseUserType) {
+    return {
+      id: user.id,
+      name: user.user_metadata.name,
+      email: user.email,
+      avatar: user.user_metadata.avatar,
+      createdAt: new Date(user.created_at)
+    } as UserType
   }
-  async function logIn({ email, password }: { email: string; password: string }) {
-    const { data, error } = await supabase.auth.signInWithPassword({
+  onBeforeMount(async () => {
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
+    const { data: userData, error: userError } = await supabase.auth.getUser()
+    if (sessionError) {
+      console.log('error getting session', sessionError)
+      return
+    }
+    if (userError) {
+      console.log('error getting session', userError)
+      return
+    }
+    session.value = sessionData.session
+    user.value = getUserDataFromUserObject(userData.user)
+    console.log(',mounted and session ', session.value, 'user', user.value)
+  })
+  const { closeCurrentView } = usePopUp()
+  // async function loginWithGoogle() {
+  //   const { data, error } = await supabase.auth.signInWithOAuth({
+  //     provider: 'google'
+  //   })
+  // }
+  async function login({ email, password }: { email: string; password: string }) {
+    const { data: loginResponse, error } = await supabase.auth.signInWithPassword({
       email,
       password
     })
     if (error) {
-      console.log('error message ', error.message)
+      notify.error({ description: error.message, title: 'signing in' })
     } else {
       // @ts-ignore
-      user.value = data.user
-      console.log('login up  data ', data)
+      console.log('loginResponse', loginResponse)
+      user.value = getUserDataFromUserObject(loginResponse.user)
+      session.value = loginResponse.session
+      closeCurrentView()
+      console.log('login data ', loginResponse, user)
     }
   }
   async function logout() {
     const { error } = await supabase.auth.signOut()
-
-    console.log('log out error', error)
+    user.value = null
+    session.value = null
+    if (error) {
+      console.log('log out error', error)
+      notify.error({ description: error.message, title: 'logging out' })
+    }
+    closeCurrentView()
   }
-  async function register({
-    avatar,
-    email,
-    name,
-    password
-  }: z.infer<typeof registerSchemaZod>) {
-    const path = getImageUploadPath({
-      img: avatar,
-      str: slugify(name),
-      type: 'avatar' as const // 'avatar' is the type of user profile image
-    }) as string
-    const { id, url } = await uploadImageFile(avatar, path)
+  async function register(params: z.infer<typeof registerSchemaZod>) {
+    const { avatar, email, name, password } = params
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
           name: name,
-          avatar: url,
-          avatar_id: id
+          avatar: '', //url,
+          avatar_id: '' //id
         }
       }
     })
     if (error) {
-      console.log('error register', error)
+      notify.error({
+        description: error.message,
+        title: "couldn't register"
+      })
+      console.log('error register', error.message)
     } else {
-      console.log('success registered', data)
-      isAuth.value = true
+      // console.log('success registered', data)
+      const { id, url } = await uploadImageFile({
+        img: avatar,
+        str: slugify(name),
+        type: 'avatar' as const // 'avatar' is the type of user profile image
+      })
+
+      await supabase.auth.updateUser({
+        data: {
+          avatar: url,
+          avatar_id: id
+        }
+      })
+
       user.value = {
         name: data.user?.user_metadata.name as string,
-        avatar: data.user?.user_metadata.avatar as string,
+        avatar: url as string,
         createdAt: new Date(data.user?.created_at as string) as Date,
         email: data.user?.email as string,
-        id: data.user?.id as string,
+        id: data.user?.id as string
       }
 
       closeCurrentView()
     }
   }
   return {
-    logIn,
+    login,
     logout,
     register,
     isAuth,
