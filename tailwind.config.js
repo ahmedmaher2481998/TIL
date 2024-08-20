@@ -58,7 +58,7 @@ module.exports = {
         }
       },
       fontFamily: {
-        main: "'Fira Code Variable', monospace"
+        main: `'Noto Sans Variable', sans-serif`
       },
       borderRadius: {
         xl: 'calc(var(--radius) + 4px)',

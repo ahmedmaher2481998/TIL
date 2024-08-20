@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@fontsource-variable/fira-code':
-        specifier: ^5.0.18
-        version: 5.0.18
+      '@fontsource-variable/noto-sans':
+        specifier: ^5.0.5
+        version: 5.0.5
       '@supabase/supabase-js':
         specifier: ^2.44.4
         version: 2.44.4
@@ -590,8 +590,8 @@ packages:
   '@floating-ui/vue@1.1.1':
     resolution: {integrity: sha512-cyawjk9etPZPl/RVtMRnWrwtAhWbPVSrRVYARgOzhLIqxr0k2up1APrrFjqP9QwRQ0AwjKSvbWg4YC6jESutow==}
 
-  '@fontsource-variable/fira-code@5.0.18':
-    resolution: {integrity: sha512-Pmbnf4HukX4y928RY9g47hWyVECQglwV7HLv5taaDQwI3UBXyoLUnyRsjJxeviCPhdwJY5qyLT4GaCMlgC9oCQ==}
+  '@fontsource-variable/noto-sans@5.0.5':
+    resolution: {integrity: sha512-SVixgckO4DIgvFJ+vTRZEj8vTvjZceuGOhKMgnETItKELl1tHzk+ZFatSTCofPJ1zjhTwqvHrHkFeCbUGiqaRg==}
 
   '@hapi/hoek@9.3.0':
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
@@ -3874,7 +3874,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@fontsource-variable/fira-code@5.0.18': {}
+  '@fontsource-variable/noto-sans@5.0.5': {}
 
   '@hapi/hoek@9.3.0': {}
 
