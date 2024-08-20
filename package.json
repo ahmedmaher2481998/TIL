@@ -17,7 +17,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@fontsource-variable/fira-code": "^5.0.18",
+    "@fontsource-variable/noto-sans": "^5.0.5",
     "@supabase/supabase-js": "^2.44.4",
     "@vee-validate/zod": "^4.13.2",
     "@vueuse/core": "^10.11.0",
