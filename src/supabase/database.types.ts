@@ -41,79 +41,79 @@ export type Database = {
       }
       blogs: {
         Row: {
-          author_id: number
+          author_id: string
           content: string
-          createdat: string
+          created_at: string
           description: string
           id: number
-          image: string
-          image_id: string | null
+          image_id: string
+          image_url: string
           read_count: number
           slug: string
           title: string
           tldr: string
-          updatedat: string | null
+          updated_at: string | null
         }
         Insert: {
-          author_id: number
+          author_id: string
           content: string
-          createdat?: string
+          created_at?: string
           description: string
           id?: number
-          image: string
-          image_id?: string | null
+          image_id: string
+          image_url: string
           read_count?: number
           slug: string
           title: string
           tldr: string
-          updatedat?: string | null
+          updated_at?: string | null
         }
         Update: {
-          author_id?: number
+          author_id?: string
           content?: string
-          createdat?: string
+          created_at?: string
           description?: string
           id?: number
-          image?: string
-          image_id?: string | null
+          image_id?: string
+          image_url?: string
           read_count?: number
           slug?: string
           title?: string
           tldr?: string
-          updatedat?: string | null
+          updated_at?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "blogs_author_id_fkey"
             columns: ["author_id"]
             isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["author_id"]
           },
         ]
       }
       comments: {
         Row: {
-          author_id: number | null
+          author_id: string
           blog_id: number
           content: string
-          createdat: string
+          created_at: string
           id: number
           updatedat: string | null
         }
         Insert: {
-          author_id?: number | null
+          author_id: string
           blog_id: number
           content: string
-          createdat?: string
+          created_at?: string
           id?: number
           updatedat?: string | null
         }
         Update: {
-          author_id?: number | null
+          author_id?: string
           blog_id?: number
           content?: string
-          createdat?: string
+          created_at?: string
           id?: number
           updatedat?: string | null
         }
@@ -130,6 +130,38 @@ export type Database = {
             columns: ["blog_id"]
             isOneToOne: false
             referencedRelation: "blogs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          author_id: string
+          email: string | null
+          id: number
+          updated_at: string
+          user_metadata: Json | null
+        }
+        Insert: {
+          author_id: string
+          email?: string | null
+          id?: never
+          updated_at?: string
+          user_metadata?: Json | null
+        }
+        Update: {
+          author_id?: string
+          email?: string | null
+          id?: never
+          updated_at?: string
+          user_metadata?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: true
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
@@ -152,33 +184,6 @@ export type Database = {
         }
         Relationships: []
       }
-      users: {
-        Row: {
-          avatar: string
-          createdat: string
-          email: string
-          id: number
-          name: string
-          updatedat: string | null
-        }
-        Insert: {
-          avatar: string
-          createdat?: string
-          email: string
-          id?: number
-          name: string
-          updatedat?: string | null
-        }
-        Update: {
-          avatar?: string
-          createdat?: string
-          email?: string
-          id?: number
-          name?: string
-          updatedat?: string | null
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never
@@ -193,7 +198,7 @@ export type Database = {
           blog_content: string
           blog_image_url: string
           blog_image_id: string
-          blog_author_id: number
+          blog_author_id: string
           blog_tag_ids: number[]
         }
         Returns: {
@@ -203,12 +208,12 @@ export type Database = {
           description: string
           tldr: string
           content: string
-          image: string
+          image_url: string
           image_id: string
           read_count: number
-          author_id: number
-          createdat: string
-          updatedat: string
+          author_id: string
+          created_at: string
+          updated_at: string
         }[]
       }
     }

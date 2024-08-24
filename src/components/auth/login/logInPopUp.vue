@@ -10,7 +10,7 @@ import {
   useToast
 } from '@/components'
 import { VisibilityOutlined, VisibilityOffOutlined } from '@vicons/material'
-import { useAuth } from '@/stores/authStore'
+import { useAuth } from '@/stores'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'

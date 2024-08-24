@@ -13,7 +13,7 @@ import {
 import { registerSchemaZod } from '@/types'
 import { VisibilityOutlined, VisibilityOffOutlined } from '@vicons/material'
 import { useForm } from 'vee-validate'
-import { useAuth } from '@/stores/authStore'
+import { useAuth } from '@/stores'
 import { toTypedSchema } from '@vee-validate/zod'
 import { ref } from 'vue'
 import { z } from 'zod'

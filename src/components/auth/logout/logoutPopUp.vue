@@ -11,8 +11,7 @@ import {
   Input,
   Label
 } from '@/components'
-import { useAuth } from '@/stores/authStore'
-import { usePopUp } from '@/stores/popUpStore'
+import { useAuth, usePopUp } from '@/stores'
 import { ref } from 'vue'
 const { logout } = useAuth()
 const { closeCurrentView } = usePopUp()
