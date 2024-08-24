@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { Label, Input, FormItem } from '@/components'
 import { UploadOutlined } from '@vicons/material'
-import { ref, watch, toRefs, defineProps, withDefaults } from 'vue'
+import { ref, watch, toRefs } from 'vue'
 import { useField } from 'vee-validate'
-import type { ClassValue } from 'clsx'
-import clsx from 'clsx'
+import clsx, { type ClassValue } from 'clsx'
 
 type propsType = {
   title: string

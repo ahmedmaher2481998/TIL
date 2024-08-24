@@ -14,7 +14,7 @@ import {
 } from '@/components'
 import { storeToRefs } from 'pinia'
 
-import { usePopUp } from '@/stores/popUpStore'
+import { usePopUp } from '@/stores'
 
 import { KeepAlive } from 'vue'
 const { open, viewComponent } = storeToRefs(usePopUp())
