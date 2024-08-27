@@ -45,6 +45,7 @@ export type Database = {
           content: string
           created_at: string
           description: string
+          featured: boolean | null
           id: number
           image_id: string
           image_url: string
@@ -59,6 +60,7 @@ export type Database = {
           content: string
           created_at?: string
           description: string
+          featured?: boolean | null
           id?: number
           image_id: string
           image_url: string
@@ -73,6 +75,7 @@ export type Database = {
           content?: string
           created_at?: string
           description?: string
+          featured?: boolean | null
           id?: number
           image_id?: string
           image_url?: string

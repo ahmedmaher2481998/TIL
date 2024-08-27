@@ -52,7 +52,7 @@ export const useAuth = defineStore('auth', () => {
     } else {
       state.session = sessionData.session
       state.user = userData.user
-      console.log('mounted and got user data ', state)
+      console.log('mounted and got user state')
     }
   })
   async function login({ email, password }: { email: string; password: string }) {

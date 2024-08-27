@@ -18,6 +18,7 @@ DROP TABLE  IF EXISTS public.blogs  CASCADE;
 CREATE TABLE public.blogs (
     id SERIAL PRIMARY KEY,
     title VARCHAR(500) NOT NULL,
+    featured BOOLEAN DEFAULT false,
     slug VARCHAR(255) NOT NULL,
     description Text NOT NULL,
     tldr Text NOT NULL,
