@@ -7,6 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
   FormInputField,
+  LoginWithGoogleComponent,
+  Separator,
   useToast
 } from '@/components'
 import { VisibilityOutlined, VisibilityOffOutlined } from '@vicons/material'
@@ -114,9 +116,11 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           </FormInputField>
         </div>
       </div>
-      <DialogFooter>
-        <Button type="submit"> login </Button>
-      </DialogFooter>
+      <div class="flex items-center justify-center gap-3 flex-col">
+        <Button type="submit" class="w-full"> login </Button>
+        <Separator label="Or" />
+        <LoginWithGoogleComponent />
+      </div>
     </form>
   </DialogContent>
 </template>

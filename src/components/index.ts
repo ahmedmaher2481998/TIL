@@ -1,36 +1,7 @@
-// Lib components
-export * from './ui/avatar'
-export * from './ui/badge'
-export { default as Button } from './ui/button/Button.vue'
-export * from './ui/button'
-export * from './ui/card'
-export * from './ui/avatar'
-export * from './ui/badge'
-export * from './ui/dialog'
-export * from './ui/input'
-export * from './ui/label'
-export * from './ui/command'
-export * from './ui/form'
-export * from './ui/popover'
-export * from './ui/toast'
-export * from './ui/skeleton'
-export * from './ui/menubar'
-export * from './ui/dropdown-menu'
-// Main components [Shared ]
-export { default as BlogCard } from './BlogCard.vue'
-export { default as TagChip } from './TagChip.vue'
-export { default as NavBar } from './NavBar.vue'
-export { default as PopUp } from './PopUp.vue'
-export { default as FormInputField } from './createNewBlog/FormInputField.vue'
-export { default as ImageUpload } from './ImageUpload.vue'
-// Create New Blog Components
-export { default as TagSelector } from './createNewBlog/TagSelector.vue'
-export { default as CreateNewTagPopOver } from './createNewBlog/CreateNewTag.vue'
-export { default as MarkDownContentInput } from './createNewBlog/MarkDownContentInput.vue'
-
+export * from './ui'
+// Main [Shared ] components
+export * from './shared'
+// Blog related Components
+export * from './blog'
 // auth components
-export { default as LoginPopUp } from './auth/login/logInPopUp.vue'
-export { default as LogoutPopUp } from './auth/logout/logoutPopUp.vue'
-export { default as RegisterPopUp } from './auth/register/RegisterPopUp.vue'
-export { default as UserMenu } from './auth/UserMenu.vue'
-export { default as UserAvatarDisplay } from './auth/UserAvatarDisplay.vue'
+export * from './auth'

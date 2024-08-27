@@ -8,6 +8,8 @@ import {
   DialogTitle,
   FormInputField,
   ImageUpload,
+  LoginWithGoogleComponent,
+  Separator,
   useToast
 } from '@/components'
 import { registerSchemaZod } from '@/types'
@@ -17,7 +19,7 @@ import { useAuth } from '@/stores'
 import { toTypedSchema } from '@vee-validate/zod'
 import { ref } from 'vue'
 import { z } from 'zod'
-const { register } = useAuth()
+const { register, loginWithGoogle } = useAuth()
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const registerSchemaType = toTypedSchema(registerSchemaZod)
@@ -155,9 +157,11 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           </FormInputField>
         </div>
       </div>
-      <DialogFooter>
-        <Button type="submit"> Register </Button>
-      </DialogFooter>
+      <div class="flex flex-col bg-green justify-center items-center gap-3">
+        <Button type="submit" class="w-full"> Register </Button>
+        <Separator label="Or" />
+        <LoginWithGoogleComponent />
+      </div>
     </form>
   </DialogContent>
 </template>

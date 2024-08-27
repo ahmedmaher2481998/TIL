@@ -129,10 +129,34 @@ export const useAuth = defineStore('auth', () => {
       })
     }
   }
+  async function loginWithGoogle() {
+    closeCurrentView()
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.href
+      }
+    })
+    console.log('🚀 ~ loginWithGoogle ~ data:', data)
+
+    if (error) {
+      notify.error({ description: error.message, title: "couldn't signing in" })
+    }
+    // else {
+    //   notify.success({
+    //     description: 'welcome back ' + loginResponse.user.user_metadata.name,
+    //     title: 'logged in successfully'
+    //   })
+    //   state.user = loginResponse.user
+    //   state.session = loginResponse.session
+    //   closeCurrentView()
+    // }
+  }
   return {
     login,
     logout,
     register,
+    loginWithGoogle,
     AuthStoreState: state
   }
 })

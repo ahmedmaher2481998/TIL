@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BlogCard, Skeleton } from '@/components'
-import { useBlogs } from '@/stores/blogsStore'
+import { useBlogs } from '@/stores'
 
 const { blogsStoreData } = useBlogs()
 </script>
@@ -29,26 +29,13 @@ const { blogsStoreData } = useBlogs()
           id: blog.id,
           title: blog.title,
           slug: blog.slug,
-          description: blog.description,
           tldr: blog.tldr,
-          content: blog.content,
-          image: blog.image,
-          image_id: blog.image_id ?? '',
-          comments: [],
-          user: {
-            avatar: blog.image,
-            name: 'Ahmed maher',
-            comments: [],
-            email: 'a@a.com',
-            posts: [],
-            id: '1',
-            createdAt: new Date()
-          },
+          image: blog.image_url,
+          avatar: blog.profiles?.user_metadata.avatar,
+          author: blog.profiles?.user_metadata.name,
           tags: blog.tags,
           read_count: blog.read_count,
-          author_id: blog.author_id,
-          createdat: blog.createdat,
-          updatedat: blog.updatedat
+          created_at: blog.created_at
         }"
         :key="blog.id"
       />

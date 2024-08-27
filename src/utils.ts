@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import { h } from 'vue'
 import { useToast, ToastAction } from '@/components'
-
+import relativeTime from 'dayjs/plugin/relativeTime'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -14,8 +14,11 @@ export function getInitials(name: string) {
   return firstName[0] + ' ' + lastName[0]
 }
 
-export function formatDisplayDate(date: string) {
-  return dayjs(date).format('D-MMM YY')
+export function formatDisplayDate(date: string, relative: boolean = false) {
+  if (relative) {
+    dayjs.extend(relativeTime)
+    return dayjs().to(dayjs(date))
+  } else return dayjs(date).format('D-MMM YY')
 }
 export function formatStoreDate(date: Date) {
   return date.toISOString()
@@ -35,6 +38,7 @@ export function slugify(text: string, ampersand = 'and') {
     .replace(/[^\w-]+/g, '')
     .replace(/--+/g, '-')
     .replace(/^-+|-+$/g, '')
+    .concat(createRandomString())
 }
 const { toast } = useToast()
 type toastParams = {
@@ -50,10 +54,10 @@ export const notify = {
       action: h(
         ToastAction,
         {
-          altText: 'Try again'
+          altText: 'okay'
         },
         {
-          default: () => 'Try again'
+          default: () => 'okay'
         }
       )
     }),
@@ -61,31 +65,31 @@ export const notify = {
     toast({
       title: `Error: ${t.title}`,
       description: t.description,
-      variant: 'destructive',
-      action: h(
-        ToastAction,
-        {
-          altText: 'Try again'
-        },
-        {
-          default: () => 'Try again'
-        }
-      )
+      variant: 'destructive'
+      // action: h(
+      //   ToastAction,
+      //   {
+      //     altText: 'Try again'
+      //   },
+      //   {
+      //     default: () => 'Try again'
+      //   }
+      // )
     }),
   warning: (t: toastParams) =>
     toast({
       title: `warning: ${t.title}`,
       description: t.description,
-      variant: 'destructive',
-      action: h(
-        ToastAction,
-        {
-          altText: 'Try again'
-        },
-        {
-          default: () => 'Try again'
-        }
-      )
+      variant: 'destructive'
+      // action: h(
+      //   ToastAction,
+      //   {
+      //     altText: 'Try again'
+      //   },
+      //   {
+      //     default: () => 'Try again'
+      //   }
+      // )
     }),
   info: (t: toastParams) =>
     toast({
@@ -102,4 +106,13 @@ export const notify = {
         }
       )
     })
+}
+
+function createRandomString(length: number = 6) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let result = ''
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length))
+  }
+  return result
 }
