@@ -7,7 +7,8 @@
 - [*] pinia and state management
 - [*] add Auth (log in & sign up & log out )
 - [*] make add tag a pop up
-- [ ] add auth with Oauth & email - pass
+- [*] add auth with Oauth & email - pass
+- [ ] hide token from the redirect url after supabase auth
 - [ ] add tag filters on the home page
 - [ ] adjust the style for better layout (use dark ballet)
 - [*] edit the create new blog page for better layout & convenient style
