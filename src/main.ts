@@ -1,19 +1,13 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import "./styles.css"
+import './styles.css'
 import App from './App.vue'
-// Supports weights 300-700
-import '@fontsource-variable/fira-code';
-
-
-
-
-import router from './router'
+// Supports weights 100-900
+import '@fontsource-variable/noto-sans'
+import router from '@/router'
 
 const app = createApp(App)
 
-app.use(createPinia())
+const pinia = createPinia()
 
-app.use(router)
-
-app.mount('#app')
+app.use(pinia).use(router).mount('#app')

@@ -8,7 +8,12 @@ import { NavBar, Toaster, PopUp } from '@/components'
   <header>
     <NavBar />
   </header>
-  <RouterView />
+  <Suspense>
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+    <RouterView />
+  </Suspense>
 
   <footer
     class="w-full my-auto bg-primary text-primary-foreground items-center justify-center flex h-24 p-6"
