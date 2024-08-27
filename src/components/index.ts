@@ -5,3 +5,4 @@ export * from './shared'
 export * from './blog'
 // auth components
 export * from './auth'
+export * from './home'
