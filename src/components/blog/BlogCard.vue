@@ -32,24 +32,27 @@ const ago = formatDisplayDate(blog.created_at, true)
 
 <template lang="html">
   <Card
-    class="overflow-hidden bg-foreground text-card-foreground rounded-lg border-none hover:border-1"
+    class="overflow-hidden bg-secondary-foreground border-none text-card-foreground rounded-lg transition-all"
   >
-    <CardContent class="p-0">
-      <img
-        :src="blog.image"
-        alt="Featured Post"
-        width="{600}"
-        height="{400}"
-        class="h-[200px] w-full object-cover"
-        :style="{ aspectRatio: '600/400', objectFit: 'cover' }"
-      />
-    </CardContent>
-    <CardHeader class="px-6 pt-4">
-      <CardTitle class="text-primary-foreground">{{ blog.title }}</CardTitle>
-      <CardDescription class="mt-2 text-muted-foreground">
-        {{ blog.tldr }}
-      </CardDescription>
-    </CardHeader>
+    <router-link :to="`/blog/${blog.slug}`">
+      <CardContent class="p-0">
+        <img
+          :src="blog.image"
+          alt="Featured Post"
+          width="{600}"
+          height="{400}"
+          class="h-[200px] w-full object-cover"
+          :style="{ aspectRatio: '600/400', objectFit: 'cover' }"
+        />
+      </CardContent>
+      <CardHeader class="px-6 pt-4">
+        <CardTitle class="text-primary-foreground">{{ blog.title }}</CardTitle>
+
+        <CardDescription class="mt-2 text-muted-foreground">
+          {{ blog.tldr }}
+        </CardDescription>
+      </CardHeader>
+    </router-link>
     <CardContent>
       <div className="mb-2 flex flex-wrap gap-2">
         <router-link v-for="tag in blog.tags" :key="tag.id" :to="`tags/${tag.slug}`">

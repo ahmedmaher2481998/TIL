@@ -3,13 +3,24 @@ import { Avatar, AvatarFallback, AvatarImage, Skeleton, Badge } from '@/componen
 import { useBlogs } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { formatDisplayDate, getInitials } from '@/utils'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { watch } from 'vue'
+import { reactive } from 'vue'
 
 const { blogsStoreData } = storeToRefs(useBlogs())
-const main = computed(() => {
-  if (!blogsStoreData.value.loading && blogsStoreData.value.featured)
-    return blogsStoreData.value.featured[0]
-  else return null
+// const main = computed(() => {
+//   if (!blogsStoreData.value.loading && blogsStoreData.value.featured) {
+//     console.log('main changed to ', blogsStoreData.value.featured[0])
+//     return blogsStoreData.value.featured[0]
+//   } else return null
+// })
+const main = ref(null)
+watch(blogsStoreData, () => {
+  console.log('featured', blogsStoreData.value.featured)
+  if (!blogsStoreData.value.loading && blogsStoreData.value.featured) {
+    console.log('main changed to ', blogsStoreData.value.featured[0])
+    main.value = blogsStoreData.value.featured[0] as any
+  } else main.value = null
 })
 </script>
 <template>
