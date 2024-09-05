@@ -1,16 +1,13 @@
 import supabase, { uploadImageFile as uploadBlogCover } from '@/supabase'
 import { createBlogZodSchema, db_functions, Tables } from '@/types'
 import { notify } from '@/utils'
-import type { PostgrestResponse, QueryData } from '@supabase/supabase-js'
-import { defineStore, storeToRefs } from 'pinia'
+import type { QueryData } from '@supabase/supabase-js'
+import { defineStore } from 'pinia'
 import { onBeforeMount, reactive } from 'vue'
 import { z } from 'zod'
-import { useAuth } from '../auth'
+
 
 export const useBlogs = defineStore('blogs', () => {
-  // Supabase Queries & types
-  const { AuthStoreState } = storeToRefs(useAuth())
-
   const selectAllBlogsQuery = `
 id, title, slug, description, tldr, image_url, read_count, created_at, updated_at,
 ${Tables.Tags} (*),
@@ -19,15 +16,15 @@ profiles(user_metadata,email,id)
 
   const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery)
   type BlogsWithTagsType = QueryData<typeof blogsWithBlogsQuery>
-
+  type singleBlogWithTags = BlogsWithTagsType[0]
   const blogsStoreData = reactive<{
     blogs: BlogsWithTagsType | null
     loading: boolean
-    featured: null | BlogsWithTagsType
+    mainFeatured: null | singleBlogWithTags,
+    secondaryFeatured:null | singleBlogWithTags,
   }>({
     blogs: null,
-    loading: false,
-    featured: null
+    loading: false,mainFeatured:null , secondaryFeatured:null 
   })
 
   function abort(title: string, desc: string) {
@@ -38,7 +35,6 @@ profiles(user_metadata,email,id)
   }
 
   onBeforeMount(async () => {
-    console.log('fetching data ')
 
     blogsStoreData.loading = true
     try {
@@ -47,7 +43,10 @@ profiles(user_metadata,email,id)
       blogsStoreData.loading = false
       // @ts-expect-error
       blogsStoreData.blogs = blogs as BlogsWithTagsType
-      blogsStoreData.featured = featured as BlogsWithTagsType
+      if(featured?.length ??  0  > 1 ) { 
+        blogsStoreData.mainFeatured = featured![0] as singleBlogWithTags
+        blogsStoreData.secondaryFeatured = featured![1]  as singleBlogWithTags
+      }
     } catch (err: any) {
       blogsStoreData.loading = false
       return abort('Failed to fetch blogs & featured ', err.message as string)
@@ -72,7 +71,7 @@ profiles(user_metadata,email,id)
     })
     if (!img) return abort('Image upload failed', 'Check your network or try again later')
 
-    const { data, error } = await supabase.rpc(db_functions.createBlogWithTags, {
+    const { error } = await supabase.rpc(db_functions.createBlogWithTags, {
       blog_title: blog.title,
       blog_slug: blog.slug,
       blog_description: blog.description ?? 'no_description',
@@ -103,9 +102,9 @@ profiles(user_metadata,email,id)
   }
 
   return {
+    blogsStoreData,
     uploadBlogCover,
     CreateBlogPost,
-    blogsStoreData,
     getAllBlogs,
     getFeaturedBlogs
   }

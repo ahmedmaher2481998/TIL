@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { BlogCard, Skeleton, FeaturedSectionComponent, BlogsGrid } from '@/components'
-import { useBlogs } from '@/stores'
-
-const { blogsStoreData } = useBlogs()
+import { FeaturedSectionComponent, BlogsGrid } from '@/components'
 </script>
 
 <template>
@@ -12,6 +9,5 @@ const { blogsStoreData } = useBlogs()
   <main class="w-full bg-foreground space-y-8 min-h-screen">
     <FeaturedSectionComponent />
     <BlogsGrid />
-
   </main>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BlogCard, Skeleton, BlogsGridSkeleton } from '@/components'
+import { BlogCard, BlogsGridSkeleton } from '@/components'
 import { useBlogs } from '@/stores';
 const { blogsStoreData } = useBlogs()
 </script>
