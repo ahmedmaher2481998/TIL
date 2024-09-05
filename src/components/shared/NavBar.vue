@@ -8,7 +8,7 @@ const { openView } = usePopUp()
 </script>
 
 <template>
-  <nav class="w-full px-10 pb-10 items-center bg-foreground shadow-lg text-white sticky">
+  <nav class="w-full px-10 items-center bg-foreground shadow-lg text-white sticky">
     <div class="w-full container flex min-h-20 pt-4 p-2 items-center justify-between">
       <router-link to="/" class="font-bold font-main">Blogy</router-link>
       <div class="text-white flex items-center justify-center space-x-6">

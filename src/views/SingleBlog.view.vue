@@ -2,13 +2,10 @@
 import supabase from '@/supabase'
 import { Tables } from '@/types'
 import { useRoute } from 'vue-router'
-import { MdPreview, config } from 'md-editor-v3'
+import { MdPreview } from 'md-editor-v3'
 import 'md-editor-v3/lib/preview.css'
 import { Badge, UserAvatarDisplay, TagChipComponent } from '@/components'
-import { ref } from 'vue'
 import { formatDisplayDate } from '@/utils'
-import { json } from 'stream/consumers'
-import { CloseFilled } from '@vicons/material'
 const route = useRoute()
 const id = 'preview-only'
 const { data } = await supabase
@@ -18,7 +15,7 @@ const { data } = await supabase
   .single()
 console.log('blog data: ', data)
 
-const scrollElement = document.documentElement
+// const scrollElement = document.documentElement
 const ago = formatDisplayDate(data?.created_at ?? '', true)
 const user = {
   // @ts-ignore
@@ -53,14 +50,20 @@ const user = {
           </div>
         </div>
         <!-- display tags  -->
-        <div class="flex justify-start gap-3 items-center pt-2">
+        <div className="mb-2 flex flex-wrap gap-2">
+          <router-link v-for="tag in data?.tags" :key="tag.id" :to="`tags/${tag.slug}`">
+            <Badge variant="outline" class="text-muted"> # {{ tag.title }} </Badge>
+          </router-link>
+        </div>
+
+        <!-- <div class="flex justify-start gap-3 items-center pt-2">
           <TagChipComponent
             v-for="tag in data?.tags"
             :key="tag.id"
             :title="tag.title"
             :slug="tag.slug"
           />
-        </div>
+        </div> -->
         <MdPreview class="mt-0" :editor-id="id" :modelValue="data?.content" />
       </div>
     </div>

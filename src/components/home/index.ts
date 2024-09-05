@@ -1,1 +1,7 @@
-export { default as FeaturedSectionComponent } from './FeaturedSection.component.vue'
+export { default as FeaturedSectionComponent } from './FeaturedBlogSection/FeaturedSection.component.vue'
+export { default as MainFeaturedBlogComponent } from './FeaturedBlogSection/MainFeaturedBlog.component.vue'
+export { default as MainFeatureBlogSkeleton } from './FeaturedBlogSection/MainFeatureBlog.skeleton.vue'
+export { default as SecondaryFeaturedBlogComponent } from './FeaturedBlogSection/SecondaryFeaturedBlog.component.vue'
+export { default as SecondaryFeaturedBlogSkeleton } from './FeaturedBlogSection/SecondaryFeaturedBlog.skeleton.vue'
+export { default as BlogsGrid } from './blogsGrid/BlogsGrid.vue'
+export { default as BlogsGridSkeleton } from './blogsGrid/BlogsGrid.skeleton.vue'

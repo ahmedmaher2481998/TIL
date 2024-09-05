@@ -1,22 +1,9 @@
 <script setup lang="ts">
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  Input,
-  Label,
-  LoginPopUp
-} from '@/components'
+import { Dialog } from '@/components'
 import { storeToRefs } from 'pinia'
 
 import { usePopUp } from '@/stores'
 
-import { KeepAlive } from 'vue'
 const { open, viewComponent } = storeToRefs(usePopUp())
 </script>
 
