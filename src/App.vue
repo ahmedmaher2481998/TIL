@@ -5,7 +5,7 @@ import { NavBar, Toaster, PopUp } from '@/components'
 <template>
   <Toaster />
   <PopUp />
-  <header>
+  <header class="pb-10 bg-foreground">
     <NavBar />
   </header>
   <RouterView />

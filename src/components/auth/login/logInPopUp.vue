@@ -67,7 +67,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
-  <DialogContent class="sm:max-w-[425px]">
+  <DialogContent class="sm:max-w-[425px] border-muted-foreground bg-foreground text-muted">
     <form @submit="onSubmit" keep-values class="w-full">
       <DialogHeader>
         <DialogTitle>login to your account</DialogTitle>
@@ -86,7 +86,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             :required="true"
           />
         </div>
-        <div>
+        <div class="">
           <FormInputField
             field-name="password"
             placeholder="xxxx-xxxx"
@@ -118,7 +118,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
       </div>
       <div class="flex items-center justify-center gap-3 flex-col">
         <Button type="submit" class="w-full"> login </Button>
-        <Separator label="Or" />
+        <Separator label="Or" class="bg-muted" />
         <LoginWithGoogleComponent />
       </div>
     </form>

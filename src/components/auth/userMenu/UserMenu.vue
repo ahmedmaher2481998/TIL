@@ -11,6 +11,7 @@ import {
 import { LogOutOutlined, AccountCircleOutlined } from '@vicons/material'
 import { usePopUp } from '@/stores'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<{ name: string; avatar: string }>(), {})
 const { openView } = usePopUp()
 
@@ -21,12 +22,12 @@ const handleEditProfile = () => {
 
 <template>
   <DropdownMenu>
-    <DropdownMenuTrigger as-child>
-      <Button variant="ghost">
+    <DropdownMenuTrigger as-child class="">
+      <Button variant="ghost" class="rounded-full p-0">
         <UserAvatarDisplay :name="name" :avatar="avatar" :display-name="false" />
       </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-56">
+    <DropdownMenuContent class="w-56 bg-foreground text-muted border-muted-foreground">
       <DropdownMenuItem>
         <UserAvatarDisplay :name="name" :avatar="avatar" :display-name="true" />
       </DropdownMenuItem>

@@ -3,7 +3,6 @@ import {
   Button,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   FormInputField,
@@ -19,7 +18,7 @@ import { useAuth } from '@/stores'
 import { toTypedSchema } from '@vee-validate/zod'
 import { ref } from 'vue'
 import { z } from 'zod'
-const { register, loginWithGoogle } = useAuth()
+const { register } = useAuth()
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const registerSchemaType = toTypedSchema(registerSchemaZod)
@@ -42,11 +41,11 @@ const {
 
 function onInvalidSubmit({
   errors,
-  ...rest
+  ..._
 }: {
   values: typeof formValues
   errors: typeof formErrors
-  rest: any
+  _: any
 }) {
   toast({
     title: 'Uh oh! please make sure all fields are valid.',
@@ -64,7 +63,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
-  <DialogContent class="sm:max-w-[425px] w-full">
+  <DialogContent class="sm:max-w-[425px] w-full border-muted-foreground bg-foreground text-muted">
     <form @submit="onSubmit" keep-values class="w-full">
       <DialogHeader>
         <DialogTitle>register new account</DialogTitle>
@@ -86,6 +85,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             :required="true"
           />
         </div>
+        <!-- TODO change bg color & text to secondary foreground and muted for email and password  -->
         <div>
           <FormInputField
             field-name="email"
@@ -102,7 +102,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             field-label="password *"
             :type="showPassword ? 'text' : 'password'"
             description="password must be more than 8 chars "
-            inputClasses="pr-10"
+            inputClasses="bg-secondary-foreground text-muted"
             :required="true"
           >
             <template #afterInput>
