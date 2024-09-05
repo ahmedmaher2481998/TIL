@@ -8,6 +8,14 @@
 - [*] add Auth (log in & sign up & log out )
 - [*] make add tag a pop up
 - [*] add auth with Oauth & email - pass
+- [ ] featured section is working as needed 
+- [ ] edit profile pop up 
+- [ ] profile page with activity 
+- [ ] blog views tracker 
+- [ ] comment section on every blog 
+- [ ] comment section anonymously or with user 
+---- 
+- [ ] featured blogs showing on the front home page nad looking good
 - [ ] hide token from the redirect url after supabase auth
 - [ ] add tag filters on the home page
 - [ ] adjust the style for better layout (use dark ballet)
@@ -27,7 +35,7 @@
 - [ ] make the app has two themes
 - [ ] add tests unit test and e2e tests
 - [ ] fix the conflict tagChip component and TagChipComponent
-- [ ]
+- [ ] finish the view single blog page
 - [ ] iterate over the whole project on more time
 
 ---
