@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { Avatar, AvatarFallback, AvatarImage, Skeleton, Badge } from '@/components'
+import {
+  Avatar,
+  AvatarFallback,
+  MainFeatureBlogSkeleton,
+  AvatarImage,
+  Skeleton,
+  Badge
+} from '@/components'
 import { useBlogs } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { formatDisplayDate, getInitials } from '@/utils'
@@ -14,9 +21,10 @@ const { blogsStoreData } = storeToRefs(useBlogs())
 //     return blogsStoreData.value.featured[0]
 //   } else return null
 // })
-const main = ref(null)
+//@ts-ignore
+const main = ref<null | (typeof blogsStoreData.value.featured)[0]>(null)
 watch(blogsStoreData, () => {
-  console.log('featured', blogsStoreData.value.featured)
+  console.log('featured changed => : ', blogsStoreData.value.featured)
   if (!blogsStoreData.value.loading && blogsStoreData.value.featured) {
     console.log('main changed to ', blogsStoreData.value.featured[0])
     main.value = blogsStoreData.value.featured[0] as any
@@ -24,29 +32,7 @@ watch(blogsStoreData, () => {
 })
 </script>
 <template>
-  <!-- // TODO Use this component to encapsule the main featured blog card -->
-  <div v-if="blogsStoreData.loading" className="col-span-1 md:col-span-2 lg:col-span-2">
-    <div className="relative h-[400px] overflow-hidden rounded-lg">
-      <Skeleton className="h-full w-full" />
-      <div
-        className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent dark:from-background/80"
-      />
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-        <h2 className="text-2xl font-bold text-foreground">
-          <Skeleton className="w-full h-6" />
-        </h2>
-        <p className="mt-2 text-muted-foreground">
-          <Skeleton className="w-full h-4" />
-        </p>
-        <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-          <Skeleton className="h-6 w-6 rounded-full" />
-          <span className="text-muted-foreground">Author Name</span>
-          <span>•</span>
-          <span className="text-muted-foreground">Date</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <MainFeatureBlogSkeleton v-if="blogsStoreData.loading" />
 
   <div v-else className="col-span-1 md:col-span-2 lg:col-span-2">
     <div className="relative h-[400px] overflow-hidden rounded-lg">
