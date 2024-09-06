@@ -14,10 +14,10 @@ const id = 'preview-only'
 const blogsStore = useBlogs()
 const { blogsStoreData } = storeToRefs(blogsStore)
 const blog = ref<Awaited<ReturnType<typeof blogsStore.getBlogBySlug>>>()
+const router = useRouter()
 onBeforeMount(async () => {
   const data = await blogsStore.getBlogBySlug(route.params.slug as string ?? " ")
   if (!data) {
-    const router = useRouter()
     router.push('/404')
   } else {
     blog.value = data

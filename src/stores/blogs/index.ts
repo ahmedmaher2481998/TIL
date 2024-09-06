@@ -21,10 +21,10 @@ profiles(user_metadata,email,id)
     blogs: BlogsWithTagsType | null
     loading: boolean
     mainFeatured: null | singleBlogWithTags,
-    secondaryFeatured:null | singleBlogWithTags,
+    secondaryFeatured: null | singleBlogWithTags,
   }>({
     blogs: null,
-    loading: false,mainFeatured:null , secondaryFeatured:null 
+    loading: false, mainFeatured: null, secondaryFeatured: null
   })
 
   function abort(title: string, desc: string) {
@@ -42,9 +42,9 @@ profiles(user_metadata,email,id)
       blogsStoreData.loading = false
       // @ts-expect-error
       blogsStoreData.blogs = blogs as BlogsWithTagsType
-      if(featured?.length ??  0  > 1 ) { 
+      if (featured?.length ?? 0 > 1) {
         blogsStoreData.mainFeatured = featured![0] as singleBlogWithTags
-        blogsStoreData.secondaryFeatured = featured![1]  as singleBlogWithTags
+        blogsStoreData.secondaryFeatured = featured![1] as singleBlogWithTags
       }
     } catch (err: any) {
       blogsStoreData.loading = false
@@ -99,30 +99,32 @@ profiles(user_metadata,email,id)
     if (error) abort('Error getting featured blogs:', error.message)
     return featuredBlogsWithBlogsQuery
   }
-async function getBlogBySlug(slug: string){
-  // select all columns, eager load comments, profiles, and tags.
-  blogsStoreData.loading = true 
-  const query = `*,comments(*),profiles(*),tags(*)`
-  type SingleBlogType =QueryData<typeof query>
-  const { data, error } = await supabase
-  .from(Tables.Blogs)
-  .select(query)
-  .eq('slug', slug)
-  .single()
-  if(error){ 
-    blogsStoreData.loading = false 
-    abort('Error getting blog by slug:', error.message)
-    return null
-  }else{
-    blogsStoreData.loading = false 
-    return data 
+  async function getBlogBySlug(slug: string) {
+    // select all columns, eager load comments, profiles, and tags.
+    blogsStoreData.loading = true
+    const query = `*,comments(*),profiles(*),tags(*)`
+    type SingleBlogType = QueryData<typeof query>
+    const { data, error } = await supabase
+      .from(Tables.Blogs)
+      .select(query)
+      .eq('slug', slug)
+      .single()
+    if (error) {
+      blogsStoreData.loading = false
+      abort('Error getting blog', 'this blog is not available')
+      // eslint-disable-next-line no-console
+      console.error("🚀 ~ getBlogBySlug ~ error:", error)
+      return null
+    } else {
+      blogsStoreData.loading = false
+      return data
+    }
   }
-}
   return {
     blogsStoreData,
     uploadBlogCover,
     CreateBlogPost,
     getAllBlogs,
-    getFeaturedBlogs,getBlogBySlug
+    getFeaturedBlogs, getBlogBySlug
   }
 })
