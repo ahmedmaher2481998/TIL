@@ -19,8 +19,8 @@ type useAuthStateType = {
   name: ComputedRef<string>
   email: ComputedRef<string>
   avatar: ComputedRef<string>
-  created_at: ComputedRef<Date | null> 
-  provider:ComputedRef<string> 
+  created_at: ComputedRef<Date | null>
+  provider: ComputedRef<string>
 }
 
 export const useAuth = defineStore('auth', () => {
@@ -65,7 +65,8 @@ export const useAuth = defineStore('auth', () => {
       password
     })
     if (error) {
-      notify.error({ description: error.message, title: "couldn't signing in" })
+      // notify.error({ description: error.message, title: "couldn't signing in" })
+      throw error
     } else {
       notify.success({
         description: 'welcome back ' + loginResponse.user.user_metadata.name,
@@ -106,11 +107,11 @@ export const useAuth = defineStore('auth', () => {
     })
     state.session = data.session
     if (error) {
-      notify.error({
-        description: error.message,
-        title: "couldn't register"
-      })
-      console.log('error register', error)
+      // notify.error({
+      //   description: error.message,
+      //   title: "couldn't register"
+      // })
+      throw error
     } else {
       // console.log('success registered', data)
       const { id, url } = await uploadImageFile({
@@ -157,19 +158,19 @@ export const useAuth = defineStore('auth', () => {
     // }
   }
 
-  async function changePassword({confirmPassword,password}:changePasswordType){ 
-    if(confirmPassword !== password){ 
-      notify.error({description: "Passwords don't match", title: "Password mismatch"})
+  async function changePassword({ confirmPassword, password }: changePasswordType) {
+    if (confirmPassword !== password) {
+      notify.error({ description: "Passwords don't match", title: "Password mismatch" })
       return
     }
-    if(state.provider === "email"){ 
+    if (state.provider === "email") {
       await await supabase.auth.updateUser({ password })
-      notify.success({description: "Password updated successfully", title: "Password updated"})
+      notify.success({ description: "Password updated successfully", title: "Password updated" })
       closeCurrentView()
       await logout()
 
     }
-  } 
+  }
   return {
     login,
     logout,

@@ -9,7 +9,7 @@ import {
   FormInputField,
   LoginWithGoogleComponent,
   Separator,
-  useToast
+  useToast, FormMessage
 } from '@/components'
 import { VisibilityOutlined, VisibilityOffOutlined } from '@vicons/material'
 import { useAuth } from '@/stores'
@@ -24,7 +24,7 @@ const loginSchemaZod = z.object({
 })
 const loginSchemaType = toTypedSchema(loginSchemaZod)
 const { login } = useAuth()
-
+const loginError = ref<null | string>(null)
 const showPassword = ref(false)
 function toggleShowPassword() {
   showPassword.value = !showPassword.value
@@ -32,7 +32,6 @@ function toggleShowPassword() {
 const {
   handleSubmit,
   values: formValues,
-
   errors: formErrors
 } = useForm({
   validationSchema: loginSchemaType,
@@ -49,18 +48,27 @@ function onInvalidSubmit({
   errors: typeof formErrors
   rest: any
 }) {
-  notify.error({
-    title: 'Uh oh! please make sure all fields are valid.',
-    description: `please enter: ${Object.keys(errors).join(', ')}`
-  })
+  loginError.value = `please enter: ${Object.keys(errors).join(', ')}`
+  // notify.error({
+  //   title: 'Uh oh! please make sure all fields are valid.',
+  //   description: `please enter: ${Object.keys(errors).join(', ')}`
+  // })
 }
 
 async function onSuccess(values: z.infer<typeof loginSchemaZod>) {
   console.log('Login forms values-->', values)
-  login({
-    email: values.email,
-    password: values.password
-  })
+  try {
+    await login({
+      email: values.email,
+      password: values.password
+    })
+
+  } catch (error: any) {
+    console.log("🚀 ~ onSuccess ~ error.message:", error.message)
+    if (loginError.value === error.message) {
+      loginError.value = 'try again,' + loginError.value
+    } else loginError.value = error.message
+  }
 }
 // @ts-ignore
 const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
@@ -77,39 +85,22 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
       </DialogHeader>
 
       <div class="w-full space-y-3 mb-4">
+        <p class="text-sm font-medium text-destructive" v-if="loginError">
+          {{ loginError }}
+        </p>
         <div>
-          <FormInputField
-            field-name="email"
-            placeholder="username@email.com"
-            field-label="Email *"
-            type="email"
-            :required="true"
-          />
+          <FormInputField field-name="email" placeholder="username@email.com" field-label="Email *" type="email"
+            :required="true" />
         </div>
         <div class="">
-          <FormInputField
-            field-name="password"
-            placeholder="xxxx-xxxx"
-            field-label="password *"
-            :type="showPassword ? 'text' : 'password'"
-            inputClasses="pr-10"
-            :required="true"
-          >
+          <FormInputField field-name="password" placeholder="*****" field-label="password *"
+            :type="showPassword ? 'text' : 'password'" inputClasses="pr-10" :required="true">
             <template #afterInput>
-              <span
-                class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2"
-              >
+              <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined
-                    v-if="showPassword"
-                    class="size-6 text-muted-foreground"
-                    @click="toggleShowPassword"
-                  />
-                  <VisibilityOutlined
-                    class="size-6 text-muted-foreground"
-                    v-else
-                    @click="toggleShowPassword"
-                  />
+                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-muted-foreground"
+                    @click="toggleShowPassword" />
+                  <VisibilityOutlined class="size-6 text-muted-foreground" v-else @click="toggleShowPassword" />
                 </transition>
               </span>
             </template>
@@ -130,6 +121,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 .fade-leave-active {
   transition: all 0.3s;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
