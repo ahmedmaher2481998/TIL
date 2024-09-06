@@ -14,3 +14,7 @@ export type useAuthStateType = {
   avatar: ComputedRef<string>
   createdAt: ComputedRef<Date> | null
 }
+export type changePasswordType = { 
+  password:string ,
+  confirmPassword:string
+}

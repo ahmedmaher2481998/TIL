@@ -150,4 +150,4 @@ export const registerSchemaZod = z
   })
 
 // Ui Related Types
-export type ViewType = 'login' | 'register ' | 'logout' | 'addNewTag'
+export type ViewType = 'login' | 'register ' | 'logout' | 'addNewTag' | 'updateUserProfile'

@@ -1,15 +1,16 @@
 import supabase, { uploadImageFile } from '@/supabase'
-import { registerSchemaZod, type UserType } from '@/types'
+import { registerSchemaZod } from '@/types'
 import { notify, slugify } from '@/utils'
 // import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
-import { computed, type ComputedRef, onBeforeMount, type Reactive, reactive } from 'vue'
+import { computed, type ComputedRef, onBeforeMount, provide, type Reactive, reactive } from 'vue'
 import type { z } from 'zod'
 import { usePopUp } from '@/stores'
 import type {
   Session as SupaBaseSessionType,
   User as SupaBaseUserType
 } from '@supabase/supabase-js'
+import type { changePasswordType } from './models'
 type useAuthStateType = {
   user: SupaBaseUserType | null
   session: SupaBaseSessionType | null
@@ -18,7 +19,8 @@ type useAuthStateType = {
   name: ComputedRef<string>
   email: ComputedRef<string>
   avatar: ComputedRef<string>
-  createdAt: ComputedRef<Date> | null
+  created_at: ComputedRef<Date | null> 
+  provider:ComputedRef<string> 
 }
 
 export const useAuth = defineStore('auth', () => {
@@ -35,7 +37,8 @@ export const useAuth = defineStore('auth', () => {
     name: computed(() => state.user?.user_metadata?.name ?? ''),
     email: computed(() => state.user?.email ?? ''),
     avatar: computed(() => state.user?.user_metadata?.avatar ?? ''),
-    createdAt: computed(() => (state.user?.created_at ? new Date(state.user.created_at) : null))
+    created_at: computed(() => (state.user?.created_at ? new Date(state.user.created_at) : null)),
+    provider: computed(() => state.user?.app_metadata.provider?.toLowerCase() ?? '')
   })
 
   // ------------------ mutations & actions  ---------------
@@ -44,15 +47,16 @@ export const useAuth = defineStore('auth', () => {
     const { data: userData, error: userError } = await supabase.auth.getUser()
 
     if (sessionError) {
+      // eslint-disable-next-line
       console.log('error getting session', sessionError)
       return
     } else if (userError) {
+      // eslint-disable-next-line 
       console.log('error getting session', userError)
       return
     } else {
       state.session = sessionData.session
       state.user = userData.user
-      console.log('mounted and got user state')
     }
   })
   async function login({ email, password }: { email: string; password: string }) {
@@ -152,6 +156,20 @@ export const useAuth = defineStore('auth', () => {
     //   closeCurrentView()
     // }
   }
+
+  async function changePassword({confirmPassword,password}:changePasswordType){ 
+    if(confirmPassword !== password){ 
+      notify.error({description: "Passwords don't match", title: "Password mismatch"})
+      return
+    }
+    if(state.provider === "email"){ 
+      await await supabase.auth.updateUser({ password })
+      notify.success({description: "Password updated successfully", title: "Password updated"})
+      closeCurrentView()
+      await logout()
+
+    }
+  } 
   return {
     login,
     logout,
