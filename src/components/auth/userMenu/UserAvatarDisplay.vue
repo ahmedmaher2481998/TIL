@@ -5,7 +5,7 @@ import { getInitials } from '@/utils'
 interface PropsInterface {
   name: string
   avatar: string
-  displayName?: boolean, ago: string
+  displayName?: boolean, ago?: string
 }
 
 // Define props with or without defaults
