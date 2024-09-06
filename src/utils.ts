@@ -24,12 +24,12 @@ export function formatStoreDate(date: Date) {
   return date.toISOString()
 }
 
-export function slugify(text: string, ampersand = 'and') {
+export function slugify(text: string, addRandomId: boolean = true, ampersand = 'and') {
   const a = 'àáäâèéëêìíïîòóöôùúüûñçßÿỳýœæŕśńṕẃǵǹḿǘẍźḧ'
   const b = 'aaaaeeeeiiiioooouuuuncsyyyoarsnpwgnmuxzh'
   const p = new RegExp(a.split('').join('|'), 'g')
 
-  return text
+  let result = text
     .toString()
     .toLowerCase()
     .replace(/[\s_]+/g, '-')
@@ -38,7 +38,10 @@ export function slugify(text: string, ampersand = 'and') {
     .replace(/[^\w-]+/g, '')
     .replace(/--+/g, '-')
     .replace(/^-+|-+$/g, '')
-    .concat(createRandomString())
+  if (addRandomId) {
+    result = result.concat('-', createRandomString())
+  }
+  return result
 }
 const { toast } = useToast()
 type toastParams = {

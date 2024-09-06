@@ -2,3 +2,4 @@ export const CreateBlogPostView = async () => await import('./CreateBlogPost.vie
 export const HomeView = async () => await import('./MainHome.view.vue')
 export const SingleBlogPost = async () => await import('./SingleBlog.view.vue')
 export const DisplayBlogsWithTag = async () => await import('./DisplayBlogsWithTag.view.vue')
+export const NotFound = async () => await import('./404.vue')

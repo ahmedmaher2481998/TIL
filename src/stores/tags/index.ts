@@ -24,7 +24,7 @@ export const useTags = defineStore('tags', () => {
      const randomId = Math.random()
       .toString(36)
        .substring(2, 2 + length) */
-    console.log('Adding', name)
+
     const { data, error } = await supabase
       .from(Tables.Tags)
       .insert({

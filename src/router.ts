@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { CreateBlogPostView, DisplayBlogsWithTag, HomeView, SingleBlogPost } from '@/views'
+import { CreateBlogPostView, DisplayBlogsWithTag, HomeView, NotFound, SingleBlogPost } from '@/views'
 
 export const enum Routes {
   DisplayBlogsWithTag = 'DisplayBlogsWithTag',
   home = 'homePage',
   createNewBlogPostPage = 'createNewBlogPostPage',
-  singleBlogPostPage = 'singleBlogPostPage'
+  singleBlogPostPage = 'singleBlogPostPage',
+  notFound = 'notFound'
 }
 
 const router = createRouter({
@@ -30,6 +31,10 @@ const router = createRouter({
       path: '/tags/:tagSlug',
       name: Routes.DisplayBlogsWithTag,
       component: DisplayBlogsWithTag
+    },{ 
+      path: '/:pathMatch(.*)*',
+      name: Routes.notFound,
+      component: NotFound// lazy load 404 page
     }
   ]
 })

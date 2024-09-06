@@ -3,7 +3,7 @@ import { createBlogZodSchema, db_functions, Tables } from '@/types'
 import { notify } from '@/utils'
 import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
-import { onBeforeMount, reactive } from 'vue'
+import { onBeforeMount, reactive, ref } from 'vue'
 import { z } from 'zod'
 
 
@@ -35,7 +35,6 @@ profiles(user_metadata,email,id)
   }
 
   onBeforeMount(async () => {
-
     blogsStoreData.loading = true
     try {
       const blogs = await getAllBlogs()
@@ -100,12 +99,30 @@ profiles(user_metadata,email,id)
     if (error) abort('Error getting featured blogs:', error.message)
     return featuredBlogsWithBlogsQuery
   }
-
+async function getBlogBySlug(slug: string){
+  // select all columns, eager load comments, profiles, and tags.
+  blogsStoreData.loading = true 
+  const query = `*,comments(*),profiles(*),tags(*)`
+  type SingleBlogType =QueryData<typeof query>
+  const { data, error } = await supabase
+  .from(Tables.Blogs)
+  .select(query)
+  .eq('slug', slug)
+  .single()
+  if(error){ 
+    blogsStoreData.loading = false 
+    abort('Error getting blog by slug:', error.message)
+    return null
+  }else{
+    blogsStoreData.loading = false 
+    return data 
+  }
+}
   return {
     blogsStoreData,
     uploadBlogCover,
     CreateBlogPost,
     getAllBlogs,
-    getFeaturedBlogs
+    getFeaturedBlogs,getBlogBySlug
   }
 })
