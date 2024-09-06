@@ -8,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  ChangePasswordTab,
   DialogContent,
   Input,
   Label,
@@ -90,7 +91,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
         name
       </TabsContent>
       <TabsContent v-if="AuthStoreState.provider === 'email'" :value="updateProfileTabs.password">
-        password
+        <ChangePasswordTab />
       </TabsContent>
       <TabsContent :value="updateProfileTabs.avatar">
         avatar

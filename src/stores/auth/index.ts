@@ -175,7 +175,7 @@ export const useAuth = defineStore('auth', () => {
     login,
     logout,
     register,
-    loginWithGoogle,
+    loginWithGoogle, changePassword,
     AuthStoreState: state
   }
 })
