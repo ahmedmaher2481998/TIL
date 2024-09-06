@@ -2,7 +2,7 @@ import { type ViewType } from '@/types'
 // import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { LoginPopUp, LogoutPopUp, RegisterPopUp } from '@/components'
+import { LoginPopUp, LogoutPopUp, RegisterPopUp,UpdateUserProfilePopUp } from '@/components'
 export const usePopUp = defineStore('popUp', () => {
   const view = ref<ViewType | null>(null)
   const open = ref<boolean>(false)
@@ -17,6 +17,8 @@ export const usePopUp = defineStore('popUp', () => {
         return null
       case 'logout':
         return LogoutPopUp
+       case 'updateUserProfile':
+        return UpdateUserProfilePopUp
       default:
         return null
     }
