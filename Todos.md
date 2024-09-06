@@ -9,12 +9,12 @@
 - [*] make add tag a pop up
 - [*] add auth with Oauth & email - pass
 - [*] featured section is working as needed 
-- [ ] edit profile pop up 
+- [*] edit profile pop up 
 - [ ] profile page with activity 
 - [ ] blog views tracker 
 - [ ] comment section on every blog 
 - [ ] comment section anonymously or with user 
-- [ ] style add new blog fixed theme and colors 
+- [*] style add new blog fixed theme and colors 
 ---- 
 - [ ] featured blogs showing on the front home page nad looking good
 - [ ] hide token from the redirect url after supabase auth
