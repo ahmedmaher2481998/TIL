@@ -23,8 +23,7 @@ const ChangePasswordSchemaType = toTypedSchema(ChangePasswordSchemaZod)
 
 const {
   handleSubmit,
-  values,
-  errors
+
 } = useForm({
   validationSchema: ChangePasswordSchemaType
 })
@@ -59,7 +58,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 
     <Card as="form">
       <CardHeader>
-        <CardTitle>password</CardTitle>
+        <!-- <CardTitle>password</CardTitle> -->
         <CardDescription>
           change password after saving you will be logged out.
         </CardDescription>
@@ -89,7 +88,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           <div>
 
             <FormInputField field-name="confirmPassword" placeholder="*****" field-label="confirmPassword *"
-              :type="showConfirmPassword ? 'text' : 'password'" description="password must be more than 8 chars "
+              :type="showConfirmPassword ? 'text' : 'password'" description="confirm password must match the password"
               :required="true">
               <template #afterInput>
                 <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">

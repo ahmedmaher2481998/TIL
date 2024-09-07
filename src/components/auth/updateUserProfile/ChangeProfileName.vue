@@ -62,7 +62,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 
     <Card as="form">
       <CardHeader>
-        <CardTitle>Display Name</CardTitle>
+        <!-- <CardTitle>Display Name</CardTitle> -->
         <CardDescription>
           Update your display name to be easily recognized by others.
         </CardDescription>
