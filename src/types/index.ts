@@ -1,17 +1,5 @@
 import { z } from 'zod'
 
-// UserType definition
-// export type UserType = {
-//   id: string
-//   name: string
-//   email: string
-//   posts?: BlogType[]
-//   comments?: CommentType[]
-//   createdAt: Date
-//   avatar: string
-// }
-
-// BlogType definition
 export type BlogType = {
   id: number
   title: string

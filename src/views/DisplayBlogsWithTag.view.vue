@@ -34,22 +34,18 @@ console.log('blog data: ', data)
     </div>
   </div> -->
     <div class="container pb-20 grid gap-4 grid-cols-2 lg:grid-cols-3">
-      <BlogCard
-        v-for="blog in data?.blogs"
-        :blog="{
-          id: blog.id,
-          title: blog.title,
-          slug: blog.slug,
-          tldr: blog.tldr,
-          image: blog.image_url,
-          avatar: blog.profiles?.user_metadata?.avatar ?? ('' as string),
-          author: blog.profiles?.user_metadata?.name ?? ('' as string),
-          tags: blog.tags,
-          read_count: blog.read_count,
-          created_at: blog.created_at
-        }"
-        :key="blog.id"
-      />
+      <BlogCard v-for="blog in data?.blogs" :blog="{
+        id: blog.id,
+        title: blog.title,
+        slug: blog.slug,
+        tldr: blog.tldr,
+        image: blog.image_url,
+        avatar: blog.profiles?.user_metadata?.avatar as string ?? '',
+        author: blog.profiles?.user_metadata?.name as string ?? '',
+        tags: blog.tags,
+        read_count: blog.read_count,
+        created_at: blog.created_at
+      }" :key="blog.id" />
     </div>
   </main>
 </template>
