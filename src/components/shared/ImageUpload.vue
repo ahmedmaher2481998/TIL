@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { Label, Input, FormItem } from '@/components'
+import { FormItem, Input } from '@/components'
 import { UploadOutlined } from '@vicons/material'
-import { ref, watch, toRefs } from 'vue'
+import { type ClassValue } from 'clsx'
 import { useField } from 'vee-validate'
-import clsx, { type ClassValue } from 'clsx'
+import { ref, toRefs, watch } from 'vue'
 
 type propsType = {
   title: string
   name: string
-  displayClasses?: ClassValue
+  displayClasses?: ClassValue,
+
 }
 const props = withDefaults(defineProps<propsType>(), {
   displayClasses: ''

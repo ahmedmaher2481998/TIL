@@ -43,7 +43,7 @@ export async function uploadImageFile({
   if (error) {
     const { toast } = useToast()
     toast({
-      title: 'sorry! something went wrong .',
+      title: 'sorry! something went wrong.',
       description: `${error.message}`,
       variant: 'destructive'
     })

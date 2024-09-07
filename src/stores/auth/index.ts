@@ -1,5 +1,5 @@
 import supabase, { uploadImageFile } from '@/supabase'
-import { registerSchemaZod } from '@/types'
+import { Bucket, registerSchemaZod } from '@/types'
 import { notify, slugify } from '@/utils'
 // import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
@@ -167,7 +167,6 @@ export const useAuth = defineStore('auth', () => {
       }
       const res = await supabase.auth.getUser()
       state.user = res.data.user
-      closeCurrentView()
     } else {
       notify.error({ description: 'Action failed', title: "you are using Auth provider." })
     }
@@ -194,7 +193,34 @@ export const useAuth = defineStore('auth', () => {
       notify.error({ description: 'Action failed', title: "you are using Auth provider." })
     }
   }
+  async function changeAvatar(avatar: File) {
+    // delete the old avatar
+    const { error: DeletePreviousAvatarError } = await supabase
+      .storage
+      .from(Bucket)
+      .remove([state.user?.user_metadata.avatar_id])
+    if (DeletePreviousAvatarError) throw DeletePreviousAvatarError
+    // upload the new avatar
+    const { id, url } = await uploadImageFile({
+      img: avatar,
+      str: slugify(state.name),
+      type: 'avatar' as const // 'avatar' is the type of user profile image
+    })
+    // update the user's avatar in the database
+    const { data: userDataWithAvatar, error: updateUserError } = await supabase.auth.updateUser({
+      data: {
+        avatar: url,
+        avatar_id: id
+      }
+    })
+    if (updateUserError) throw updateUserError
+
+    state.user = userDataWithAvatar.user
+
+
+  }
   return {
+    changeAvatar,
     login,
     logout,
     register,
