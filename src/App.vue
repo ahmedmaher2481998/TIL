@@ -5,7 +5,7 @@ import { NavBar, Toaster, PopUp } from '@/components'
 <template>
   <Toaster />
   <PopUp />
-  <header class="pb-10 bg-foreground">
+  <header class="pb-10 ">
     <NavBar />
   </header>
   <div class="min-h-screen">
@@ -13,7 +13,7 @@ import { NavBar, Toaster, PopUp } from '@/components'
 
   </div>
 
-  <footer class="w-full my-auto bg-foreground text-primary-foreground items-center justify-center flex h-24 p-6">
+  <footer class="w-full my-auto  text-primary items-center justify-center flex h-24 p-6">
     all rights reserved Ahmed maher 2024&copy;
   </footer>
 </template>

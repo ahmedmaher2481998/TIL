@@ -5,7 +5,8 @@ import { getInitials } from '@/utils'
 interface PropsInterface {
   name: string
   avatar: string
-  displayName?: boolean, ago?: string, size?: 'sm' | 'base' | 'lg'
+  displayName?: boolean, ago?: string, size?: 'sm' | 'base' | 'lg',
+  classes?: string
 }
 
 // Define props with or without defaults
@@ -14,7 +15,8 @@ const props = withDefaults(defineProps<PropsInterface>(), {
   avatar: '',
   displayName: true,
   ago: '',
-  size: 'sm'
+  size: 'sm',
+  classes: ''
 })
 // Map size to specific CSS classes
 const sizeClasses = {
@@ -26,10 +28,9 @@ const sizeClasses = {
 
 <template>
   <div :class="[
-    'flex w-full gap-2 items-center text-muted-foreground',
-    sizeClasses[props.size],
+    'flex w-full gap-2 items-center text-foreground ',
+    sizeClasses[props.size], classes
   ]">
-    <!-- <div class="flex items-center gap-2 text-sm text-muted-foreground" -->
     <Avatar :size="size" class="border">
       <AvatarImage :src="props.avatar" :alt="props.name" />
       <AvatarFallback>{{ getInitials(props.name) }}</AvatarFallback>

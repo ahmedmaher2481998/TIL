@@ -139,6 +139,8 @@ watch([AuthStoreState, formValues], () => {
 </script>
 
 <template>
+
+
   <Card class="max-w-screen-lg mx-auto px-4">
     <CardHeader>
       <CardTitle>Add new blog post</CardTitle>
@@ -148,20 +150,13 @@ watch([AuthStoreState, formValues], () => {
       <CardContent class="space-y-4">
         <!-- Form Fields -->
         <!-- blog Title / slug  -->
-        <FormInputField
-          field-name="title"
-          placeholder="Subject title...."
-          field-label="Post title"
-        />
+        <FormInputField field-name="title" placeholder="Subject title...." field-label="Post title" />
 
         <!-- blog Tldr -->
         <FormInputField field-name="tldr" placeholder="summary of the article" field-label="Tldr" />
         <!-- blog Description -->
-        <FormInputField
-          field-name="description"
-          placeholder="a sneak peak into post content"
-          field-label="Description"
-        />
+        <FormInputField field-name="description" placeholder="a sneak peak into post content"
+          field-label="Description" />
         <!-- blog tag Selector  -->
         <TagSelector />
         <!-- Upload blog cover  -->

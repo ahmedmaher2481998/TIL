@@ -2,24 +2,22 @@
 import { Skeleton } from '@/components'
 </script>
 <template>
-  <div className="col-span-1 md:col-span-1 lg:col-span-1">
-    <div className="relative h-[400px] overflow-hidden rounded-lg">
-      <Skeleton className="h-full w-full" />
-      <div
-        className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent dark:from-background/80"
-      />
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-        <h3 className="text-xl font-bold text-foreground">
-          <Skeleton className="w-full h-6" />
+  <div class="col-span-1 md:col-span-1 lg:col-span-1">
+    <div class="relative h-[400px] overflow-hidden rounded-lg">
+      <Skeleton class="h-full w-full" />
+      <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent dark:from-background/80" />
+      <div class="absolute bottom-0 left-0 right-0 p-6">
+        <h3 class="text-xl font-bold text-background">
+          <Skeleton class="w-full h-6" />
         </h3>
-        <p className="mt-2 text-muted-foreground">
-          <Skeleton className="w-full h-4" />
+        <p class="mt-2 text-muted">
+          <Skeleton class="w-full h-4" />
         </p>
-        <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-          <Skeleton className="h-6 w-6 rounded-full" />
-          <span className="text-muted-foreground">Author Name</span>
+        <div class="mt-4 flex items-center gap-2 text-sm text-muted">
+          <Skeleton class="h-6 w-6 rounded-full" />
+          <span class="text-muted">Author Name</span>
           <span>•</span>
-          <span className="text-muted-foreground">Date</span>
+          <span class="text-muted">Date</span>
         </div>
       </div>
     </div>

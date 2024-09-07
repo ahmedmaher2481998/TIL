@@ -36,13 +36,8 @@ const { description, inputClasses, fieldLabel, fieldName, placeholder, type, req
       <FormLabel>{{ fieldLabel }}</FormLabel>
       <div class="relative w-full items-center">
         <FormControl>
-          <Input
-            :type="type"
-            :class="inputClasses"
-            :required="required"
-            :placeholder="placeholder"
-            v-bind="componentField"
-          />
+          <Input autocomplete="off" :type="type" :class="inputClasses" :required="required" :placeholder="placeholder"
+            v-bind="componentField" />
           <slot name="afterInput"></slot>
         </FormControl>
       </div>

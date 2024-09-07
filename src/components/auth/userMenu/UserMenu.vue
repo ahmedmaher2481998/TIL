@@ -24,26 +24,26 @@ const handleEditProfile = () => {
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Primitive as="button" class="rounded-full p-0 m-0 relative max-h-min ">
+      <!-- <Primitive as="button" class="rounded-full p-0 m-0 relative max-h-min ">
         <button>
           <UserAvatarDisplay :name="name" :avatar="avatar" :display-name="false" />
         </button>
-      </Primitive>
-      <!-- <Button variant="ghost" class="rounded-full p-0 m-0 max-h-min ">
+      </Primitive> -->
+      <Button variant="ghost" class="rounded-full p-0 m-0 max-h-min " size="icon">
         <UserAvatarDisplay :name="name" :avatar="avatar" :display-name="false" />
-      </Button> -->
+      </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-56 bg-foreground text-muted border-muted-foreground">
-      <DropdownMenuItem>
-        <UserAvatarDisplay :name="name" :avatar="avatar" :display-name="true" />
+    <DropdownMenuContent class="w-56   ">
+      <DropdownMenuItem class="">
+        <UserAvatarDisplay classes='hover:text-background' :name="name" :avatar="avatar" :display-name="true" />
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem @click.stop="handleEditProfile" class="flex cursor-pointer items-center gap-3">
+      <DropdownMenuItem @click.stop="handleEditProfile" class="flex  cursor-pointer items-center gap-3">
         <AccountCircleOutlined class="mr-2 h-4 w-4" />
         <span>Edit profile</span>
       </DropdownMenuItem>
 
-      <DropdownMenuItem @click.stop="openView('logout')" class="flex cursor-pointer items-center gap-3">
+      <DropdownMenuItem @click.stop="openView('logout')" class="flex   cursor-pointer items-center gap-3">
         <LogOutOutlined class="mr-2 h-4 w-4" />
         <span>Log out</span>
       </DropdownMenuItem>

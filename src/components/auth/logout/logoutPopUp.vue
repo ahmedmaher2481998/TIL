@@ -18,7 +18,7 @@ const { closeCurrentView } = usePopUp()
 </script>
 
 <template>
-  <DialogContent class="sm:max-w-[425px] border-muted-foreground text-muted bg-foreground">
+  <DialogContent class="sm:max-w-[425px] border-muted text-muted ">
     <DialogHeader>
       <DialogTitle class="">Are you sure you wanna log out ? </DialogTitle>
       <DialogDescription>
@@ -27,12 +27,7 @@ const { closeCurrentView } = usePopUp()
       </DialogDescription>
     </DialogHeader>
     <DialogFooter>
-      <Button
-        type="button"
-        variant="outline"
-        class="bg-secondary-foreground text-muted border-muted-foreground"
-        @click="closeCurrentView"
-      >
+      <Button type="button" variant="default" class="" @click="closeCurrentView">
         cancel
       </Button>
       <Button type="button" variant="destructive" @click="logout">logout </Button>

@@ -72,8 +72,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
-  <DialogContent
-    class="sm:max-w-[425px] md:max-w-lg flex justify-center items-center w-full border-muted-foreground bg-foreground text-muted">
+  <DialogContent class="sm:max-w-[425px] md:max-w-lg flex justify-center items-center w-full border-muted  text-muted">
     <Tabs default-value="name" class="w-full mt-6">
       <TabsList class="flex justify-between items-center w-full ">
         <TabsTrigger :value="updateProfileTabs.name" class='capitalize w-full '>
@@ -121,13 +120,13 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
         <div>
           <FormInputField field-name="password" placeholder="xxxx-xxxx" field-label="password *"
             :type="showPassword ? 'text' : 'password'" description="password must be more than 8 chars "
-            inputClasses="bg-secondary-foreground text-muted" :required="true">
+            inputClasses="bg-secondary text-muted" :required="true">
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-muted-foreground"
+                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-muted"
                     @click="toggleShowPassword" />
-                  <VisibilityOutlined class="size-6 text-muted-foreground" v-else @click="toggleShowPassword" />
+                  <VisibilityOutlined class="size-6 text-muted" v-else @click="toggleShowPassword" />
                 </transition>
               </span>
             </template>
@@ -141,9 +140,9 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
     <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 text-muted-foreground"
+                  <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 text-muted"
                     @click="toggleShowConfirmPassword" />
-                  <VisibilityOutlined class="size-6 text-muted-foreground" v-else @click="toggleShowConfirmPassword" />
+                  <VisibilityOutlined class="size-6 text-muted" v-else @click="toggleShowConfirmPassword" />
                 </transition>
               </span>
             </template>

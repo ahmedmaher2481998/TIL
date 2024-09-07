@@ -3,19 +3,19 @@
 const currentYear = new Date().getFullYear()
 </script>
 <template>
-  <footer className="bg-muted dark:bg-muted-foreground/10 py-8">
-    <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
-      <div className="text-sm text-muted-foreground">
+  <footer class="bg-muted dark:bg-muted-background/10 py-8">
+    <div class="container flex flex-col items-center justify-between gap-4 md:flex-row">
+      <div class="text-sm text-muted">
         &copy; {{ currentYear }} blogy. All rights reserved.
       </div>
-      <div className="flex items-center gap-4">
-        <router-link to="#" className="text-sm font-medium hover:underline" prefetch="{false}">
+      <div class="flex items-center gap-4">
+        <router-link to="#" class="text-sm font-medium hover:underline" prefetch="{false}">
           Twitter
         </router-link>
-        <router-link to="#" className="text-sm font-medium hover:underline" prefetch="{false}">
+        <router-link to="#" class="text-sm font-medium hover:underline" prefetch="{false}">
           Instagram
         </router-link>
-        <router-link to="#" className="text-sm font-medium hover:underline" prefetch="{false}">
+        <router-link to="#" class="text-sm font-medium hover:underline" prefetch="{false}">
           Newsletter
         </router-link>
       </div>

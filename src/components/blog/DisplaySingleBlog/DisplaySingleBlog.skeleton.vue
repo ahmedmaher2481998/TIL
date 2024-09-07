@@ -5,7 +5,7 @@ import { Skeleton } from '@/components';
 <template>
 
 
-  <div class="w-full bg-foreground flex flex-col px-2">
+  <div class="w-full  flex flex-col px-2">
     <div class="container pt-4">
       <!-- Skeleton for Blog Title -->
       <Skeleton class="h-10 w-3/4 mb-6 rounded" />

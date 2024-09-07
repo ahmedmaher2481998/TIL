@@ -31,29 +31,30 @@ const ago = formatDisplayDate(blog.created_at, true)
 </script>
 
 <template lang="html">
-  <Card class="overflow-hidden bg-secondary-foreground border-none text-card-foreground rounded-lg transition-all">
+  <Card class="overflow-hidden bg-primary-foreground border-foreground/30 text-card rounded-lg transition-all">
     <router-link :to="`/blog/${blog.slug}`">
       <CardContent class="p-0">
         <img :src="blog.image" alt="Featured Post" width="{600}" height="{400}" class="h-[200px] w-full object-cover"
           :style="{ aspectRatio: '600/400', objectFit: 'cover' }" />
       </CardContent>
-      <CardHeader class="px-6 pt-4">
-        <CardTitle class="text-primary-foreground">{{ blog.title }}</CardTitle>
-
-        <CardDescription class="mt-2 text-muted-foreground">
-          {{ blog.tldr }}
-        </CardDescription>
-      </CardHeader>
     </router-link>
-    <CardContent>
-      <div className="mb-2 flex flex-wrap gap-2">
+    <CardHeader class="px-6 pt-4">
+      <CardTitle class="text-primary">{{ blog.title }}</CardTitle>
+
+      <div class="mb-2 flex flex-wrap gap-2">
         <router-link v-for="tag in blog.tags" :key="tag.id" :to="`tags/${tag.slug}`">
-          <Badge variant="outline" class="text-muted"> # {{ tag.title }} </Badge>
+          <Badge variant="default" class="text-background"> # {{ tag.title }} </Badge>
         </router-link>
       </div>
+      <CardDescription class="mt-2 ">
+        {{ blog.tldr }}
+      </CardDescription>
+    </CardHeader>
+
+    <CardContent>
     </CardContent>
     <CardFooter class="px-6 pb-4 pt-2">
-      <div class="flex items-center gap-2 text-sm text-muted-foreground">
+      <div class="flex items-center gap-2 text-sm ">
 
         <UserAvatarDisplay :name="blog.author" :avatar="blog.avatar" :ago="ago" />
       </div>

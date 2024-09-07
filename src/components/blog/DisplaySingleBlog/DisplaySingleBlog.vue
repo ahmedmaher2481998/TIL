@@ -35,11 +35,11 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
 </script>
 <template>
   <DisplaySingleBlogSkeleton v-if="blogsStoreData.loading" />
-  <div v-else class="w-full bg-foreground flex flex-col px-2">
+  <div v-else class="w-full  flex flex-col px-2">
     <div class="container pt-4">
       <header>
 
-        <h1 class=" text-primary-foreground text-2xl md:text-3xl mb-6">
+        <h1 class=" text-primary text-2xl md:text-3xl mb-6">
           {{ blog?.title }}
         </h1>
         <!-- author display  -->
@@ -47,9 +47,9 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
           <UserAvatarDisplay :display-name="true" :avatar="user.avatar" :name="user.name" :ago="ago" size="base" />
         </div>
         <!-- display tags  -->
-        <div className="my-4 space-x-2  flex flex-wrap">
+        <div class="my-4 space-x-2  flex flex-wrap">
           <router-link v-for="tag in blog?.tags" :key="tag.id" :to="`tags/${tag.slug}`" class="">
-            <Badge variant="outline" class="text-primary-foreground text-sm"> # {{ tag.title }} </Badge>
+            <Badge variant="outline" class="text-primary text-sm"> # {{ tag.title }} </Badge>
           </router-link>
         </div>
       </header>
@@ -70,9 +70,9 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
 
 /* For Light Theme */
 .md-editor {
-  --md-color: hsl(var(--primary-foreground));
-  --md-hover-color: hsl(var(--accent-foreground));
-  --md-bk-color: hsl(var(--foreground));
+  --md-color: hsl(var(--primary));
+  --md-hover-color: hsl(var(--accent-background));
+  --md-bk-color: hsl(var(--background));
   --md-border-hover-color: hsl(var(--border));
   --md-border-active-color: hsl(var(--ring));
   --md-modal-mask: hsl(var(--popover));
@@ -84,17 +84,17 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
 
 /* For Dark Theme */
 .md-editor-dark {
-  --md-color: hsl(var(--foreground));
-  --md-hover-color: hsl(var(--primary-foreground));
+  --md-color: hsl(var(--background));
+  --md-hover-color: hsl(var(--primary-background));
   --md-bk-color: hsl(var(--background));
   --md-bk-color-outstand: hsl(var(--card));
-  --md-bk-hover-color: hsl(var(--popover-foreground));
+  --md-bk-hover-color: hsl(var(--popover-background));
   --md-border-color: hsl(var(--border));
   --md-border-hover-color: hsl(var(--ring));
   --md-border-active-color: hsl(var(--ring));
   --md-modal-mask: hsl(var(--popover));
   --md-scrollbar-bg-color: hsl(var(--muted));
-  --md-scrollbar-thumb-color: hsl(var(--accent-foreground));
+  --md-scrollbar-thumb-color: hsl(var(--accent-background));
   --md-scrollbar-thumb-hover-color: hsl(var(--secondary));
   --md-scrollbar-thumb-active-color: hsl(var(--primary));
 }

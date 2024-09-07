@@ -75,7 +75,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
-  <DialogContent class="sm:max-w-[425px] border-muted-foreground bg-foreground text-muted">
+  <DialogContent class="sm:max-w-[425px] border-muted  text-muted">
     <form @submit="onSubmit" keep-values class="w-full">
       <DialogHeader>
         <DialogTitle>login to your account</DialogTitle>
@@ -98,9 +98,8 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-muted-foreground"
-                    @click="toggleShowPassword" />
-                  <VisibilityOutlined class="size-6 text-muted-foreground" v-else @click="toggleShowPassword" />
+                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-muted" @click="toggleShowPassword" />
+                  <VisibilityOutlined class="size-6 text-muted" v-else @click="toggleShowPassword" />
                 </transition>
               </span>
             </template>
@@ -109,7 +108,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
       </div>
       <div class="flex items-center justify-center gap-3 flex-col">
         <Button type="submit" class="w-full"> login </Button>
-        <Separator label="Or" class="bg-muted" />
+        <Separator label="Or" class="" />
         <LoginWithGoogleComponent />
       </div>
     </form>

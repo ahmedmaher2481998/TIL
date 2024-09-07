@@ -70,7 +70,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
-  <DialogContent class="sm:max-w-[425px] w-full border-muted-foreground bg-foreground text-muted">
+  <DialogContent class="sm:max-w-[425px] w-full border-muted  text-secondary">
     <form @submit="onSubmit" keep-values class="w-full">
       <DialogHeader>
         <DialogTitle>register new account</DialogTitle>
@@ -88,23 +88,22 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           <ImageUpload name="avatar" title="profile picture" displayClasses="h-32 w-auto" />
         </div>
         <div>
-          <FormInputField field-name="name" placeholder="john doe" field-label="Name *" type="text" :required="true" />
+          <FormInputField field-name="name" placeholder="john doe" field-label="Name *" type="text" />
         </div>
-        <!-- TODO change bg color & text to secondary foreground and muted for email and password  -->
+
         <div>
-          <FormInputField field-name="email" placeholder="username@email.com" field-label="Email *" type="email"
-            :required="true" />
+          <FormInputField field-name="email" placeholder="username@email.com" field-label="Email *" type="email" />
         </div>
         <div>
           <FormInputField field-name="password" placeholder="xxxx-xxxx" field-label="password *"
-            :type="showPassword ? 'text' : 'password'" description="password must be more than 8 chars "
-            inputClasses="bg-secondary-foreground text-muted" :required="true">
+            :type="showPassword ? 'text' : 'password'" description="password must be more than 8 chars " inputClasses=""
+            :required="true">
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-muted-foreground"
+                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-secondary"
                     @click="toggleShowPassword" />
-                  <VisibilityOutlined class="size-6 text-muted-foreground" v-else @click="toggleShowPassword" />
+                  <VisibilityOutlined class="size-6 text-secondary" v-else @click="toggleShowPassword" />
                 </transition>
               </span>
             </template>
@@ -118,9 +117,9 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 text-muted-foreground"
+                  <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 "
                     @click="toggleShowConfirmPassword" />
-                  <VisibilityOutlined class="size-6 text-muted-foreground" v-else @click="toggleShowConfirmPassword" />
+                  <VisibilityOutlined class="size-6 text-secondary" v-else @click="toggleShowConfirmPassword" />
                 </transition>
               </span>
             </template>
