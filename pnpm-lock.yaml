@@ -78,9 +78,6 @@ importers:
       '@types/node':
         specifier: ^20.16.5
         version: 20.16.5
-      '@vicons/material':
-        specifier: ^0.12.0
-        version: 0.12.0
       '@vitejs/plugin-vue':
         specifier: ^5.1.3
         version: 5.1.3(vite@5.4.3(@types/node@20.16.5))(vue@3.5.3(typescript@5.4.5))
@@ -1021,9 +1018,6 @@ packages:
 
   '@vee-validate/zod@4.13.2':
     resolution: {integrity: sha512-y1aqelutD6btX2ayZk3w8udClAykptphlGLwu0vlCqY2r9mrJqMn1EKqtcwXAvEom+ceTcHJOwGr2FUA7i+ZEg==}
-
-  '@vicons/material@0.12.0':
-    resolution: {integrity: sha512-chv1CYAl8P32P3Ycwgd5+vw/OFNc2mtkKdb1Rw4T5IJmKy6GVDsoUKV3N2l208HATn7CCQphZtuPDdsm7K2kmA==}
 
   '@vitejs/plugin-vue@5.1.3':
     resolution: {integrity: sha512-3xbWsKEKXYlmX82aOHufFQVnkbMC/v8fLpWwh6hWOUrK5fbbtBh9Q/WWse27BFgSy2/e2c0fz5Scgya9h2GLhw==}
@@ -4544,8 +4538,6 @@ snapshots:
       zod: 3.23.8
     transitivePeerDependencies:
       - vue
-
-  '@vicons/material@0.12.0': {}
 
   '@vitejs/plugin-vue@5.1.3(vite@5.4.3(@types/node@20.16.5))(vue@3.5.3(typescript@5.4.5))':
     dependencies:

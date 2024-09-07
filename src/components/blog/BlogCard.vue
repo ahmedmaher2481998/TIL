@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { TagChip, UserAvatarDisplay } from '@/components'
+import { UserAvatarDisplay } from '@/components'
 // import { type BlogType } from '@/types/index'
 import {
+  Badge,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-  Badge
+  CardTitle
 } from '@/components'
-import { formatDisplayDate, getInitials } from '@/utils'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { CalendarTodayOutlined, ArrowUpwardOutlined } from '@vicons/material'
+import { formatDisplayDate } from '@/utils'
 // import TagChipComponent from './DisplaySingleBlog/TagChip.component.vue'
 type blogCardProps = {
   id: number

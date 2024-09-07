@@ -3,21 +3,19 @@ import {
   Button,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   FormInputField,
   LoginWithGoogleComponent,
   Separator,
-  useToast, FormMessage
 } from '@/components'
-import { VisibilityOutlined, VisibilityOffOutlined } from '@vicons/material'
+import { Eye, EyeOff } from 'lucide-vue-next';
+
 import { useAuth } from '@/stores'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import { ref } from 'vue'
-import { notify } from '@/utils'
 const loginSchemaZod = z.object({
   email: z.string().email('invalid email').min(1, 'Email is required'),
   password: z.string().min(8, 'password must be at least 8 characters long')
@@ -92,9 +90,8 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-foreground"
-                    @click="toggleShowPassword" />
-                  <VisibilityOutlined v-else class="size-6 text-foreground " @click="toggleShowPassword" />
+                  <EyeOff v-if="showPassword" class="size-6 text-foreground" @click="toggleShowPassword" />
+                  <Eye v-else class="size-6 text-foreground " @click="toggleShowPassword" />
                 </transition>
               </span>
             </template>

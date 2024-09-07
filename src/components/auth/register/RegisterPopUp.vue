@@ -8,22 +8,20 @@ import {
   FormInputField,
   ImageUpload,
   LoginWithGoogleComponent,
-  Separator,
-  useToast
-} from '@/components'
-import { registerSchemaZod } from '@/types'
-import { VisibilityOutlined, VisibilityOffOutlined } from '@vicons/material'
-import { useForm } from 'vee-validate'
-import { useAuth } from '@/stores'
-import { toTypedSchema } from '@vee-validate/zod'
-import { ref } from 'vue'
-import { z } from 'zod'
+  Separator
+} from '@/components';
+import { useAuth } from '@/stores';
+import { registerSchemaZod } from '@/types';
+import { toTypedSchema } from '@vee-validate/zod';
+import { Eye, EyeOff } from 'lucide-vue-next';
+import { useForm } from 'vee-validate';
+import { ref } from 'vue';
+import { z } from 'zod';
 const { register } = useAuth()
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const registerSchemaType = toTypedSchema(registerSchemaZod)
 const registerError = ref<null | string>(null)
-const { toast } = useToast()
 function toggleShowPassword() {
   showPassword.value = !showPassword.value
 }
@@ -117,9 +115,9 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 text-foreground "
+                  <EyeOff v-if="showConfirmPassword" class="size-6 text-foreground "
                     @click="toggleShowConfirmPassword" />
-                  <VisibilityOutlined class="size-6 text-foreground " v-else @click="toggleShowConfirmPassword" />
+                  <Eye class="size-6 text-foreground " v-else @click="toggleShowConfirmPassword" />
                 </transition>
               </span>
             </template>

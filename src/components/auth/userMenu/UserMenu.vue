@@ -8,7 +8,8 @@ import {
   Button,
   UserAvatarDisplay
 } from '@/components'
-import { LogOutOutlined, AccountCircleOutlined } from '@vicons/material'
+import { CircleUserRound, LogOut } from 'lucide-vue-next';
+
 import { usePopUp } from '@/stores'
 import { Primitive } from 'radix-vue';
 
@@ -39,12 +40,12 @@ const handleEditProfile = () => {
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem @click.stop="handleEditProfile" class="flex  cursor-pointer items-center gap-3">
-        <AccountCircleOutlined class="mr-2 h-4 w-4" />
+        <CircleUserRound class="mr-2 h-4 w-4" />
         <span>Edit profile</span>
       </DropdownMenuItem>
 
       <DropdownMenuItem @click.stop="openView('logout')" class="flex   cursor-pointer items-center gap-3">
-        <LogOutOutlined class="mr-2 h-4 w-4" />
+        <LogOut class="mr-2 h-4 w-4" />
         <span>Log out</span>
       </DropdownMenuItem>
     </DropdownMenuContent>

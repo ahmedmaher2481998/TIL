@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FormItem, Input } from '@/components'
-import { UploadOutlined } from '@vicons/material'
+import { Upload } from 'lucide-vue-next';
 import { type ClassValue } from 'clsx'
 import { useField } from 'vee-validate'
 import { ref, toRefs, watch } from 'vue'
@@ -38,7 +38,7 @@ watch(value, () => {
     <label class="relative  bg-input  w-auto flex border p-2 rounded-lg cursor-pointer items-center justify-center"
       :for="name">
       <span v-if="!value" class="h-full 00 flex items-center justify-center px-2">
-        <UploadOutlined class="size-6 " />
+        <Upload class="size-6 " />
       </span>
       <span class="flex flex-col items-center justify-center">
         <img v-if="value" src="" ref="blogCover" class="shadow-lg rounded-lg object-cover"

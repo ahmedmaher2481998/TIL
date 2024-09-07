@@ -12,8 +12,8 @@ import {
   Label
 } from '@/components'
 import { useTags } from '@/stores'
-import { AddFilled } from '@vicons/material'
 import { ref } from 'vue'
+import { Plus } from 'lucide-vue-next';
 const { createNewTag } = useTags()
 const tagTitle = ref('')
 const addNewTag = () => {
@@ -31,7 +31,7 @@ const open = ref(false)
   <Dialog v-model:open="open">
     <DialogTrigger as-child>
       <Button type="button" class="my-4" variant="outline">
-        <AddFilled class="h-6 w-6" /> tag
+        <Plus class="h-6 w-6" /> tag
       </Button>
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">

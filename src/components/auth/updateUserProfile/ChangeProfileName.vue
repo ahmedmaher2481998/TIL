@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { CardHeader, CardTitle, Card, CardDescription, CardContent, Label, Button, CardFooter, Input, useToast, FormInputField } from '@/components'
+import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, FormInputField } from '@/components';
 import { useAuth } from '@/stores';
 import { notify } from '@/utils';
 import { toTypedSchema } from '@vee-validate/zod';
-import { VisibilityOffOutlined, VisibilityOutlined } from '@vicons/material';
 import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { z } from 'zod';

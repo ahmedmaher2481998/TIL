@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { CardHeader, CardTitle, Card, CardDescription, CardContent, Label, Button, CardFooter, Input, useToast, FormInputField } from '@/components'
+import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, FormInputField } from '@/components';
 import { useAuth } from '@/stores';
 import { notify } from '@/utils';
 import { toTypedSchema } from '@vee-validate/zod';
-import { VisibilityOffOutlined, VisibilityOutlined } from '@vicons/material';
+import { Eye, EyeOff } from 'lucide-vue-next';
 import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { z } from 'zod';
+
 const { changePassword } = useAuth()
-const { AuthStoreState } = useAuth()
 const changePasswordError = ref<null | string>(null);
 const ChangePasswordSchemaZod = z
   .object({
@@ -93,9 +93,8 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
               <template #afterInput>
                 <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                   <transition name="fade" mode="out-in">
-                    <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 "
-                      @click="toggleShowConfirmPassword" />
-                    <VisibilityOutlined class="size-6 " v-else @click="toggleShowConfirmPassword" />
+                    <EyeOff v-if="showConfirmPassword" class="size-6 " @click="toggleShowConfirmPassword" />
+                    <Eye class="size-6 " v-else @click="toggleShowConfirmPassword" />
                   </transition>
                 </span>
               </template>

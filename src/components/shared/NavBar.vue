@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { DarkModeFilled, LightModeFilled } from '@vicons/material'
+import { Moon, Sun, NotebookPen } from 'lucide-vue-next';
+
 import { Button, UserMenu } from '@/components'
 import { useAuth, usePopUp } from '@/stores'
-import { NoteAltOutlined } from '@vicons/material'
 import { storeToRefs } from 'pinia'
 const { AuthStoreState } = storeToRefs(useAuth())
 import { useDarkMode } from '@/composable/useDarkMode'
@@ -18,8 +18,8 @@ const { toggleDark, isDark } = useDarkMode()
         <!-- toggle dark mode  -->
         <Button variant="outline" class="flex justify-center items-center" size="icon" @click="toggleDark">
           <transition name="fade" mode="out-in">
-            <DarkModeFilled v-if="isDark" class="w-6 h-6 text-foreground" />
-            <LightModeFilled v-else class="w-6 h-6 text-foreground" />
+            <Moon v-if="isDark" class="w-6 h-6 text-foreground" />
+            <Sun v-else class="w-6 h-6 text-foreground" />
           </transition>
         </Button>
         <!-- logged-in show logout & create new blog post  -->
@@ -27,7 +27,7 @@ const { toggleDark, isDark } = useDarkMode()
           <RouterLink to="/new" class=" mx-2">
             <Button class="flex gap-1 md:gap-3 " variant="ghost">
               write
-              <NoteAltOutlined class="h-6 w-6" />
+              <NotebookPen class="h-6 w-6" />
             </Button>
           </RouterLink>
           <UserMenu :name="AuthStoreState.name" :avatar="AuthStoreState.avatar" />
