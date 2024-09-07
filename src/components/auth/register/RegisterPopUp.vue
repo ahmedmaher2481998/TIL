@@ -95,15 +95,15 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           <FormInputField field-name="email" placeholder="username@email.com" field-label="Email *" type="email" />
         </div>
         <div>
-          <FormInputField field-name="password" placeholder="xxxx-xxxx" field-label="password *"
+          <FormInputField field-name="password" placeholder="*****" field-label="password *"
             :type="showPassword ? 'text' : 'password'" description="password must be more than 8 chars " inputClasses=""
             :required="true">
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-secondary"
+                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-foreground "
                     @click="toggleShowPassword" />
-                  <VisibilityOutlined class="size-6 text-secondary" v-else @click="toggleShowPassword" />
+                  <VisibilityOutlined class="size-6 text-foreground " v-else @click="toggleShowPassword" />
                 </transition>
               </span>
             </template>
@@ -111,15 +111,15 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
         </div>
 
         <div>
-          <FormInputField field-name="confirmPassword" placeholder="xxxx-xxxx" field-label="confirm password *"
+          <FormInputField field-name="confirmPassword" placeholder="*****" field-label="confirm password *"
             :type="showConfirmPassword ? 'text' : 'password'" inputClasses="pr-10" :required="true"
             description="this password must match the previous password">
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 "
+                  <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 text-foreground "
                     @click="toggleShowConfirmPassword" />
-                  <VisibilityOutlined class="size-6 text-secondary" v-else @click="toggleShowConfirmPassword" />
+                  <VisibilityOutlined class="size-6 text-foreground " v-else @click="toggleShowConfirmPassword" />
                 </transition>
               </span>
             </template>

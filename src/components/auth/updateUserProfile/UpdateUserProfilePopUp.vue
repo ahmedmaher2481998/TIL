@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
   ChangePasswordTab,
+  ChangeProfileName,
   DialogContent,
   Input,
   Label,
@@ -86,8 +87,8 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           {{ updateProfileTabs.avatar }}
         </TabsTrigger>
       </TabsList>
-      <TabsContent :value="updateProfileTabs.name">
-        name
+      <TabsContent v-if="AuthStoreState.provider === 'email'" :value="updateProfileTabs.name">
+        <ChangeProfileName />
       </TabsContent>
       <TabsContent v-if="AuthStoreState.provider === 'email'" :value="updateProfileTabs.password">
         <ChangePasswordTab />

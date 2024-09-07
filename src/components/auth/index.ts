@@ -7,4 +7,4 @@ export { default as LoginWithGoogleComponent } from './OAuth/logInWithGoogle.com
 export { default as UpdateUserProfilePopUp } from './updateUserProfile/UpdateUserProfilePopUp.vue'
 // export { default as ChangeAvatarTab } from './updateUserProfile/ChangeAvatarTab.vue'
 export { default as ChangePasswordTab } from './updateUserProfile/ChangePasswordTab.vue'
-// export { default as ChangeProfileName} from './updateUserProfile/ChangeProfileName.vue'
+export { default as ChangeProfileName } from './updateUserProfile/ChangeProfileName.vue'

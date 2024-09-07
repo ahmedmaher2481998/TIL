@@ -49,14 +49,9 @@ function onInvalidSubmit({
   rest: any
 }) {
   loginError.value = `please enter: ${Object.keys(errors).join(', ')}`
-  // notify.error({
-  //   title: 'Uh oh! please make sure all fields are valid.',
-  //   description: `please enter: ${Object.keys(errors).join(', ')}`
-  // })
 }
 
 async function onSuccess(values: z.infer<typeof loginSchemaZod>) {
-  console.log('Login forms values-->', values)
   try {
     await login({
       email: values.email,
@@ -64,7 +59,6 @@ async function onSuccess(values: z.infer<typeof loginSchemaZod>) {
     })
 
   } catch (error: any) {
-    console.log("🚀 ~ onSuccess ~ error.message:", error.message)
     if (loginError.value === error.message) {
       loginError.value = 'try again,' + loginError.value
     } else loginError.value = error.message
@@ -75,7 +69,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
 
 <template>
-  <DialogContent class="sm:max-w-[425px] border-muted  text-muted">
+  <DialogContent class="sm:max-w-[425px] border-muted  ">
     <form @submit="onSubmit" keep-values class="w-full">
       <DialogHeader>
         <DialogTitle>login to your account</DialogTitle>
@@ -98,8 +92,9 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-muted" @click="toggleShowPassword" />
-                  <VisibilityOutlined class="size-6 text-muted" v-else @click="toggleShowPassword" />
+                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-foreground"
+                    @click="toggleShowPassword" />
+                  <VisibilityOutlined v-else class="size-6 text-foreground " @click="toggleShowPassword" />
                 </transition>
               </span>
             </template>

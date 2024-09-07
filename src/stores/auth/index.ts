@@ -157,25 +157,50 @@ export const useAuth = defineStore('auth', () => {
     //   closeCurrentView()
     // }
   }
-
+  async function changeName(name: string) {
+    if (state.provider === "email") {
+      const { error: changeNameError } = await supabase.auth.updateUser({
+        data: { name }
+      })
+      if (changeNameError) {
+        throw changeNameError
+      }
+      const res = await supabase.auth.getUser()
+      state.user = res.data.user
+      closeCurrentView()
+    } else {
+      notify.error({ description: 'Action failed', title: "you are using Auth provider." })
+    }
+  }
   async function changePassword({ confirmPassword, password }: changePasswordType) {
     if (confirmPassword !== password) {
       notify.error({ description: "Passwords don't match", title: "Password mismatch" })
       return
     }
     if (state.provider === "email") {
-      await await supabase.auth.updateUser({ password })
-      notify.success({ description: "Password updated successfully", title: "Password updated" })
-      closeCurrentView()
-      await logout()
+      const { error: changePAsswordError } = await supabase.auth.updateUser({ password })
+      if (changePAsswordError) {
+        throw changePAsswordError
+      }
+      const { error: logOutError } = await supabase.auth.signOut()
+      if (logOutError) {
+        throw logOutError
+      }
+      state.user = null
+      state.session = null
 
+      closeCurrentView()
+    } else {
+      notify.error({ description: 'Action failed', title: "you are using Auth provider." })
     }
   }
   return {
     login,
     logout,
     register,
-    loginWithGoogle, changePassword,
+    loginWithGoogle,
+    changePassword,
+    changeName,
     AuthStoreState: state
   }
 })

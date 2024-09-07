@@ -25,7 +25,7 @@ const { toggleDark, isDark } = useDarkMode()
         <!-- logged-in show logout & create new blog post  -->
         <div v-if="AuthStoreState.isAuth" class="flex">
           <RouterLink to="/new" class=" mx-2">
-            <Button class="flex gap-1 md:gap-3 text-primary" variant="default">
+            <Button class="flex gap-1 md:gap-3 " variant="ghost">
               write
               <NoteAltOutlined class="h-6 w-6" />
             </Button>

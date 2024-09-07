@@ -8,6 +8,7 @@ import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { z } from 'zod';
 const { changePassword } = useAuth()
+const { AuthStoreState } = useAuth()
 const changePasswordError = ref<null | string>(null);
 const ChangePasswordSchemaZod = z
   .object({
@@ -22,8 +23,8 @@ const ChangePasswordSchemaType = toTypedSchema(ChangePasswordSchemaZod)
 
 const {
   handleSubmit,
-  values: formValues,
-  errors: formErrors
+  values,
+  errors
 } = useForm({
   validationSchema: ChangePasswordSchemaType
 })
@@ -42,8 +43,8 @@ function onInvalidSubmit({ errors }: any) {
 
 async function onSuccess(values: z.infer<typeof ChangePasswordSchemaZod>) {
   try {
-
     await changePassword(values)
+    notify.success({ description: "Password updated successfully,Re-login using the new password", title: "Password updated" })
   } catch (error: any) {
     changePasswordError.value = error.message
   }
@@ -56,50 +57,56 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 
   <form>
 
-    <Card>
+    <Card as="form">
       <CardHeader>
         <CardTitle>password</CardTitle>
         <CardDescription>
           change password after saving you will be logged out.
         </CardDescription>
       </CardHeader>
-      <CardContent class="space-y-2">
-        <div>
+      <form @submit="onSubmit">
+        <CardContent class="space-y-2">
+          <p class="text-sm font-medium text-destructive" v-if="changePasswordError">
+            {{ changePasswordError }}
+          </p>
+          <div>
 
-          <FormInputField field-name="password" placeholder="xxxx-xxxx" field-label="password *"
-            :type="showPassword ? 'text' : 'password'" description="password must be more than 8 chars "
-            inputClasses="bg-secondary text-muted" :required="true">
-            <template #afterInput>
-              <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
-                <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-muted" @click="toggleShowPassword" />
-                  <VisibilityOutlined class="size-6 text-muted" v-else @click="toggleShowPassword" />
-                </transition>
-              </span>
-            </template>
-          </FormInputField>
+            <FormInputField field-name="password" placeholder="*****" field-label="password *"
+              :type="showPassword ? 'text' : 'password'" description="password must be more than 8 chars "
+              :required="true">
+              <template #afterInput>
+                <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
+                  <transition name="fade" mode="out-in">
+                    <VisibilityOffOutlined v-if="showPassword" class="size-6 text-foreground "
+                      @click="toggleShowPassword" />
+                    <VisibilityOutlined class="size-6 text-foreground" v-else @click="toggleShowPassword" />
+                  </transition>
+                </span>
+              </template>
+            </FormInputField>
 
-        </div>
-        <div>
+          </div>
+          <div>
 
-          <FormInputField field-name="confirmPassword" placeholder="xxxx-xxxx" field-label="confirmPassword *"
-            :type="showConfirmPassword ? 'text' : 'password'" description="password must be more than 8 chars "
-            inputClasses="bg-secondary text-muted" :required="true">
-            <template #afterInput>
-              <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
-                <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 text-muted"
-                    @click="toggleShowConfirmPassword" />
-                  <VisibilityOutlined class="size-6 text-muted" v-else @click="toggleShowConfirmPassword" />
-                </transition>
-              </span>
-            </template>
-          </FormInputField>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button>save changes</Button>
-      </CardFooter>
+            <FormInputField field-name="confirmPassword" placeholder="*****" field-label="confirmPassword *"
+              :type="showConfirmPassword ? 'text' : 'password'" description="password must be more than 8 chars "
+              :required="true">
+              <template #afterInput>
+                <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
+                  <transition name="fade" mode="out-in">
+                    <VisibilityOffOutlined v-if="showConfirmPassword" class="size-6 "
+                      @click="toggleShowConfirmPassword" />
+                    <VisibilityOutlined class="size-6 " v-else @click="toggleShowConfirmPassword" />
+                  </transition>
+                </span>
+              </template>
+            </FormInputField>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button type="submit">save changes</Button>
+        </CardFooter>
+      </form>
     </Card>
   </form>
 
