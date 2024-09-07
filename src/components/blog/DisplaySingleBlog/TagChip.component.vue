@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { Badge } from '@/components'
-import { withDefaults, defineProps } from 'vue'
-const { title, slug } = withDefaults(
+
+const { title = '', slug = '', variant = 'default' } =
   defineProps<{
     title: string
     slug: string
     variant: 'default' | 'secondary' | 'destructive' | 'outline'
-  }>(),
-  {
-    title: '',
-    slug: '',
-    variant: 'default'
-  }
-)
+  }>()
 </script>
 <template>
   <Badge variant="outline">
