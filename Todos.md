@@ -10,26 +10,27 @@
 - [*] add auth with Oauth & email - pass
 - [*] featured section is working as needed 
 - [*] edit profile pop up 
+- [*] style add new blog fixed theme and colors 
 - [ ] profile page with activity 
 - [ ] blog views tracker 
 - [ ] comment section on every blog 
 - [ ] comment section anonymously or with user 
-- [*] style add new blog fixed theme and colors 
+- [ ] add loaders when registering and signing in & create blog / update profile /create-tag 
 ---- 
-- [ ] featured blogs showing on the front home page nad looking good
+- [*] featured blogs showing on the front home page nad looking good
 - [ ] hide token from the redirect url after supabase auth
 - [ ] add tag filters on the home page
-- [ ] adjust the style for better layout (use dark ballet)
+- [*] adjust the style for better layout (use dark ballet)
 - [*] edit the create new blog page for better layout & convenient style
 - [ ] add image while in the body of the blog
 - [ ] pagination on the front page
 - [ ] add comments on blog (anonymous or using user name )
 - [ ] filter blogs by author
-- [ ] view blog page
+- [*] view blog page
 - [*] tag add / use in blogs filter by tag and so on
 - [*] supabase setup and creating blog
 - [*] display blog card & blogs in home page
-- [ ] fix styles on the home page && create new blog page && display blogs by tag page
+- [*] fix styles on the home page && create new blog page && display blogs by tag page
 - [ ] fix the grid of blogs make it look better
 - [ ] add comments on single blog page
 - [ ] add likes on the blog
