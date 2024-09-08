@@ -58,7 +58,7 @@ const removeTag = (id: number) => {
 .multiselect__tags,
 .multiselect__current,
 .multiselect__select {
-  background: hsl(var(--background));
+  background: hsl(var(--secondary));
   color: hsl(var(--foreground));
   border-color: hsl(var(--border));
 }
