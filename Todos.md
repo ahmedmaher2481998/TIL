@@ -1,43 +1,42 @@
-# blogy-app
+# Blogy-App
 
-- [*] Blog card component add links to it
-- [*] Tags selector re mapping the whole architecture and stores
-- [*] main page layout
-- [*] create blog page
-- [*] pinia and state management
-- [*] add Auth (log in & sign up & log out )
-- [*] make add tag a pop up
-- [*] add auth with Oauth & email - pass
-- [*] featured section is working as needed 
-- [*] edit profile pop up 
-- [*] style add new blog fixed theme and colors 
-- [ ] profile page with activity 
-- [ ] blog views tracker 
-- [ ] comment section on every blog 
-- [ ] comment section anonymously or with user 
-- [ ] add loaders when registering and signing in & create blog / update profile /create-tag 
----- 
-- [*] featured blogs showing on the front home page nad looking good
-- [ ] hide token from the redirect url after supabase auth
-- [ ] add tag filters on the home page
-- [*] adjust the style for better layout (use dark ballet)
-- [*] edit the create new blog page for better layout & convenient style
-- [ ] add image while in the body of the blog
-- [ ] pagination on the front page
-- [ ] add comments on blog (anonymous or using user name )
-- [ ] filter blogs by author
-- [*] view blog page
-- [*] tag add / use in blogs filter by tag and so on
-- [*] supabase setup and creating blog
-- [*] display blog card & blogs in home page
-- [*] fix styles on the home page && create new blog page && display blogs by tag page
-- [ ] fix the grid of blogs make it look better
-- [ ] add comments on single blog page
-- [ ] add likes on the blog
-- [ ] make the app has two themes
-- [ ] add tests unit test and e2e tests
-- [ ] fix the conflict tagChip component and TagChipComponent
-- [ ] finish the view single blog page
-- [ ] iterate over the whole project on more time
+### **App Progress**
 
----
+- [x] Set up Supabase and blog creation.
+- [x] Integrate Pinia for state management.
+- [x] Add authentication (login, signup, logout).
+- [x] Support OAuth and email-password authentication.
+- [x] Hide authentication tokens from redirect URLs after Supabase auth.
+- [x] Create the main page layout.
+- [x] Implement blog card component with links.
+- [x] Display blog cards and blogs on the home page.
+- [x] Ensure featured blogs section functions as required.
+- [x] Implement the "View Blog" page.
+- [x] Complete the "View Single Blog" page.
+- [x] Redesign tag selector, including a complete rework of architecture and store management.
+- [x] Add functionality for tags: creation, filtering blogs by tag, etc.
+- [x] Implement "Add Tag" as a pop-up feature.
+- [x] Style the "Add New Blog" page with fixed themes and colors.
+- [x] Improve the layout and style of the "Create New Blog" page.
+- [x] Fix styles on the home page, "Create Blog" page, and "Display Blogs by Tag" page.
+- [x] Implement profile editing as a pop-up.
+- [x] Adjust overall layout and style (utilizing dark themes).
+- [x] Add support for light and dark themes.
+
+### **Upcoming Tasks**
+
+- [ ] Create the user profile page with activity tracking.
+- [ ] Implement a blog views tracker.
+- [ ] Add a comment section for each blog.
+- [ ] Support anonymous or authenticated user comments.
+- [ ] Display loaders for registration, sign-in, blog creation, profile updates, and tag creation.
+- [ ] Enable image uploads within blog content.
+- [ ] Allow anonymous commenting.
+- [ ] Add tag filters on the homepage.
+- [ ] Implement pagination on the homepage.
+- [ ] Filter blogs by author.
+- [ ] Add a "like" feature for blogs.
+- [ ] Refine the grid layout for blogs.
+- [ ] Resolve conflicts between TagChip component and TagChipComponent.
+- [ ] Write unit tests and end-to-end (e2e) tests.
+- [ ] Iterate and refine the project.
