@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { CreateBlogPostView, DisplayBlogsWithTag, HomeView, NotFound, SingleBlogPost } from '@/views'
+import { CreateBlogPostView, DisplayBlogsWithTag, HomeView, NotFound, SingleBlogPost, ViewAllBlogPosts } from '@/views'
 
 export const enum Routes {
   DisplayBlogsWithTag = 'DisplayBlogsWithTag',
   home = 'homePage',
   createNewBlogPostPage = 'createNewBlogPostPage',
+  ViewAllBlogPosts = 'ViewAllBlogPosts',
   singleBlogPostPage = 'singleBlogPostPage',
   notFound = 'notFound'
 }
@@ -23,6 +24,11 @@ const router = createRouter({
       component: CreateBlogPostView
     },
     {
+      path: '/blog/',
+      name: Routes.ViewAllBlogPosts,
+      component: ViewAllBlogPosts
+    },
+    {
       path: '/blog/:slug',
       name: Routes.singleBlogPostPage,
       component: SingleBlogPost
@@ -31,12 +37,15 @@ const router = createRouter({
       path: '/tags/:tagSlug',
       name: Routes.DisplayBlogsWithTag,
       component: DisplayBlogsWithTag
-    },{ 
+    }, {
       path: '/:pathMatch(.*)*',
       name: Routes.notFound,
       component: NotFound// lazy load 404 page
     }
-  ]
+  ], scrollBehavior() {
+
+    return { top: 0, left: 0 }
+  }
 })
 
 export default router

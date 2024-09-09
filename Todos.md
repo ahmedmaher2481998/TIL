@@ -22,9 +22,16 @@
 - [x] Implement profile editing as a pop-up.
 - [x] Adjust overall layout and style (utilizing dark themes).
 - [x] Add support for light and dark themes.
-
+- [ ] upon changing avatar the previous avatar is not deleted 
+- [ ] view blogs by tag page 
+- [ ] view all blog posts page 
+- [ ] view all tags in the home page 
+- [ ] view all blog posts written by author when clicking on author
+- [ ] write unit tests for all components & stores 
+- [ ] write end to end tests for all features 
+write a read me for the whole app then publish it on reddit /vue 
 ### **Upcoming Tasks**
-
+- [ ] pagination on the blog grid(home page,tags page,blog page,profile page) any where we fetch a lot of blogs 
 - [ ] Create the user profile page with activity tracking.
 - [ ] Implement a blog views tracker.
 - [ ] Add a comment section for each blog.
