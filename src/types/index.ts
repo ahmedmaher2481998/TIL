@@ -56,7 +56,8 @@ export enum Tables {
   Blogs = 'blogs',
   Comments = 'comments',
   Tags = 'tags',
-  BlogTags = 'blog_tags'
+  BlogTags = 'blog_tags',
+  BlogsReaders = 'blog_readers'
 }
 
 // error message generator

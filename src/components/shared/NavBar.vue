@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Moon, Sun, NotebookPen } from 'lucide-vue-next';
+import { Moon, Sun, NotebookPen, MountainIcon } from 'lucide-vue-next';
 import { useDarkMode } from '@/composable/useDarkMode'
 import { Button, UserMenu } from '@/components'
 import { useAuth, usePopUp } from '@/stores'
@@ -13,7 +13,12 @@ const { toggleDark, isDark } = useDarkMode()
 <template>
   <nav class="w-full px-10 items-center  shadow-lg text-white sticky">
     <div class="w-full container flex min-h-20 pt-4 p-2 items-center justify-between">
-      <router-link to="/" class="font-bold text-primary font-main">Blogy</router-link>
+      <router-link to="/" class="font-bold text-primary font-main">
+        <div class="flex gap-2">
+          <MountainIcon class="h-4 w-4 md:h-6 md:w-6 " />
+          <span class="text-lg font-semibold">Blogy</span>
+        </div>
+      </router-link>
       <div class="text-white flex items-center justify-center">
         <!-- toggle dark mode  -->
         <Button variant="outline" class="flex justify-center items-center" size="icon" @click="toggleDark">

@@ -67,3 +67,11 @@ CREATE TABLE public.blog_tags (
 alter table public.blog_tags enable row level security;
 
 
+-- create table as many to many relationship between blogs and users to track readers 
+DROP TABLE  IF EXISTS public.blog_readers CASCADE;
+CREATE TABLE blog_readers (
+  blog_id int REFERENCES public.blogs(id) ON DELETE CASCADE,
+  user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE,
+  PRIMARY KEY (blog_id, user_id)
+);
+alter table public.blog_readers enable row level security;

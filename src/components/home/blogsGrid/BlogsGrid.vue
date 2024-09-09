@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BlogCard, BlogsGridSkeleton, Button } from '@/components'
-const { link = true } = defineProps<{ link: boolean }>()
+const { link = true } = defineProps<{ link?: boolean }>()
 import { useBlogs } from '@/stores';
 const { blogsStoreData } = useBlogs()
 </script>
@@ -12,7 +12,6 @@ const { blogsStoreData } = useBlogs()
     </div>
     <RouterLink to="/blog" v-if="link">
       <Button variant="link">
-
         view all
       </Button>
     </RouterLink>

@@ -2,25 +2,37 @@
 import { Badge } from '@/components'
 import UserAvatarDisplay from '@/components/auth/userMenu/UserAvatarDisplay.vue'
 import { useBlogs } from '@/stores'
-import { formatDisplayDate } from '@/utils'
+import { formatDisplayDate, notify } from '@/utils'
 import { MdPreview } from 'md-editor-v3'
 import 'md-editor-v3/lib/preview.css'
 import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, ref, type ComputedRef } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import DisplaySingleBlogSkeleton from './DisplaySingleBlog.skeleton.vue'
+import { Eye } from 'lucide-vue-next'
 const route = useRoute()
 const id = 'preview-only'
 const blogsStore = useBlogs()
 const { blogsStoreData } = storeToRefs(blogsStore)
 const blog = ref<Awaited<ReturnType<typeof blogsStore.getBlogBySlug>>>()
 const router = useRouter()
+const timer = ref()
 onBeforeMount(async () => {
   const data = await blogsStore.getBlogBySlug(route.params.slug as string ?? " ")
   if (!data) {
     router.push('/404')
   } else {
     blog.value = data
+    timer.value = setTimeout(async () => {
+      try {
+        await blogsStore.incrementBlogView(blog.value!.id, blog.value?.read_count ?? 0 + 1)
+      } catch (error) {
+        notify.error({
+          description: 'please verify your connection is stable',
+          title: 'connection error'
+        })
+      }
+    }, 1000 * 60 * 3)
   }
 
 })
@@ -42,6 +54,12 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
         <h1 class=" text-primary text-2xl md:text-3xl mb-6">
           {{ blog?.title }}
         </h1>
+        <p>
+          <Eye />
+          <span class="text-secondary-foreground text-xs ml-2">
+            {{ blog?.read_count }}
+          </span>
+        </p>
         <!-- author display  -->
         <div class="m-4 mb-10">
           <UserAvatarDisplay :display-name="true" :avatar="user.avatar" :name="user.name" :ago="ago" size="base" />
@@ -66,6 +84,10 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
 .md-editor,
 .md-editor-dar {
   border-radius: 20px;
+}
+
+.preview-only-preview {
+  word-break: normal !important;
 }
 
 /* For Light Theme */

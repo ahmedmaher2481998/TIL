@@ -2,9 +2,10 @@ import supabase, { uploadImageFile as uploadBlogCover } from '@/supabase'
 import { createBlogZodSchema, db_functions, Tables } from '@/types'
 import { notify } from '@/utils'
 import type { QueryData } from '@supabase/supabase-js'
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 import { onBeforeMount, reactive, ref } from 'vue'
 import { z } from 'zod'
+import { useAuth } from '../auth'
 
 
 export const useBlogs = defineStore('blogs', () => {
@@ -13,10 +14,10 @@ id, title, slug, description, tldr, image_url, read_count, created_at, updated_a
 ${Tables.Tags} (*),
 profiles(user_metadata,email,id)
 `
-
   const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery)
   type BlogsWithTagsType = QueryData<typeof blogsWithBlogsQuery>
   type singleBlogWithTags = BlogsWithTagsType[0]
+
   const blogsStoreData = reactive<{
     blogs: BlogsWithTagsType | null
     loading: boolean
@@ -120,11 +121,27 @@ profiles(user_metadata,email,id)
       return data
     }
   }
+  async function incrementBlogView(blogId: number, count: number) {
+    // add current user to readers of this blog if (authenticated)
+    // and increase the readers count
+    // else just increase the count
+    const { AuthStoreState } = storeToRefs(useAuth())
+    if (AuthStoreState.value.isAuth) {
+      const { error: StoreReaderError } = await supabase.from(Tables.BlogsReaders).insert({ blog_id: blogId, user_id: AuthStoreState.value.id })
+      if (StoreReaderError) throw StoreReaderError
+    }
+    const { error } = await supabase.from(Tables.Blogs).update({
+      read_count: count,
+    }).eq('id', blogId)
+    if (error) throw error
+    else return true
+  }
+
   return {
     blogsStoreData,
     uploadBlogCover,
     CreateBlogPost,
     getAllBlogs,
-    getFeaturedBlogs, getBlogBySlug
+    getFeaturedBlogs, getBlogBySlug, incrementBlogView
   }
 })
