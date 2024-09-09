@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { BlogCard, BlogsGridSkeleton } from '@/components'
+import { BlogCard, BlogsGridSkeleton, Button } from '@/components'
+const { link = true } = defineProps<{ link: boolean }>()
 import { useBlogs } from '@/stores';
 const { blogsStoreData } = useBlogs()
 </script>
 <template>
-  <div class="container">
-    <h1 class="text-3xl text-primary  mt-6 mb-3 font-bold">Latest Blogs</h1>
-    <p class="text-muted-foreground">Check out the latest posts from our community.</p>
+  <div class="container flex justify-between items-center">
+    <div>
+      <h1 class="text-3xl text-primary  mt-6 mb-3 font-bold">Latest Blogs</h1>
+      <p class="text-muted-foreground">Check out the latest posts from our community.</p>
+    </div>
+    <RouterLink to="/blog" v-if="link">
+      <Button variant="link">
+
+        view all
+      </Button>
+    </RouterLink>
   </div>
   <BlogsGridSkeleton v-if="blogsStoreData.loading" />
   <div v-else class="container pb-20 grid gap-4 grid-cols-1 md:grid-cols-2">

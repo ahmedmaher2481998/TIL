@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { Moon, Sun, NotebookPen } from 'lucide-vue-next';
-
+import { useDarkMode } from '@/composable/useDarkMode'
 import { Button, UserMenu } from '@/components'
 import { useAuth, usePopUp } from '@/stores'
 import { storeToRefs } from 'pinia'
+
 const { AuthStoreState } = storeToRefs(useAuth())
-import { useDarkMode } from '@/composable/useDarkMode'
 const { openView } = usePopUp()
 const { toggleDark, isDark } = useDarkMode()
 </script>
