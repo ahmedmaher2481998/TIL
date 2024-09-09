@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Moon, Sun, NotebookPen, MountainIcon } from 'lucide-vue-next';
+import { Moon, Sun, NotebookPen, MountainIcon, Waves } from 'lucide-vue-next';
 import { useDarkMode } from '@/composable/useDarkMode'
 import { Button, UserMenu } from '@/components'
 import { useAuth, usePopUp } from '@/stores'
@@ -15,7 +15,8 @@ const { toggleDark, isDark } = useDarkMode()
     <div class="w-full container flex min-h-20 pt-4 p-2 items-center justify-between">
       <router-link to="/" class="font-bold text-primary font-main">
         <div class="flex gap-2">
-          <MountainIcon class="h-4 w-4 md:h-6 md:w-6 " />
+          <!-- <MountainIcon class="h-4 w-4 md:h-6 md:w-6 " /> -->
+          <Waves class="h-4 w-4 md:h-6 md:w-6 " />
           <span class="text-lg font-semibold">Blogy</span>
         </div>
       </router-link>

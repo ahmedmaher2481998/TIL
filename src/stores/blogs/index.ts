@@ -14,6 +14,7 @@ id, title, slug, description, tldr, image_url, read_count, created_at, updated_a
 ${Tables.Tags} (*),
 profiles(user_metadata,email,id)
 `
+
   const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery)
   type BlogsWithTagsType = QueryData<typeof blogsWithBlogsQuery>
   type singleBlogWithTags = BlogsWithTagsType[0]
@@ -136,12 +137,37 @@ profiles(user_metadata,email,id)
     if (error) throw error
     else return true
   }
+  const getBlogsReadByUserQuery = `${selectAllBlogsQuery} ,${Tables.BlogsReaders}!inner (user_id)`
+  type BlogsReadByUserType = QueryData<typeof getBlogsReadByUserQuery>
+  type BlogReadByUser = BlogsReadByUserType[0]
+  const userBlogs = reactive<
+    {
+      read: BlogsReadByUserType | undefined;
+      wrote: singleBlogWithTags[] | undefined;
+    }>({ read: undefined, wrote: undefined })
+  async function getUsersBlogs() {
+    const auth = storeToRefs(useAuth())
+    const { data: blogsReadByUser, error: blogsReadByUserError } = await supabase
+      .from(Tables.Blogs)
+      .select(getBlogsReadByUserQuery).eq(`${Tables.BlogsReaders}.user_id`, auth.AuthStoreState.value.id)
+    console.log("🚀 ~ getUsersBlogs ~ blogsReadByUser:", blogsReadByUser)
 
+    if (blogsReadByUserError) {
+      throw blogsReadByUserError
+    } else {
+      // userBlogs.read = blogsReadByUser
+    }
+
+  }
   return {
     blogsStoreData,
     uploadBlogCover,
     CreateBlogPost,
     getAllBlogs,
-    getFeaturedBlogs, getBlogBySlug, incrementBlogView
+    getFeaturedBlogs,
+    getBlogBySlug,
+    incrementBlogView,
+    getUsersBlogs,
+    userBlogs
   }
 })
