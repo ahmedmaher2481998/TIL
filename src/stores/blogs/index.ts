@@ -6,6 +6,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { onBeforeMount, reactive, ref } from 'vue'
 import { z } from 'zod'
 import { useAuth } from '../auth'
+import type { Database } from '@/supabase/database.types'
 
 
 export const useBlogs = defineStore('blogs', () => {
@@ -14,7 +15,7 @@ id, title, slug, description, tldr, image_url, read_count, created_at, updated_a
 ${Tables.Tags} (*),
 profiles(user_metadata,email,id)
 `
-
+  const { AuthStoreState } = storeToRefs(useAuth())
   const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery)
   type BlogsWithTagsType = QueryData<typeof blogsWithBlogsQuery>
   type singleBlogWithTags = BlogsWithTagsType[0]
@@ -42,7 +43,7 @@ profiles(user_metadata,email,id)
       const blogs = await getAllBlogs()
       const featured = await getFeaturedBlogs()
       blogsStoreData.loading = false
-      // @ts-expect-error
+      //@ts-ignore
       blogsStoreData.blogs = blogs as BlogsWithTagsType
       if (featured?.length ?? 0 > 1) {
         blogsStoreData.mainFeatured = featured![0] as singleBlogWithTags
@@ -126,7 +127,7 @@ profiles(user_metadata,email,id)
     // add current user to readers of this blog if (authenticated)
     // and increase the readers count
     // else just increase the count
-    const { AuthStoreState } = storeToRefs(useAuth())
+
     if (AuthStoreState.value.isAuth) {
       const { error: StoreReaderError } = await supabase.from(Tables.BlogsReaders).insert({ blog_id: blogId, user_id: AuthStoreState.value.id })
       if (StoreReaderError) throw StoreReaderError
@@ -137,27 +138,35 @@ profiles(user_metadata,email,id)
     if (error) throw error
     else return true
   }
-  const getBlogsReadByUserQuery = `${selectAllBlogsQuery} ,${Tables.BlogsReaders}!inner (user_id)`
-  type BlogsReadByUserType = QueryData<typeof getBlogsReadByUserQuery>
-  type BlogReadByUser = BlogsReadByUserType[0]
+  // Users Blogs Read/Wrote Data needed for MyAccount page 
+
   const userBlogs = reactive<
     {
-      read: BlogsReadByUserType | undefined;
-      wrote: singleBlogWithTags[] | undefined;
+      read: Database['public']['Tables']['blogs']['Row'][] | undefined;
+      wrote: Database['public']['Tables']['blogs']['Row'][] | undefined;
     }>({ read: undefined, wrote: undefined })
   async function getUsersBlogs() {
-    const auth = storeToRefs(useAuth())
-    const { data: blogsReadByUser, error: blogsReadByUserError } = await supabase
+    if (!AuthStoreState.value.isAuth) throw new Error("unauthenticated")
+    const getBlogsReadByUserQuery = supabase
       .from(Tables.Blogs)
-      .select(getBlogsReadByUserQuery).eq(`${Tables.BlogsReaders}.user_id`, auth.AuthStoreState.value.id)
-    console.log("🚀 ~ getUsersBlogs ~ blogsReadByUser:", blogsReadByUser)
+      .select(`${selectAllBlogsQuery} ,${Tables.BlogsReaders}!inner (user_id)`).eq(`${Tables.BlogsReaders}.user_id`, AuthStoreState.value.id)
+    // type BlogsReadByUserType = QueryData<typeof getBlogsReadByUserQuery>
+    const getBlogsCreatedByUserQuery = supabase
+      .from(Tables.Blogs)
+      .select(`${selectAllBlogsQuery}`).eq('author_id', AuthStoreState.value.id)
+    // type BlogsCreatedByUserType = QueryData<typeof getBlogsCreatedByUserQuery>
 
-    if (blogsReadByUserError) {
-      throw blogsReadByUserError
-    } else {
-      // userBlogs.read = blogsReadByUser
-    }
-
+    const { data: blogsReadByUser, error: blogsReadByUserError } = await getBlogsReadByUserQuery
+    console.log("🚀 ~ getUsersBlogs ~ blogsReadByUserError:", blogsReadByUserError)
+    const { data: blogsCreatedByUser, error: blogsCreatedByUserError } = await getBlogsCreatedByUserQuery
+    console.log("🚀 ~ getUsersBlogs ~ blogsCreatedByUserError:", blogsCreatedByUserError)
+    if (blogsReadByUserError) throw blogsReadByUserError
+    else
+      //@ts-ignore to avoid Error:type instantiation is excessively deep
+      userBlogs.read = blogsReadByUser
+    if (blogsCreatedByUserError) throw blogsCreatedByUserError
+    else
+      userBlogs.wrote = blogsCreatedByUser
   }
   return {
     blogsStoreData,
