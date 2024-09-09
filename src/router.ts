@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { CreateBlogPostView, DisplayBlogsWithTag, HomeView, NotFound, SingleBlogPost, ViewAllBlogPosts } from '@/views'
+import { CreateBlogPostView, DisplayBlogsWithTag, HomeView, NotFound, SingleBlogPost, ViewAllBlogPosts, MyAccount } from '@/views'
 
 export const enum Routes {
+  myAccount = 'my-account',
   DisplayBlogsWithTag = 'DisplayBlogsWithTag',
   home = 'homePage',
   createNewBlogPostPage = 'createNewBlogPostPage',
@@ -14,9 +15,9 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      name: Routes.home,
-      component: HomeView
+      name: Routes.myAccount,
+      path: '/my-account',
+      component: MyAccount
     },
     {
       path: '/new',
@@ -37,7 +38,13 @@ const router = createRouter({
       path: '/tags/:tagSlug',
       name: Routes.DisplayBlogsWithTag,
       component: DisplayBlogsWithTag
-    }, {
+    },
+    {
+      path: '/',
+      name: Routes.home,
+      component: HomeView
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: Routes.notFound,
       component: NotFound// lazy load 404 page
