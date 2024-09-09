@@ -3,13 +3,16 @@ import { Tables, type TagType } from '@/types'
 import { slugify } from '@/utils'
 import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 export const useTags = defineStore('tags', () => {
   const tags = reactive<{ tags: TagType[] }>({ tags: [] })
   const selectAllTagsQuery = `id,title,slug,${Tables.Blogs} (*)`
   const tagsWithBlogsQuery = supabase.from(Tables.Tags).select(selectAllTagsQuery)
   type TagsWithBlogsType = QueryData<typeof tagsWithBlogsQuery>
+  const selectAllBlogsByTagQuery = `blogs(id, title, slug, description, tldr, image_url, read_count, created_at, updated_at,
+  ${Tables.Tags} (*),profiles(user_metadata,email,id))`
+  type selectAllBlogsByTagType = QueryData<typeof selectAllBlogsByTagQuery>
 
   async function getAllTags() {
     const { data, error } = await tagsWithBlogsQuery
@@ -42,10 +45,26 @@ export const useTags = defineStore('tags', () => {
       return
     }
   }
+  async function getBlogsByTagSlug(slug: string) {
+    const loading = ref(true)
+    const { data, error } = await supabase
+      .from(Tables.Tags)
+      .select(selectAllBlogsByTagQuery)
+      .eq('slug', slug)
+      .single()
 
+    if (error) {
+      loading.value = false
+      throw error
+
+    } else {
+      loading.value = false
+      return data
+    }
+  }
   return {
     getAllTags,
-    tags,
+    tags, getBlogsByTagSlug,
     createNewTag
   }
 })
