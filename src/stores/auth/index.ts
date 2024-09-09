@@ -195,10 +195,13 @@ export const useAuth = defineStore('auth', () => {
   }
   async function changeAvatar(avatar: File) {
     // delete the old avatar
-    const { error: DeletePreviousAvatarError } = await supabase
+    const oldFilePath = `avatars/${state.avatar.split('/').pop()}`
+    const { data: DeletePreviousAvatarResponse, error: DeletePreviousAvatarError } = await supabase
       .storage
       .from(Bucket)
-      .remove([state.user?.user_metadata.avatar_id])
+      .remove([oldFilePath])
+
+    console.log("🚀 ~ changeAvatar ~ DeletePreviousAvatarResponse:", DeletePreviousAvatarResponse)
     if (DeletePreviousAvatarError) throw DeletePreviousAvatarError
     // upload the new avatar
     const { id, url } = await uploadImageFile({
