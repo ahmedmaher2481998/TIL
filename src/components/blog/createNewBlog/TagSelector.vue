@@ -2,15 +2,16 @@
 import { computed, onBeforeMount, ref } from 'vue'
 import Multiselect from 'vue-multiselect'
 import { useTags } from '@/stores'
-import { TagChip, CreateNewTagPopOver, FormItem, FormMessage } from '@/components'
+import { TagChip, CreateNewTagPopOver, FormItem, FormMessage, Badge } from '@/components'
 import { Field } from 'vee-validate'
+import { storeToRefs } from 'pinia'
 const selectedTags = ref<OptionType[]>([])
 type OptionType = { value: number; name: string }
-const { getAllTags, tags } = useTags()
-
-const options = computed<OptionType[]>(() => tags.tags.map((t) => ({ name: t.title, value: t.id })))
+const tagStore = useTags()
+const { tags } = storeToRefs(tagStore)
+const options = computed<OptionType[]>(() => tags.value.tags.map((t) => ({ name: t.title, value: t.id })))
 onBeforeMount(() => {
-  getAllTags()
+  tagStore.getAllTags()
 })
 const displaySelectedValuesAsString = computed(() => {
   return selectedTags.value.map((option: OptionType) => option.name).join(', ')
@@ -42,11 +43,14 @@ const removeTag = (id: number) => {
       </FormItem>
     </Field>
     <!-- Displaying selected values as chips and it can be removed when click on it  -->
-    <div class="flex space-x-2 justify-start mb-4 items-center">
-      <TagChip :key="tag.value" v-for="tag in selectedTags" variant="default" :click="{
-        linked: false,
-        onClickHandler: () => removeTag(tag.value)
-      }" :name="tag.name" />
+    <p v-if="selectedTags.length" class="text-sm text-secondary-foreground/80 mb-2">
+      click on tag to remove it .
+    </p>
+    <div class="flex space-x-2 justify-start  mb-4 items-center">
+      <Badge :key="tag.value" v-for="tag in selectedTags" class="cursor-pointer px-2" variant="destructive"
+        @click="() => removeTag(tag.value)" :title="`click to remove ${tag.name}`">
+        {{ tag.name }}
+      </Badge>
     </div>
   </div>
 </template>

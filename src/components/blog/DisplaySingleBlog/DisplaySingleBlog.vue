@@ -6,7 +6,7 @@ import { formatDisplayDate, notify } from '@/utils'
 import { MdPreview } from 'md-editor-v3'
 import 'md-editor-v3/lib/preview.css'
 import { storeToRefs } from 'pinia'
-import { computed, onBeforeMount, ref, type ComputedRef } from 'vue'
+import { computed, onBeforeMount, onBeforeUnmount, ref, type ComputedRef } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import DisplaySingleBlogSkeleton from './DisplaySingleBlog.skeleton.vue'
 import { Eye } from 'lucide-vue-next'
@@ -17,6 +17,7 @@ const { blogsStoreData } = storeToRefs(blogsStore)
 const blog = ref<Awaited<ReturnType<typeof blogsStore.getBlogBySlug>>>()
 const router = useRouter()
 const timer = ref()
+const duration = 1000 * 60 * 2
 onBeforeMount(async () => {
   const data = await blogsStore.getBlogBySlug(route.params.slug as string ?? " ")
   if (!data) {
@@ -26,15 +27,22 @@ onBeforeMount(async () => {
     timer.value = setTimeout(async () => {
       try {
         await blogsStore.incrementBlogView(blog.value!.id, blog.value?.read_count ?? 0 + 1)
+        console.log('read this ')
       } catch (error) {
+        console.error('Failed to increment blog view', error)
         notify.error({
           description: 'please verify your connection is stable',
           title: 'connection error'
         })
       }
-    }, 1000 * 60 * 3)
+    }, duration)
   }
 
+})
+onBeforeUnmount(() => {
+  if (timer.value) {
+    clearTimeout(timer.value)  // stop the timer
+  }
 })
 const ago = computed(() => formatDisplayDate(blog?.value?.created_at ?? '', true))
 const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
@@ -54,12 +62,6 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
         <h1 class=" text-primary text-2xl md:text-3xl mb-6">
           {{ blog?.title }}
         </h1>
-        <p>
-          <Eye />
-          <span class="text-secondary-foreground text-xs ml-2">
-            {{ blog?.read_count }}
-          </span>
-        </p>
         <!-- author display  -->
         <div class="m-4 mb-10">
           <UserAvatarDisplay :display-name="true" :avatar="user.avatar" :name="user.name" :ago="ago" size="base" />
@@ -70,6 +72,12 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
             <Badge variant="outline" class="text-primary text-sm"> # {{ tag.title }} </Badge>
           </router-link>
         </div>
+        <p v-if="blog?.read_count">
+          <Eye />
+          <span class="text-secondary-foreground text-xs ml-2">
+            {{ blog?.read_count }}
+          </span>
+        </p>
       </header>
 
       <img :src="blog?.image_url" :alt="blog?.description"

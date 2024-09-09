@@ -14,14 +14,22 @@ import {
 import { useTags } from '@/stores'
 import { ref } from 'vue'
 import { Plus } from 'lucide-vue-next';
-const { createNewTag } = useTags()
+import { storeToRefs } from 'pinia';
+const tagStore = useTags()
+const { tags } = storeToRefs(tagStore)
 const tagTitle = ref('')
+const duplicateCreation = ref(false)
 const addNewTag = () => {
-  // console.log("submitting", tagTitle.value)
+
   if (tagTitle.value) {
-    createNewTag(tagTitle.value)
-    tagTitle.value = ''
-    open.value = false
+    if (tags.value.tags.every(t => t.title.replace(/\s+/g, '').toLowerCase() !== tagTitle.value.replace(/\s+/g, '').toLowerCase())) {
+      duplicateCreation.value = false
+      tagStore.createNewTag(tagTitle.value)
+      tagTitle.value = ''
+      open.value = false
+    } else {
+      duplicateCreation.value = true
+    }
   }
 }
 const open = ref(false)
@@ -47,6 +55,9 @@ const open = ref(false)
           <Input id="tag" v-model="tagTitle" class="col-span-3" required />
         </div>
       </div>
+      <p v-if="duplicateCreation" class="text-destructive-foreground">
+        this tag already exists
+      </p>
       <DialogFooter>
         <Button type="button" @click="addNewTag"> Save </Button>
       </DialogFooter>

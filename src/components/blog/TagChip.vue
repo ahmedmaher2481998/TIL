@@ -9,18 +9,11 @@
     </Badge>
   </RouterLink>
 
-  <Badge v-else title="click to remove" variant="secondary" @click="click.onClickHandler" :class="{
-    'border me-1 cursor-pointer text-slate-100 border-white text-center w-full text-sm p-2 rounded-3xl':
-      variant === 'glassy',
-    'px-3 py-2 hover:text-white hover:bg-red-700 cursor-pointer': variant === 'default'
-  }">
-    <span class="flex justify-center items-center">
-      <span>
-        {{ '# ' + name }}
-      </span>
-      <span class="h-4 w-4">
-        <X />
-      </span>
+  <Badge v-else title="click to remove" :variant="variant" @click="click.onClickHandler" class="p-2 cursor-pointer">
+    <span title="click to remove" class="flex justify-center items-center">
+
+      {{ '# ' + name }}
+
     </span>
   </Badge>
 </template>
@@ -38,8 +31,8 @@ type ClickType =
 
 type PropsType = {
   name: string
-  variant: 'glassy' | 'default'
+  variant: 'secondary' | 'default' | 'destructive'
   click: ClickType
 }
-const { name, click, variant } = defineProps<PropsType>()
+const { name, click, variant = 'secondary' } = defineProps<PropsType>()
 </script>
