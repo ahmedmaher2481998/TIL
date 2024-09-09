@@ -3,7 +3,7 @@ import { createBlogZodSchema, db_functions, Tables } from '@/types'
 import { notify } from '@/utils'
 import type { QueryData } from '@supabase/supabase-js'
 import { defineStore, storeToRefs } from 'pinia'
-import { onBeforeMount, reactive, ref } from 'vue'
+import { onBeforeMount, reactive, ref, watch } from 'vue'
 import { z } from 'zod'
 import { useAuth } from '../auth'
 import type { Database } from '@/supabase/database.types'
@@ -43,7 +43,7 @@ profiles(user_metadata,email,id)
       const blogs = await getAllBlogs()
       const featured = await getFeaturedBlogs()
       blogsStoreData.loading = false
-      //@ts-ignore
+      //@ts-ignore to avoid Error:type instantiation is excessively deep
       blogsStoreData.blogs = blogs as BlogsWithTagsType
       if (featured?.length ?? 0 > 1) {
         blogsStoreData.mainFeatured = featured![0] as singleBlogWithTags
@@ -142,11 +142,15 @@ profiles(user_metadata,email,id)
 
   const userBlogs = reactive<
     {
-      read: Database['public']['Tables']['blogs']['Row'][] | undefined;
-      wrote: Database['public']['Tables']['blogs']['Row'][] | undefined;
+      read: Database['public']['Tables']['blogs']['Row'] | undefined;
+      wrote: Database['public']['Tables']['blogs']['Row'] | undefined;
     }>({ read: undefined, wrote: undefined })
   async function getUsersBlogs() {
-    if (!AuthStoreState.value.isAuth) throw new Error("unauthenticated")
+
+    if (!AuthStoreState.value.isAuth)
+      throw new Error('un-authenticated')
+
+
     const getBlogsReadByUserQuery = supabase
       .from(Tables.Blogs)
       .select(`${selectAllBlogsQuery} ,${Tables.BlogsReaders}!inner (user_id)`).eq(`${Tables.BlogsReaders}.user_id`, AuthStoreState.value.id)
@@ -157,16 +161,16 @@ profiles(user_metadata,email,id)
     // type BlogsCreatedByUserType = QueryData<typeof getBlogsCreatedByUserQuery>
 
     const { data: blogsReadByUser, error: blogsReadByUserError } = await getBlogsReadByUserQuery
-    console.log("🚀 ~ getUsersBlogs ~ blogsReadByUserError:", blogsReadByUserError)
     const { data: blogsCreatedByUser, error: blogsCreatedByUserError } = await getBlogsCreatedByUserQuery
-    console.log("🚀 ~ getUsersBlogs ~ blogsCreatedByUserError:", blogsCreatedByUserError)
     if (blogsReadByUserError) throw blogsReadByUserError
     else
       //@ts-ignore to avoid Error:type instantiation is excessively deep
       userBlogs.read = blogsReadByUser
     if (blogsCreatedByUserError) throw blogsCreatedByUserError
-    else
+    else  //@ts-ignore to avoid Error:type instantiation is excessively deep
       userBlogs.wrote = blogsCreatedByUser
+
+
   }
   return {
     blogsStoreData,
