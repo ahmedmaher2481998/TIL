@@ -4,6 +4,9 @@ import {
   ChangePasswordTab,
   ChangeProfileName,
   DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
   Tabs,
   TabsContent,
   TabsList,
@@ -18,6 +21,12 @@ const { AuthStoreState } = storeToRefs(useAuth())
 
 <template>
   <DialogContent class="sm:max-w-[425px] md:max-w-lg flex justify-center items-center w-full border-muted  text-muted">
+    <DialogHeader class="hidden">
+      <DialogTitle>update profile</DialogTitle>
+      <DialogDescription>
+        modify your account data.
+      </DialogDescription>
+    </DialogHeader>
     <Tabs default-value="name" class="w-full mt-6">
       <TabsList class="flex justify-between items-center w-full ">
         <TabsTrigger :value="updateProfileTabs.name" class='capitalize w-full '>
