@@ -20,14 +20,18 @@ const { handleBlur, handleChange, errorMessage, value } = useField<File | null>(
   initialValue: null
 })
 const blogCover = ref<HTMLImageElement | null>(null)
+// FIXME 
 // display image when it's selected
-watch(value, () => {
-  if (value.value) {
+watch(value, (newValue) => {
+  console.log('changed')
+  if (newValue instanceof File) {
     const reader = new FileReader()
     reader.onload = function (e: ProgressEvent<FileReader>) {
-      blogCover!.value!.src = (e?.target?.result as string) ?? ''
+      if (blogCover.value) {
+        blogCover.value.src = e.target?.result as string || ''
+      }
     }
-    reader.readAsDataURL(value.value)
+    reader.readAsDataURL(newValue)
   }
 })
 </script>
