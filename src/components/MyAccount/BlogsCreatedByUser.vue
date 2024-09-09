@@ -1,5 +1,8 @@
 <script setup lang="ts">
-// img , title , description , profile name , img , created at date 
+import { useBlogs } from '@/stores';
+import { storeToRefs } from 'pinia';
+
+const { userBlogs } = storeToRefs(useBlogs())
 </script>
 <template>
   <div>

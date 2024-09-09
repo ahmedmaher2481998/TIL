@@ -6,3 +6,4 @@ export * from './blog'
 // auth components
 export * from './auth'
 export * from './home'
+export * from './MyAccount'

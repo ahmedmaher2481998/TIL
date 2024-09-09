@@ -15,8 +15,11 @@ const { AuthStoreState } = storeToRefs(auth)
           {{ getInitials(AuthStoreState.name) }}
         </AvatarFallback>
       </Avatar>
-      <h2 class="mt-4 text-2xl font-bold">{{ AuthStoreState.name }}</h2>
-      <p class="mt-2 text-muted-foreground">{{ AuthStoreState.email }}</p>
+      <h2 class="mt-4 text-2xl text-primary font-bold">{{ AuthStoreState.name }}</h2>
+      <p class="mt-2 text-foreground font-semibold underline underline-offset-auto">{{ AuthStoreState.email }}</p>
+      <p class="text-secondary-foreground/70">
+        this is a summary of your recent activities
+      </p>
     </div>
   </div>
 </template>
