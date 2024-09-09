@@ -8,7 +8,7 @@ import {
   Button,
   UserAvatarDisplay
 } from '@/components'
-import { CircleUserRound, LogOut } from 'lucide-vue-next';
+import { CircleUserRound, LogOut, User2Icon, UserCog } from 'lucide-vue-next';
 
 import { usePopUp } from '@/stores'
 import { Primitive } from 'radix-vue';
@@ -25,22 +25,20 @@ const handleEditProfile = () => {
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <!-- <Primitive as="button" class="rounded-full p-0 m-0 relative max-h-min ">
-        <button>
-          <UserAvatarDisplay :name="name" :avatar="avatar" :display-name="false" />
-        </button>
-      </Primitive> -->
       <Button variant="ghost" class="rounded-full p-0 m-0 max-h-min " size="icon">
-        <UserAvatarDisplay :name="name" :avatar="avatar" :display-name="false" />
+        <UserAvatarDisplay classes='hover:text-background' :name="name" :avatar="avatar" :display-name="false" />
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="w-56   ">
-      <DropdownMenuItem class="">
-        <UserAvatarDisplay classes='hover:text-background' :name="name" :avatar="avatar" :display-name="true" />
+      <DropdownMenuItem class="flex   cursor-pointer items-center gap-3">
+        <RouterLink to="my-account" class="flex gap-2">
+          <User2Icon />
+          My Account
+        </RouterLink>
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem @click.stop="handleEditProfile" class="flex  cursor-pointer items-center gap-3">
-        <CircleUserRound class="mr-2 h-4 w-4" />
+        <UserCog class="mr-2 h-4 w-4" />
         <span>Edit profile</span>
       </DropdownMenuItem>
 

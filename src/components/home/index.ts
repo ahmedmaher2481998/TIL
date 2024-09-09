@@ -5,3 +5,4 @@ export { default as SecondaryFeaturedBlogComponent } from './FeaturedBlogSection
 export { default as SecondaryFeaturedBlogSkeleton } from './FeaturedBlogSection/SecondaryFeaturedBlog.skeleton.vue'
 export { default as BlogsGrid } from './blogsGrid/BlogsGrid.vue'
 export { default as BlogsGridSkeleton } from './blogsGrid/BlogsGrid.skeleton.vue'
+export { default as TagsScrollArea } from './TagsScrollArea.vue'

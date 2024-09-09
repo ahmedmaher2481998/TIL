@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { FeaturedSectionComponent, BlogsGrid } from '@/components'
+import { BlogsGrid, FeaturedSectionComponent } from '@/components';
+import TagsScrollArea from '@/components/home/TagsScrollArea.vue';
+
 </script>
 
 <template>
-  <!-- inspiration 
-  https://dribbble.com/shots/24288831-slothUI-World-s-Laziest-Design-System-Blog-Article-Page-UIUX
-   -->
-  <main class="w-full  space-y-8 min-h-screen">
+  <main class="w-full  space-y-4 min-h-screen">
     <FeaturedSectionComponent />
+    <TagsScrollArea />
     <BlogsGrid />
   </main>
 </template>
