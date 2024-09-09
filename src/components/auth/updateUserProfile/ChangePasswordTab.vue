@@ -3,7 +3,7 @@ import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, For
 import { useAuth } from '@/stores';
 import { notify } from '@/utils';
 import { toTypedSchema } from '@vee-validate/zod';
-import { Eye, EyeOff } from 'lucide-vue-next';
+import { Eye, EyeIcon, EyeOff, EyeOffIcon } from 'lucide-vue-next';
 import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { z } from 'zod';
@@ -58,7 +58,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 
     <Card as="form">
       <CardHeader>
-        <!-- <CardTitle>password</CardTitle> -->
+        <CardTitle>password</CardTitle>
         <CardDescription>
           change password after saving you will be logged out.
         </CardDescription>
@@ -76,9 +76,8 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
               <template #afterInput>
                 <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                   <transition name="fade" mode="out-in">
-                    <VisibilityOffOutlined v-if="showPassword" class="size-6 text-foreground "
-                      @click="toggleShowPassword" />
-                    <VisibilityOutlined class="size-6 text-foreground" v-else @click="toggleShowPassword" />
+                    <EyeOffIcon v-if="showPassword" class="size-6 text-foreground " @click="toggleShowPassword" />
+                    <EyeIcon class="size-6 text-foreground" v-else @click="toggleShowPassword" />
                   </transition>
                 </span>
               </template>

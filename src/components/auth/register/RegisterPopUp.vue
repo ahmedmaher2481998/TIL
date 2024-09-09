@@ -13,7 +13,7 @@ import {
 import { useAuth } from '@/stores';
 import { registerSchemaZod } from '@/types';
 import { toTypedSchema } from '@vee-validate/zod';
-import { Eye, EyeOff } from 'lucide-vue-next';
+import { Eye, EyeIcon, EyeOff, EyeOffIcon } from 'lucide-vue-next';
 import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { z } from 'zod';
@@ -46,11 +46,6 @@ function onInvalidSubmit({
   _: any
 }) {
   registerError.value = `please enter: ${Object.keys(errors).join(', ')}`
-  // toast({
-  //   title: 'Uh oh! please make sure all fields are valid.',
-  //   description: `please enter: ${Object.keys(errors).join(', ')}`,
-  //   variant: 'destructive'
-  // })
 }
 
 async function onSuccess(values: z.infer<typeof registerSchemaZod>) {
@@ -99,9 +94,8 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
             <template #afterInput>
               <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
                 <transition name="fade" mode="out-in">
-                  <VisibilityOffOutlined v-if="showPassword" class="size-6 text-foreground "
-                    @click="toggleShowPassword" />
-                  <VisibilityOutlined class="size-6 text-foreground " v-else @click="toggleShowPassword" />
+                  <EyeOffIcon v-if="showPassword" class="size-6 text-foreground " @click="toggleShowPassword" />
+                  <EyeIcon class="size-6 text-foreground " v-else @click="toggleShowPassword" />
                 </transition>
               </span>
             </template>
