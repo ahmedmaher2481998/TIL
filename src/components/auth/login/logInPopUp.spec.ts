@@ -1,86 +1,72 @@
-import { mount, VueWrapper } from '@vue/test-utils'
-import { describe, afterEach, beforeEach, it, expect, vi } from 'vitest'
-import { ref, Teleport } from 'vue'
-import { LoginPopUp, Dialog } from '@/components'
-import { useAuth } from '@/stores'
-const logInMock = vi.fn().mockResolvedValueOnce(null) // Mock the login function
+import { mount, VueWrapper } from "@vue/test-utils";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { LoginPopUp, LoginWithGoogleComponent } from '..'
+import { Eye, EyeOff } from 'lucide-vue-next';
+import { wrap } from "module";
+// tests 
+/**
+ * does it  render all needed elements (done)
+ * does it toggle password field
+ * does it show errors when invalid inputs 
+ * does it call login with password from useAuth 
+ * does it show loginWithGoogle Button 
+ */
+const logInMock = vi.fn().mockResolvedValueOnce(null)
 vi.mock('@/stores', () => ({
-  useAuth: vi.fn(() => ({
+  useAuth: () => ({
     login: logInMock
-  }))
+  })
 }))
 
-describe('Testing LoginPopUp Component ', () => {
+describe('testing login pop up component', () => {
 
-  // let wrapper: VueWrapper
-  // beforeEach(async () => {
-  //   wrapper = await mount(LoginPopUp)
-  // })
-  // afterEach(async () => {
-  //   // document.body.removeChild(teleportTarget);
-  //   await wrapper?.unmount()
-  // })
-  console.log('start')
-  const wrapper = mount(LoginPopUp)
-  console.log('content', wrapper.html(), '--------------end here ----------')
-  it('renders correctly', async () => {
-    // expect(wrapper.findComponent(LoginPopUp).exists()).toBe(true)
+  let wrapper: VueWrapper
+  beforeEach(() => {
+    wrapper = mount(LoginPopUp)
 
-    // expect(wrapper.find('input[name="email"]').exists()).toBe(true)
-
-    // expect(wrapper.find('input[name="password"]').exists()).toBe(true)
-
-    // expect(wrapper.find('button[type="submit"]').exists()).toBe(true)
   })
 
-  // it('toggles password visibility', async () => {
 
-  //   // Initially, the password field should be of type 'password'
-  //   let passwordInput = wrapper.find('input[type="password"]')
-  //   expect(passwordInput.exists()).toBe(true)
+  it('renders correctly with all needed elements', () => {
 
-  //   // Click the toggle button to show password
-  //   await wrapper.findComponent({ name: 'Eye' }).trigger('click')
+    const form = wrapper.find('form')
+    expect(form.exists()).toBe(true)
 
-  //   // Now, the password field should be of type 'text'
-  //   passwordInput = wrapper.find('input[type="text"]')
-  //   expect(passwordInput.exists()).toBe(true)
-  // })
+    const email = wrapper.find('input[name="email"]')
+    expect(email.exists()).toBe(true)
+    expect(email.attributes('placeholder')).toBe('user@email.com')
 
-  // it('displays login error message on failed login', async () => {
-  //   // const loginMock = useAuth().login
-  //   // loginMock.mockRejectedValueOnce(new Error('Invalid credentials'))
+    const password = wrapper.find('input[name="password"]')
+    expect(password.exists()).toBe(true)
 
+    const loginButton = wrapper.find('button[type="submit"]')
+    expect(loginButton.exists()).toBe(true)
+    expect(loginButton.text().toLocaleLowerCase()).toBe('login')
 
-  //   // Fill in the form
-  //   await wrapper.find('input[type="email"]').setValue('wrong-email@example.com')
-  //   await wrapper.find('input[type="password"]').setValue('wrongpassword')
-
-  //   // Submit the form
-  //   await wrapper.find('form').trigger('submit.prevent')
-
-  //   // Wait for the login process to complete
-  //   await wrapper.vm.$nextTick()
-
-  //   // Expect the login error message to appear
-  //   expect(wrapper.find('.text-destructive').text()).toContain('Invalid credentials')
-  // })
-
-  // it('submits form successfully when correct credentials are provided', async () => {
-  //   const loginMock = useAuth().login
+  })
 
 
-  //   // Fill in the form with valid credentials
-  //   await wrapper.find('input[type="email"]').setValue('user@gmail.com')
-  //   await wrapper.find('input[type="password"]').setValue('123123123')
+  it('it toggle password visibility', async () => {
+    // initial state is type = password  
+    const password = wrapper.find('input[name="password"]')
+    expect(password.attributes('type')).toBe('password')
+    // check for the show password icon 
+    const showPassword = wrapper.findComponent(Eye)
+    expect(showPassword.exists()).toBe(true)
+    // check for the hide password icon not rendered yet  
+    expect(wrapper.findComponent(EyeOff).exists()).toBe(false)
+    // show password
+    await showPassword.trigger('click')
+    expect(password.attributes('type')).toBe('text')
+    expect(wrapper.findComponent(Eye).exists()).toBe(false)
 
-  //   // Submit the form
-  //   await wrapper.find('form').trigger('submit.prevent')
+    const hidePassword = wrapper.findComponent(EyeOff)
+    expect(hidePassword.exists()).toBe(true)
+    // hide password 
+    await showPassword.trigger('click')
+    expect(password.attributes('type')).toBe('password')
+    expect(wrapper.findComponent(Eye).exists()).toBe(true)
 
-  //   // Ensure login function is called with correct credentials
-  //   expect(loginMock).toHaveBeenCalledWith({
-  //     email: 'user@gmail.com',
-  //     password: '123123123'
-  //   })
-  // })
+
+  })
 })

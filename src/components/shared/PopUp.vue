@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DialogContent, Dialog } from '@/components'
+import { DialogContent, Dialog, DialogHeader, DialogTitle, DialogDescription } from '@/components'
 import { storeToRefs } from 'pinia'
 
 import { usePopUp } from '@/stores'

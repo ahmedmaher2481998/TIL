@@ -75,7 +75,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
         {{ loginError }}
       </p>
       <div>
-        <FormInputField field-name="email" placeholder="username@email.com" field-label="Email *" type="email"
+        <FormInputField field-name="email" placeholder="user@email.com" field-label="Email *" type="email"
           :required="true" />
       </div>
       <div class="">
