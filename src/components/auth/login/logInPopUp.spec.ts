@@ -20,9 +20,10 @@ describe('Testing LoginPopUp Component ', () => {
   //   // document.body.removeChild(teleportTarget);
   //   await wrapper?.unmount()
   // })
+  console.log('start')
+  const wrapper = mount(LoginPopUp)
+  console.log('content', wrapper.html(), '--------------end here ----------')
   it('renders correctly', async () => {
-    const wrapper = await mount(LoginPopUp)
-    console.log('content', wrapper.html(), '--------------end here ----------')
     // expect(wrapper.findComponent(LoginPopUp).exists()).toBe(true)
 
     // expect(wrapper.find('input[name="email"]').exists()).toBe(true)

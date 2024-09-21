@@ -69,7 +69,7 @@ async function onSuccess(values: z.infer<typeof loginSchemaZod>) {
 const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
 <template>
-  <form @submit="onSubmit" keep-values class="w-full">
+  <form @submit.prevent="onSubmit" keep-values class="w-full">
     <div class="w-full space-y-3 mb-4">
       <p class="text-sm font-medium text-destructive" v-if="loginError">
         {{ loginError }}
