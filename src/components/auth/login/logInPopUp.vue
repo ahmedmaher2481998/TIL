@@ -10,12 +10,14 @@ import {
   Separator,
 } from '@/components'
 import { Eye, EyeOff } from 'lucide-vue-next';
-
 import { useAuth } from '@/stores'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
 import { ref } from 'vue'
+
+/*----------------------------End of imports ------------------------------------*/
+
 const loginSchemaZod = z.object({
   email: z.string().email('invalid email').min(1, 'Email is required'),
   password: z.string().min(8, 'password must be at least 8 characters long')
@@ -24,6 +26,7 @@ const loginSchemaType = toTypedSchema(loginSchemaZod)
 const { login } = useAuth()
 const loginError = ref<null | string>(null)
 const showPassword = ref(false)
+
 function toggleShowPassword() {
   showPassword.value = !showPassword.value
 }
@@ -34,8 +37,8 @@ const {
 } = useForm({
   validationSchema: loginSchemaType,
   initialValues: {
-    email: 'ahmedmaher@gmail.com',
-    password: '123123123'
+    email: '',
+    password: ''
   }
 })
 
@@ -65,46 +68,36 @@ async function onSuccess(values: z.infer<typeof loginSchemaZod>) {
 // @ts-ignore
 const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 </script>
-
 <template>
-  <DialogContent class="sm:max-w-[425px] border-muted  ">
-    <form @submit="onSubmit" keep-values class="w-full">
-      <DialogHeader>
-        <DialogTitle>login to your account</DialogTitle>
-        <DialogDescription>
-          to view your personalized content , experience ,explore and write your fav content.
-        </DialogDescription>
-      </DialogHeader>
-
-      <div class="w-full space-y-3 mb-4">
-        <p class="text-sm font-medium text-destructive" v-if="loginError">
-          {{ loginError }}
-        </p>
-        <div>
-          <FormInputField field-name="email" placeholder="username@email.com" field-label="Email *" type="email"
-            :required="true" />
-        </div>
-        <div class="">
-          <FormInputField field-name="password" placeholder="*****" field-label="password *"
-            :type="showPassword ? 'text' : 'password'" inputClasses="pr-10" :required="true">
-            <template #afterInput>
-              <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
-                <transition name="fade" mode="out-in">
-                  <EyeOff v-if="showPassword" class="size-6 text-foreground" @click="toggleShowPassword" />
-                  <Eye v-else class="size-6 text-foreground " @click="toggleShowPassword" />
-                </transition>
-              </span>
-            </template>
-          </FormInputField>
-        </div>
+  <form @submit="onSubmit" keep-values class="w-full">
+    <div class="w-full space-y-3 mb-4">
+      <p class="text-sm font-medium text-destructive" v-if="loginError">
+        {{ loginError }}
+      </p>
+      <div>
+        <FormInputField field-name="email" placeholder="username@email.com" field-label="Email *" type="email"
+          :required="true" />
       </div>
-      <div class="flex items-center justify-center gap-3 flex-col">
-        <Button type="submit" class="w-full"> login </Button>
-        <Separator label="Or" class="" />
-        <LoginWithGoogleComponent />
+      <div class="">
+        <FormInputField field-name="password" placeholder="*****" field-label="password *"
+          :type="showPassword ? 'text' : 'password'" inputClasses="pr-10" :required="true">
+          <template #afterInput>
+            <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
+              <transition name="fade" mode="out-in">
+                <EyeOff v-if="showPassword" class="size-6 text-foreground" @click="toggleShowPassword" />
+                <Eye v-else class="size-6 text-foreground " @click="toggleShowPassword" />
+              </transition>
+            </span>
+          </template>
+        </FormInputField>
       </div>
-    </form>
-  </DialogContent>
+    </div>
+    <div class="flex items-center justify-center gap-3 flex-col">
+      <Button type="submit" class="w-full"> login </Button>
+      <Separator label="Or" class="" />
+      <LoginWithGoogleComponent />
+    </div>
+  </form>
 </template>
 
 <style>
