@@ -43,7 +43,7 @@ export function slugify(text: string, addRandomId: boolean = true, ampersand = '
   }
   return result
 }
-const { toast } = useToast()
+const toast = () => useToast().toast
 type toastParams = {
   title: string
   description: string
