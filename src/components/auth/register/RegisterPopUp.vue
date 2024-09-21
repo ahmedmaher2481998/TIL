@@ -67,7 +67,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
   <form @submit="onSubmit" keep-values class="w-full">
 
     <div class="w-full space-y-3 mb-4">
-      <p class="text-sm font-medium text-destructive" v-if="registerError">
+      <p data-testid="form-errors-display" class="text-sm font-medium text-destructive" v-if="registerError">
         {{ registerError }}
       </p>
 
@@ -88,8 +88,10 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           <template #afterInput>
             <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
               <transition name="fade" mode="out-in">
-                <EyeOffIcon v-if="showPassword" class="size-6 text-foreground " @click="toggleShowPassword" />
-                <EyeIcon class="size-6 text-foreground " v-else @click="toggleShowPassword" />
+                <EyeOffIcon data-testid="password-eye-off-1" v-if="showPassword" class="size-6 text-foreground "
+                  @click="toggleShowPassword" />
+                <EyeIcon data-testid="password-eye-1" class="size-6 text-foreground " v-else
+                  @click="toggleShowPassword" />
               </transition>
             </span>
           </template>
@@ -103,8 +105,10 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           <template #afterInput>
             <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
               <transition name="fade" mode="out-in">
-                <EyeOff v-if="showConfirmPassword" class="size-6 text-foreground " @click="toggleShowConfirmPassword" />
-                <Eye class="size-6 text-foreground " v-else @click="toggleShowConfirmPassword" />
+                <EyeOff data-testid="password-eye-off-2" v-if="showConfirmPassword" class="size-6 text-foreground "
+                  @click="toggleShowConfirmPassword" />
+                <Eye data-testid="password-eye-2" class="size-6 text-foreground " v-else
+                  @click="toggleShowConfirmPassword" />
               </transition>
             </span>
           </template>
