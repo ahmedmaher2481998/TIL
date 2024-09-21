@@ -1,20 +1,16 @@
 <script setup lang="ts">
 import {
   Button,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   FormInputField,
   LoginWithGoogleComponent,
-  Separator,
-} from '@/components'
+  Separator
+} from '@/components';
+import { useAuth } from '@/stores';
+import { toTypedSchema } from '@vee-validate/zod';
 import { Eye, EyeOff } from 'lucide-vue-next';
-import { useAuth } from '@/stores'
-import { useForm } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/zod'
-import { z } from 'zod'
-import { ref } from 'vue'
+import { useForm } from 'vee-validate';
+import { ref } from 'vue';
+import { z } from 'zod';
 
 /*----------------------------End of imports ------------------------------------*/
 
@@ -23,7 +19,7 @@ const loginSchemaZod = z.object({
   password: z.string().min(8, 'password must be at least 8 characters long')
 })
 const loginSchemaType = toTypedSchema(loginSchemaZod)
-const { login } = useAuth()
+const auth = useAuth()
 const loginError = ref<null | string>(null)
 const showPassword = ref(false)
 
@@ -54,7 +50,7 @@ function onInvalidSubmit({
 
 async function onSuccess(values: z.infer<typeof loginSchemaZod>) {
   try {
-    await login({
+    await auth.login({
       email: values.email,
       password: values.password
     })
@@ -71,7 +67,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 <template>
   <form @submit.prevent="onSubmit" keep-values class="w-full">
     <div class="w-full space-y-3 mb-4">
-      <p class="text-sm font-medium text-destructive" v-if="loginError">
+      <p data-testid="form-error-display" class="text-sm font-medium text-destructive" v-if="loginError">
         {{ loginError }}
       </p>
       <div>
