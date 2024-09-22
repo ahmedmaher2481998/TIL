@@ -29,11 +29,27 @@
 - [ ] view all blog posts written by author when clicking on author
 - [ ] Implement a blog views tracker.
 - [ ] add more unit tests for shared components & stores 
+  - [ ] pinia stores auth , blog , pop-up tags
+  - [ ] components
+    - [ ] this    
+    - [ ] auth  [register ,logout,updateUser]
+    - [ ] blog : 
+      - [ ] newBlog: {createNewTag , formInputField,MDContentInput,tagSelector},
+      - [ ] displaySingleBlog: { displaySingleBlog ,tagChip ?  },
+      - [ ] BlogCard,
+      - [ ] TagChip
+    - [ ] home [blogGrid , main/secondary featured section ,tagScrollArea ]
+    - [ ] my-account blogCards[cerated /visited] , user profile 
+    - [ ] shared footer?,imageUpload(important),loaderComponent,NavBarComponent,popUp
+    - [ ] check for the existence of the required components
+  - [ ] vue router (test navigation)
+  - [ ] supabase setup file and it's utilities
+  - [ ] 
+- [ ] Create the user profile page with activity tracking.
 - [ ] add more end to end tests for all features 
 write a read me for the whole app then publish it on reddit /vue 
 ### **Upcoming Tasks**
 - [ ] pagination on the blog grid(home page,tags page,blog page,profile page) any where we fetch a lot of blogs 
-- [ ] Create the user profile page with activity tracking.
 - [ ] Add a comment section for each blog.
 - [ ] Support anonymous or authenticated user comments.
 - [ ] Display loaders for registration, sign-in, blog creation, profile updates, and tag creation.
