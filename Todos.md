@@ -28,8 +28,8 @@
 - [X] view all tags in the home page 
 - [ ] view all blog posts written by author when clicking on author
 - [ ] Implement a blog views tracker.
-- [ ] write unit tests for all components & stores 
-- [ ] write end to end tests for all features 
+- [ ] add more unit tests for shared components & stores 
+- [ ] add more end to end tests for all features 
 write a read me for the whole app then publish it on reddit /vue 
 ### **Upcoming Tasks**
 - [ ] pagination on the blog grid(home page,tags page,blog page,profile page) any where we fetch a lot of blogs 
