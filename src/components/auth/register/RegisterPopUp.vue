@@ -102,6 +102,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
         <FormInputField field-name="confirmPassword" placeholder="*****" field-label="confirm password *"
           :type="showConfirmPassword ? 'text' : 'password'" inputClasses="pr-10" :required="true"
           description="this password must match the previous password">
+
           <template #afterInput>
             <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
               <transition name="fade" mode="out-in">

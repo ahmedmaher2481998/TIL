@@ -13,14 +13,15 @@ import { createPinia, setActivePinia } from "pinia";
  * does it call register with correct data from useAuth  (-done)
  * display error when register fails (-done)
  */
-const login = vi.fn()
+const register = vi.fn()
+const getTestIdByFieldName = (name: string) => `[data-testid="error-${name}"]`
 
 describe('testing login pop up component', () => {
 
   let wrapper: VueWrapper
   vi.mock('@/stores', () => ({
     useAuth: () => ({
-      login
+      register
     }),
   }))
   beforeEach(() => {
@@ -35,10 +36,10 @@ describe('testing login pop up component', () => {
     vi.clearAllMocks()
   })
 
-  it.skip('renders correctly', () => {
+  it('renders correctly', () => {
     expect(wrapper.exists()).toBe(true);
   })
-  it.skip('renders correctly with all needed elements', () => {
+  it('renders correctly with all needed elements', () => {
 
     const form = wrapper.find('form')
     expect(form.exists()).toBe(true)
@@ -66,7 +67,7 @@ describe('testing login pop up component', () => {
 
   })
 
-  it.skip('it toggle password & confirm Password visibility separately ', async () => {
+  it('it toggle password & confirm Password visibility separately ', async () => {
     const password = wrapper.find('input[name="password"]')
     expect(password.attributes('type')).toBe('password')
     // checking toggle password 
@@ -97,83 +98,126 @@ describe('testing login pop up component', () => {
 
 
   })
-  // TODO
-  /**  in the process of refactoring test file  */
-  it('handles form validation', async () => {
-    // selecting error messages components
-    const messages = wrapper.findAllComponents(FormMessage)
-
+  // test : email   ,password,confirmPassword,name,avatar
+  // test : password and confirmPassword is matched -- before submitting
+  // test :  general form submit validation , after submit promise rejected error
+  // test : calls register function form auth store 
+  it('handle email validation', async () => {
     const email = wrapper.find('input[name="email"]')
-
-    const password = wrapper.find('input[name="password"]')
-
-    const loginButton = wrapper.find('button[type="submit"]')
-
-    expect(wrapper.findComponent(FormMessage).text()).toBeFalsy()
-    // setting email to wrong value checking for error message
+    const testId = getTestIdByFieldName('email')
+    await email.setValue('test')
     await email.trigger('change')
-    expect(messages.length).toBe(2)
+    // error
     await waitForExpect(() => {
-      expect(messages[0].text()).toBeTruthy()
+      const msg = wrapper.find(testId)
+      expect(msg.exists()).toBe(true)
+      expect(msg.text()).toBeTruthy()
     })
-
-
-
-    // setting email to correct value checking for error message disappeared 
     await email.setValue('vaild@email.com')
     await email.trigger('change')
+    // no error 
     await waitForExpect(() => {
-      expect(messages[0].text()).toBeFalsy()
-    })
-    // empty password errors 
-    await password.trigger('change')
-    await waitForExpect(() => {
-      expect(messages[1].text()).toBeTruthy()
-    })
-    // valid password no errors
-    await password.trigger('change')
-    await password.setValue('12345678')
-    await waitForExpect(() => {
-      expect(messages[1].text()).toBeFalsy()
-    })
-    // empty password & empty email errors 
-    await email.setValue('')
-    await password.setValue('')
-    await loginButton.trigger('click')
-    await waitForExpect(() => {
-      expect(messages[0].text()).toBeTruthy()
-      expect(messages[1].text()).toBeTruthy()
+      const msg = wrapper.find(testId)
+      expect(msg?.exists()).toBe(false)
     })
 
   })
-  it.skip('calls login functionality from useAuth Store ', async () => {
+  it('handle password and confirm password validation', async () => {
+    const password = wrapper.find('input[name="password"]')
+    const confirmPassword = wrapper.find('input[name="confirmPassword"]')
+    const passwordTestId = getTestIdByFieldName('password')
+    const confirmPasswordTestId = getTestIdByFieldName('confirmPassword')
+    password.setValue('123')
+    password.setValue('1234')
+    await password.trigger('change')
+    await confirmPassword.trigger('change')
+    // error
+    await waitForExpect(() => {
+      const msg1 = wrapper.find(passwordTestId)
+      expect(msg1.exists()).toBe(true)
+      expect(msg1.text()).toBeTruthy()
+      const msg2 = wrapper.find(confirmPasswordTestId)
+      expect(msg2.exists()).toBe(true)
+      expect(msg2.text()).toBeTruthy()
+    })
+    password.setValue('12345678')
+    confirmPassword.setValue('12345678')
+    await password.trigger('change')
+    await confirmPassword.trigger('change')
+    // no error 
+    await waitForExpect(() => {
+      expect(wrapper.find(passwordTestId).exists()).toBe(false)
+      expect(wrapper.find(confirmPasswordTestId).exists()).toBe(false)
+    })
+
+  })
+  it('handle name wit firsName lastName validation', async () => {
+    const name = wrapper.find('input[name="name"]')
+    const testId = getTestIdByFieldName('name')
+    await name.setValue('test')
+    await name.trigger('change')
+    // error
+    await waitForExpect(() => {
+      const msg = wrapper.find(testId)
+      expect(msg.exists()).toBe(true)
+      expect(msg.text()).toBeTruthy()
+    })
+    await name.setValue('name name')
+    await name.trigger('change')
+    // no error 
+    await waitForExpect(() => {
+      const msg = wrapper.find(testId)
+      expect(msg?.exists()).toBe(false)
+    })
+
+  })
+  // FIXME 
+  // to be fixed latter 
+  it.skip('calls register functionality from useAuth Store ', async () => {
+    const form = wrapper.find('form')
     const email = wrapper.find('input[name="email"]')
     const password = wrapper.find('input[name="password"]')
-    const form = wrapper.find('form')
-    const emailTest = 'vaild@email.com',
-      passwordTest = '123456789'
-    email.setValue(emailTest)
-    await email.trigger('change')
-    password.setValue(passwordTest)
-    await password.trigger('change')
+    const confirmPassword = wrapper.find('input[name="confirmPassword"]')
+    const name = wrapper.find('input[name="name"]')
+    const avatar = wrapper.find('input[type="file"]')
+    const mockImageFile = new File(['dummy image content'],
+      'test-image.png',
+      { type: 'image/png' })
+
+    email.setValue('value@example.com')
+    password.setValue('12345678')
+    confirmPassword.setValue('12345678')
+    name.setValue('name name')
+
+    const dataTransfer = new DataTransfer()
+    dataTransfer.items.add(mockImageFile)
+
+    // Set the files on the input element
+    await avatar.setValue(dataTransfer.files)
+
+    await avatar.trigger('change')
+
     const values = {
-      email: emailTest,
-      password: passwordTest
+      email: 'value@example.com',
+      password: '12345678',
+      confirmPassword: '12345678',
+      name: 'name name',
+      avatar: mockImageFile,
     }
     await form.trigger('submit')
     await flushPromises()
 
     await waitForExpect(() => {
-      expect(login).toBeCalled()
-      expect(login).toBeCalledTimes(1)
-      expect(login).toBeCalledWith(values)
-
+      expect(register).toBeCalled()
+      // expect(register).toBeCalledTimes(1)
+      // expect(register).toBeCalledWith(values)
     })
   })
-
+  // FIXME 
+  // to be fixed latter 
   it.skip('displays an error message when login fails', async () => {
     const errorMessage = 'Invalid email or password';
-    login.mockRejectedValueOnce(new Error(errorMessage));
+    register.mockRejectedValueOnce(new Error(errorMessage));
     await wrapper.find('[name="email"]').setValue('user@email.com');
     await wrapper.find('[name="password"]').setValue('wrongPassword');
 
@@ -182,7 +226,7 @@ describe('testing login pop up component', () => {
     await wrapper.vm.$nextTick();
     await waitForExpect(() => {
 
-      expect(login).toHaveBeenCalledWith({
+      expect(register).toHaveBeenCalledWith({
         email: 'user@email.com',
         password: 'wrongPassword',
       });

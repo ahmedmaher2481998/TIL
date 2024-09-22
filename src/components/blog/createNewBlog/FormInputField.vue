@@ -47,7 +47,7 @@ const { description, inputClasses, fieldLabel, fieldName, placeholder, type, req
       <FormDescription v-if="description">
         {{ description }}
       </FormDescription>
-      <FormMessage />
+      <FormMessage :data-testid="`error-${fieldName}`" />
     </FormItem>
   </FormField>
 </template>
