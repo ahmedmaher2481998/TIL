@@ -65,7 +65,7 @@ describe('testing login pop up component', () => {
     expect(loginButton.text().toLocaleLowerCase()).toContain('register')
 
   })
-  /**in the process of refactoring test file  */
+
   it.skip('it toggle password & confirm Password visibility separately ', async () => {
     const password = wrapper.find('input[name="password"]')
     expect(password.attributes('type')).toBe('password')
@@ -97,6 +97,8 @@ describe('testing login pop up component', () => {
 
 
   })
+  // TODO
+  /**  in the process of refactoring test file  */
   it('handles form validation', async () => {
     // selecting error messages components
     const messages = wrapper.findAllComponents(FormMessage)
