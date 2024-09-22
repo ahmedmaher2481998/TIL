@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { NavBar, Toaster, PopUp } from '@/components'
+import { NavBar, PopUp, Toaster } from '@/components';
+
+
+
 </script>
 
 <template>
   <Toaster />
   <PopUp />
-  <header class="pb-10 ">
+  <header class=" ">
     <NavBar />
   </header>
-  <div class="min-h-screen">
+  <div class="min-h-screen pt-14 bg-muted dark:bg-muted-background/10 ">
     <RouterView />
 
   </div>
