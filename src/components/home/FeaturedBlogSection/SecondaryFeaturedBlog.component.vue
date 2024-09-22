@@ -50,7 +50,8 @@ const { isDark } = useDarkMode()
         <div class="mt-4 flex items-center gap-2 text-sm text-muted">
 
           <UserAvatarDisplay :name="secondaryFeaturedBlog?.profiles?.user_metadata.name"
-            :avatar="secondaryFeaturedBlog?.profiles?.user_metadata?.avatar" :ago="ago" />
+            :avatar="secondaryFeaturedBlog?.profiles?.user_metadata?.avatar" :ago="ago"
+            :authorId="secondaryFeaturedBlog?.profiles?.user_metadata.sub" />
         </div>
       </div>
     </div>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Badge } from '@/components'
-import UserAvatarDisplay from '@/components/auth/userMenu/UserAvatarDisplay.vue'
+import { Badge, UserAvatarDisplay } from '@/components'
 import { useBlogs } from '@/stores'
 import { formatDisplayDate, notify } from '@/utils'
 import { MdPreview } from 'md-editor-v3'
@@ -27,9 +26,8 @@ onBeforeMount(async () => {
     timer.value = setTimeout(async () => {
       try {
         await blogsStore.incrementBlogView(blog.value!.id, blog.value?.read_count ?? 0 + 1)
-        console.log('read this ')
       } catch (error) {
-        console.error('Failed to increment blog view', error)
+        // console.error('Failed to increment blog view', error)
         notify.error({
           description: 'please verify your connection is stable',
           title: 'connection error'
@@ -64,7 +62,8 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
         </h1>
         <!-- author display  -->
         <div class="m-4 mb-10">
-          <UserAvatarDisplay :display-name="true" :avatar="user.avatar" :name="user.name" :ago="ago" size="base" />
+          <UserAvatarDisplay :authorId="blog.profiles?.user_metadata['sub']" :display-name="true" :avatar="user.avatar"
+            :name="user.name" :ago="ago" size="base" />
         </div>
         <!-- display tags  -->
         <div class="my-4 space-x-2  flex flex-wrap">

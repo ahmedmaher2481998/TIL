@@ -62,13 +62,12 @@ onMounted(async () => {
           slug: blog.slug,
           tldr: blog.tldr,
           image: blog.image_url,
-          // @ts-ignore
-          avatar: blog.profiles?.user_metadata?.avatar as string ?? '',
-          // @ts-ignore
-          author: blog.profiles?.user_metadata?.name as string ?? '',
+          avatar: blog.profiles?.user_metadata['avatar'] as string ?? '',
+          author: blog.profiles?.user_metadata['name'] as string ?? '',
           tags: blog.tags,
           read_count: blog.read_count,
-          created_at: blog.created_at
+          created_at: blog.created_at,
+          authorId: blog.profiles.user_metadata['sub']
         }" :key="blog.id" />
       </div>
     </div>

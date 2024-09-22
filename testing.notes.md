@@ -56,4 +56,4 @@ If the component has methods with business logic, test them to ensure they behav
 4.  Component methods (their logic and effects).
 5.  Lifecycle hooks (like mounted, created).
 6.  External dependencies (Vuex, Pinia, API calls).
-7.  Edge cases (unexpected input or actions
+7.  Edge cases (unexpected input or actions)

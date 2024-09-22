@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { Avatar, AvatarFallback, AvatarImage } from '@/components'
-import { getInitials } from '@/utils'
+import { UserAvatarDisplayContent } from '@/components'
 
 interface PropsInterface {
   name: string
   avatar: string
-  displayName?: boolean, ago?: string, size?: 'sm' | 'base' | 'lg',
-  classes?: string
+  displayName?: boolean, ago?: string,
+  size?: 'sm' | 'base' | 'lg',
+  classes?: string,
+  authorId: string
 }
 
 // Define props with or without defaults
@@ -16,33 +17,25 @@ const props = withDefaults(defineProps<PropsInterface>(), {
   displayName: true,
   ago: '',
   size: 'sm',
-  classes: ''
+  classes: '',
+  authorId: undefined
 })
 // Map size to specific CSS classes
-const sizeClasses = {
-  sm: 'h-8 w-8 text-xs ',
-  base: 'h-10 w-10 text-sm',
-  lg: 'h-12 w-12 text-lg',
-}
+
 </script>
 
 <template>
-  <div :class="[
-    'flex w-full gap-2 items-center text-foreground ',
-    sizeClasses[props.size], classes
-  ]">
-    <Avatar :size="size" class="border">
-      <AvatarImage :src="props.avatar" :alt="props.name" />
-      <AvatarFallback>{{ getInitials(props.name) }}</AvatarFallback>
-    </Avatar>
-    <p v-if="displayName">
-      {{ props.name }}
-    </p>
-    <p v-if="ago !== ''">
-      <span>•</span>
-      <span>{{ ago }}</span>
-    </p>
-  </div>
+  <router-link class="block h-full w-full " v-if="authorId" :to="`/author/${authorId}`">
+
+    <UserAvatarDisplayContent :name="name" :avatar="avatar" :display-name="props.displayName" :ago="props.ago"
+      :size="props.size" :classes="props.classes" />
+
+  </router-link>
+  <template v-else>
+    <UserAvatarDisplayContent :name="name" :avatar="avatar" :display-name="props.displayName" :ago="props.ago"
+      :size="props.size" :classes="props.classes" />
+  </template>
+
 
 </template>
 

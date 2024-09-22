@@ -28,7 +28,8 @@ const { blogsStoreData } = useBlogs()
       author: blog.profiles?.user_metadata.name,
       tags: blog.tags,
       read_count: blog.read_count,
-      created_at: blog.created_at
+      created_at: blog.created_at,
+      authorId: blog.profiles.user_metadata.sub
     }" :key="blog.id" />
   </div>
 </template>

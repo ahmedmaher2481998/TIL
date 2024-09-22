@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { CreateBlogPostView, DisplayBlogsWithTag, HomeView, NotFound, SingleBlogPost, ViewAllBlogPosts, MyAccount } from '@/views'
+import { CreateBlogPostView, DisplayBlogsWithTag, HomeView, NotFound, SingleBlogPost, ViewAllBlogPosts, MyAccount, ViewAuthorBlogs } from '@/views'
 
 export const enum Routes {
   myAccount = 'my-account',
@@ -8,7 +8,8 @@ export const enum Routes {
   createNewBlogPostPage = 'createNewBlogPostPage',
   ViewAllBlogPosts = 'ViewAllBlogPosts',
   singleBlogPostPage = 'singleBlogPostPage',
-  notFound = 'notFound'
+  notFound = 'notFound',
+  ViewAuthorBlogs = "ViewAuthorBlogs"
 }
 
 const router = createRouter({
@@ -18,6 +19,10 @@ const router = createRouter({
       name: Routes.myAccount,
       path: '/my-account',
       component: MyAccount
+    }, {
+      name: Routes.ViewAuthorBlogs,
+      path: '/author/:id',
+      component: ViewAuthorBlogs
     },
     {
       path: '/new',

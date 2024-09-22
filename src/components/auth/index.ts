@@ -8,3 +8,4 @@ export { default as UpdateUserProfilePopUp } from './updateUserProfile/UpdateUse
 export { default as ChangeAvatarTab } from './updateUserProfile/ChangeAvatarTab.vue'
 export { default as ChangePasswordTab } from './updateUserProfile/ChangePasswordTab.vue'
 export { default as ChangeProfileName } from './updateUserProfile/ChangeProfileName.vue'
+export { default as UserAvatarDisplayContent } from './userMenu/userAvatarDisplayContent.vue'
