@@ -1,5 +1,5 @@
   <script setup lang="ts">
-  import { BlogCard, BlogsGrid, BlogsGridSkeleton } from '@/components';
+  import { BlogCard, BlogsGridSkeleton } from '@/components';
   import supabase from '@/supabase';
   import { Tables } from '@/types';
   import { onBeforeMount, reactive, ref } from 'vue';
