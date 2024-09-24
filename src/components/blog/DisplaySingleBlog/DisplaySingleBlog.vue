@@ -9,6 +9,8 @@ import { computed, onBeforeMount, onBeforeUnmount, ref, type ComputedRef } from 
 import { useRoute, useRouter } from 'vue-router'
 import DisplaySingleBlogSkeleton from './DisplaySingleBlog.skeleton.vue'
 import { Eye } from 'lucide-vue-next'
+import supabase from '@/supabase'
+import { Tables } from '@/types'
 const route = useRoute()
 const id = 'preview-only'
 const blogsStore = useBlogs()
@@ -16,7 +18,7 @@ const { blogsStoreData } = storeToRefs(blogsStore)
 const blog = ref<Awaited<ReturnType<typeof blogsStore.getBlogBySlug>>>()
 const router = useRouter()
 const timer = ref()
-const duration = 1000 * 60 * 2
+const duration = 1000 * 60 * 2 //min read time is 2 min
 onBeforeMount(async () => {
   const data = await blogsStore.getBlogBySlug(route.params.slug as string ?? " ")
   if (!data) {
@@ -25,7 +27,8 @@ onBeforeMount(async () => {
     blog.value = data
     timer.value = setTimeout(async () => {
       try {
-        await blogsStore.incrementBlogView(blog.value!.id, blog.value?.read_count ?? 0 + 1)
+        await blogsStore.incrementBlogView(blog.value!.id)
+        console.log('you just read this')
       } catch (error) {
         // console.error('Failed to increment blog view', error)
         notify.error({
@@ -43,11 +46,12 @@ onBeforeUnmount(() => {
   }
 })
 const ago = computed(() => formatDisplayDate(blog?.value?.created_at ?? '', true))
-const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
+const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed(() => {
   return {
     // @ts-ignore
-    name: blog.value?.profiles?.user_metadata?.name! ?? '', // @ts-ignore
-    avatar: blog.value?.profiles?.user_metadata?.avatar ?? ''
+    name: blog.value?.profiles?.user_metadata['name'] ?? '',
+    avatar: blog.value?.profiles?.user_metadata['avatar'] ?? '',
+    id: blog.value?.profiles?.user_metadata['sub'] ?? ""
   }
 })
 </script>
@@ -62,8 +66,8 @@ const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
         </h1>
         <!-- author display  -->
         <div class="m-4 mb-10">
-          <UserAvatarDisplay :authorId="blog.profiles?.user_metadata['sub']" :display-name="true" :avatar="user.avatar"
-            :name="user.name" :ago="ago" size="base" />
+          <UserAvatarDisplay :authorId="user.id" :display-name="true" :avatar="user.avatar" :name="user.name" :ago="ago"
+            size="base" />
         </div>
         <!-- display tags  -->
         <div class="my-4 space-x-2  flex flex-wrap">
