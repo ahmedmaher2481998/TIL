@@ -1,12 +1,12 @@
 <script setup>
-import { BlogsCreatedByUser, BlogsReadByUser, UserProfile } from '@/components'
+import { BlogsCreatedByUser, BlogsReadByUser, UserProfile } from '@/components';
 import { useAuth, useBlogs } from '@/stores';
 import { notify } from '@/utils';
 import { storeToRefs } from 'pinia';
-import { onBeforeMount, onMounted, watch } from 'vue';
+import { watchEffect } from 'vue';
 const { getUsersBlogs } = useBlogs()
 const { AuthStoreState } = storeToRefs(useAuth())
-watch(async () => {
+watchEffect(async () => {
   if (!AuthStoreState.value.isAuth) return
   try {
     console.log('get users blogs ...')
