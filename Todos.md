@@ -50,9 +50,11 @@
 
 - [x] view all tags in the home page 
 
-- [x]  view all blog posts written by author when clicking on author
+- [x] view all blog posts written by author when clicking on author
 
-- [ ] Implement a blog views tracker (RLS issue).
+- [x] Implement a blog views tracker (RLS issue) solved using psq functions.
+
+- [ ] display view counts for Each blog(card & blog page)
 
 - [ ] add more unit tests for shared components & stores 
   
@@ -76,18 +78,13 @@
 
 - [ ] write a read me for the whole app and lunch it on reddit/linked/twitter 
   
-  - [ ]   
-  - [ ] - ```
-      write a read me for the whole app then publish it on reddit /vue 
-      ```
+  - [ ] 
 
 - [ ] add more end to end tests for all features 
   
   ---
-  
-  
-  
-  ### **Upcoming Tasks**
+
+### **Upcoming Tasks**
 
 - [ ] pagination on the blog grid(home page,tags page,blog page,profile page) any where we fetch a lot of blogs 
 
