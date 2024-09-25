@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UserAvatarDisplay } from '@/components'
+import { BlogViewCount, UserAvatarDisplay } from '@/components'
 import {
   Badge,
   Card,
@@ -51,9 +51,9 @@ const ago = formatDisplayDate(blog.created_at, true)
     <CardContent>
     </CardContent>
     <CardFooter class="px-6 pb-4 pt-2">
-      <div class="flex items-center gap-2 text-sm ">
-        <!-- TODO check author is passed  -->
+      <div class="flex items-center justify-between w-full">
         <UserAvatarDisplay :name="blog.author" :avatar="blog.avatar" :ago="ago" :authorId="blog.authorId" />
+        <BlogViewCount :count="blog.read_count" />
       </div>
     </CardFooter>
   </Card>

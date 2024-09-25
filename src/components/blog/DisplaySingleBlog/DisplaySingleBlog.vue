@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Badge, UserAvatarDisplay } from '@/components'
+import { Badge, UserAvatarDisplay, BlogViewCount } from '@/components'
 import { useBlogs } from '@/stores'
 import { formatDisplayDate, notify } from '@/utils'
 import { MdPreview } from 'md-editor-v3'
@@ -50,42 +50,41 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
   return {
     // @ts-ignore
     name: blog.value?.profiles?.user_metadata['name'] ?? '',
+    // @ts-ignore
     avatar: blog.value?.profiles?.user_metadata['avatar'] ?? '',
+    // @ts-ignore
     id: blog.value?.profiles?.user_metadata['sub'] ?? ""
   }
 })
 </script>
 <template>
   <DisplaySingleBlogSkeleton v-if="blogsStoreData.loading" />
-  <div v-else class="w-full  flex flex-col px-2">
-    <div class="container pt-4">
-      <header>
+  <div v-else class="px-0 md:px-2 w-full">
+    <div class="flex mr-auto flex-col items-start max-w-screen-lg pt-0 sm:pt-4">
+      <header class="w-full">
 
-        <h1 class=" text-primary text-2xl md:text-3xl mb-6">
+        <h1 class=" text-primary flex-wrap text-2xl md:text-3xl mb-6">
           {{ blog?.title }}
         </h1>
-        <!-- author display  -->
-        <div class="m-4 mb-10">
+
+
+        <!-- author & views display  -->
+        <div class="mb-4 px-2 w-full md:px-0 md:mb-6 flex flex-row justify-between ">
           <UserAvatarDisplay :authorId="user.id" :display-name="true" :avatar="user.avatar" :name="user.name" :ago="ago"
             size="base" />
+          <BlogViewCount :count="blog?.read_count ?? 0" />
         </div>
+
         <!-- display tags  -->
         <div class="my-4 space-x-2  flex flex-wrap">
           <router-link v-for="tag in blog?.tags" :key="tag.id" :to="`tags/${tag.slug}`" class="">
             <Badge variant="outline" class="text-primary text-sm"> # {{ tag.title }} </Badge>
           </router-link>
         </div>
-        <p v-if="blog?.read_count">
-          <Eye />
-          <span class="text-secondary-foreground text-xs ml-2">
-            {{ blog?.read_count }}
-          </span>
-        </p>
       </header>
 
-      <img :src="blog?.image_url" :alt="blog?.description"
-        class="h-full max-w-screen-md object-cover max-h-96 rounded w-full" />
-      <div class="max-w-screen-md  pt-6">
+      <img :src="blog?.image_url" :alt="blog?.description" class="w-full object-cover max-h-96 rounded " />
+      <div class="pt-6">
         <MdPreview class="mt-0" :editor-id="id" :modelValue="blog?.content" />
       </div>
     </div>
