@@ -7,7 +7,7 @@ interface PropsInterface {
   displayName?: boolean, ago?: string,
   size?: 'sm' | 'base' | 'lg',
   classes?: string,
-  authorId: string
+  authorId?: string
 }
 
 // Define props with or without defaults

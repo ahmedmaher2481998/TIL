@@ -3,7 +3,7 @@
   import supabase from '@/supabase';
   import { Tables } from '@/types';
   import { onBeforeMount, reactive, ref } from 'vue';
-  import { useRoute } from 'vue-router/dist/vue-router';
+  import { useRoute } from 'vue-router';
 
   const route = useRoute()
   const id = route.params.id;

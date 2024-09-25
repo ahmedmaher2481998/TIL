@@ -77,10 +77,14 @@
 - [ ] Create the user profile page with activity tracking.
 
 - [ ] write a read me for the whole app and lunch it on reddit/linked/twitter 
-  
-  - [ ] 
 
-- [ ] add more end to end tests for all features 
+- [ ] add more end to end tests for all features
+  
+  - [ ] User Can Sign in / out / up (Auth)
+  
+  - [ ] User Can view blog (single,by tag , author)
+  
+  - [ ] user can create Blog
   
   ---
 
