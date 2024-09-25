@@ -54,7 +54,7 @@
 
 - [x] Implement a blog views tracker (RLS issue) solved using psq functions.
 
-- [ ] display view counts for Each blog(card & blog page)
+- [x] display view counts for Each blog(card & blog page)
 
 - [ ] add more unit tests for shared components & stores 
   
