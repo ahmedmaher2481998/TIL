@@ -29,20 +29,22 @@ const sizeClasses = {
 </script>
 <template>
   <div :class="[
-    'flex w-full gap-2 items-center text-foreground ',
+    'flex w-full mb-4 gap-2 items-center text-foreground  ',
     sizeClasses[props.size], classes
   ]">
     <Avatar :size="size" class="border">
       <AvatarImage :src="props.avatar" :alt="props.name" />
       <AvatarFallback>{{ getInitials(props.name) }}</AvatarFallback>
     </Avatar>
-    <p v-if="displayName">
-      {{ props.name }}
-    </p>
-    <p v-if="ago !== ''">
-      <span>•</span>
-      <span>{{ ago }}</span>
-    </p>
+    <span class="flex md:flex-row flex-col">
+      <p v-if="displayName">
+        {{ props.name }}
+      </p>
+      <p v-if="Boolean(ago)">
+        <span class="hidden md:inline-block">•</span>
+        <span>{{ ago }}</span>
+      </p>
+    </span>
   </div>
 </template>
 
