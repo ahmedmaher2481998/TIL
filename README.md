@@ -10,7 +10,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark, (max-width:300px))" srcset="./public/logo-white.svg">
   <source media="(prefers-color-scheme: light,(max-width:300px))" srcset="./public/logo.svg">
-  <img src="./public/logo.svg" width="300px" alt="Blogy Logo">
+  <img src="./public/logo-white.svg" width="300px" alt="Blogy Logo">
 </picture>
 
  This is a feature-rich blogging platform built with Vue 3, using chadcn-vue, Supabase, and TypeScript.
