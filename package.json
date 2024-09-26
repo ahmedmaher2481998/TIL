@@ -18,7 +18,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@fontsource-variable/noto-sans": "^5.0.5",
+    "@fontsource-variable/noto-sans": "^5.1.0",
     "@supabase/supabase-js": "^2.45.3",
     "@tanstack/vue-query": "^5.54.2",
     "@vee-validate/zod": "^4.13.2",
