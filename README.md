@@ -5,8 +5,9 @@
 ![][ci] ![][views] ![][stars] ![][forks] ![][issues] ![][license] ![][repo-size]
 
 
-<!-- logo/title -->
+<div align='center'>
 
+<!-- logo/title -->
 <picture>
   <source media="(prefers-color-scheme: dark, (max-width:300px))" srcset="./public/logo-white.svg">
   <source media="(prefers-color-scheme: light,(max-width:300px))" srcset="./public/logo.svg">
@@ -21,7 +22,9 @@
   <img src="https://graph.org/file/12ea4beff2367f40f13ce.png" alt="infinitunes">
 </picture> -->
 
-**[<kbd> <br> &nbsp;**Live Demo**&nbsp; <br> </kbd>][site]**
+  **[<kbd> <br> &nbsp;**Live Demo**&nbsp; <br> </kbd>][site]**
+
+</div>
 
 ## Features
 
@@ -104,7 +107,7 @@ pnpm run test:e2e
 
 
 ## Star History
-
+<div align='center'>
 <a href="https://star-history.com/#ahmedmaher2481998/blogy-app">
  <picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/blogy-app&theme=dark" />
@@ -112,6 +115,8 @@ pnpm run test:e2e
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ahmedmaher2481998/blogy-app" />
  </picture>
 </a>
+</div>
+
 ## Contributors:
 
 [![][contributors]][contributors-graph]
