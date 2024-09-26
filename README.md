@@ -49,23 +49,37 @@
 ## Getting Started
 
 1. Clone the repository
-2. Install dependencies: `pnpm install`
+2. Install dependencies: 
+  ```sh
+  pnpm install
+  ```
 3. Set up your Supabase project and add the credentials to your environment variables
 4. Set up Supabase Storage buckets for file uploads
 5. Create necessary PostgreSQL functions in your Supabase project
-6. Run the development server: `pnpm run dev`
+6. Run the development server: 
+```sh 
+pnpm run dev
+```
+
 
 ## Testing
 
 This project uses Vitest for unit testing and Vue Test Utils for component testing.
 
 To run unit tests:
-`pnpm run test:unit`
+```sh
+pnpm run test:unit
+```
 
 To run tests with coverage:
-`pnpm run test:unit:coverage`
+```sh
+pnpm run test:unit:coverage
+```
+
 To run E2E tests:
-`pnpm run test:e2e`
+```sh 
+pnpm run test:e2e
+```
 
 ## Project Structure
 
@@ -88,9 +102,24 @@ To run E2E tests:
    <!-- 8. Pagination component adding -->
 6. Rich text editor component
 
-## Contributing
 
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests.
+## Star History
+
+<a href="https://star-history.com/#ahmedmaher2481998/blogy-app">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/blogy-app&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/blogy-app" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ahmedmaher2481998/blogy-app" />
+ </picture>
+</a>
+## Contributors:
+
+[![][contributors]][contributors-graph]
+
+_Note: It may take up to 24h for the [contrib.rocks][contrib-rocks] plugin to update because it's refreshed once a day._
+
+
+
 
 ## License
 
@@ -110,7 +139,7 @@ This project is licensed under the [MIT License] - see the [LICENSE.md](./Licens
 [contributors]: https://contrib.rocks/image?repo=ahmedmaher2481998/blogy-app&max=500
 [contributors-graph]: https://github.com/ahmedmaher2481998/blogy-app/graphs/contributors
 [contrib-rocks]: https://contrib.rocks/preview?repo=ahmedmaher2481998%2blogy-app
-[ci]: https://github.com/rajput-hemant/infinitunes/actions/workflows/ci.yml/badge.svg
+[ci]: https://github.com/ahmedmaher2481998/blogy-app/actions/workflows/ci.yml/badge.svg
 
 <!-----------------------------------{ Links }---------------------------------->
 
