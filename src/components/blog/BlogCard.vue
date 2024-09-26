@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { UserAvatarDisplay } from '@/components'
-// import { type BlogType } from '@/types/index'
+import { BlogViewCount, UserAvatarDisplay } from '@/components'
 import {
   Badge,
   Card,
@@ -11,7 +10,6 @@ import {
   CardTitle
 } from '@/components'
 import { formatDisplayDate } from '@/utils'
-// import TagChipComponent from './DisplaySingleBlog/TagChip.component.vue'
 type blogCardProps = {
   id: number
   title: string
@@ -22,7 +20,8 @@ type blogCardProps = {
   avatar: string
   author: string
   slug: string
-  read_count: number
+  read_count: number,
+  authorId: string
 }
 const { blog } = defineProps<{ blog: blogCardProps }>()
 const ago = formatDisplayDate(blog.created_at, true)
@@ -41,7 +40,7 @@ const ago = formatDisplayDate(blog.created_at, true)
 
       <div class="mb-2 flex flex-wrap gap-2">
         <router-link v-for="tag in blog.tags" :key="tag.id" :to="`tags/${tag.slug}`">
-          <Badge variant="default" class="text-background"> # {{ tag.title }} </Badge>
+          <Badge variant="default"> # {{ tag.title }} </Badge>
         </router-link>
       </div>
       <CardDescription class="mt-2 ">
@@ -52,9 +51,9 @@ const ago = formatDisplayDate(blog.created_at, true)
     <CardContent>
     </CardContent>
     <CardFooter class="px-6 pb-4 pt-2">
-      <div class="flex items-center gap-2 text-sm ">
-
-        <UserAvatarDisplay :name="blog.author" :avatar="blog.avatar" :ago="ago" />
+      <div class="flex items-center justify-between w-full">
+        <UserAvatarDisplay :name="blog.author" :avatar="blog.avatar" :ago="ago" :authorId="blog.authorId" />
+        <BlogViewCount :count="blog.read_count" />
       </div>
     </CardFooter>
   </Card>

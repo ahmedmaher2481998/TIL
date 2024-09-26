@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fontsource-variable/noto-sans':
-        specifier: ^5.0.5
-        version: 5.0.5
+        specifier: ^5.1.0
+        version: 5.1.0
       '@supabase/supabase-js':
         specifier: ^2.45.3
         version: 2.45.3
@@ -589,8 +589,8 @@ packages:
   '@floating-ui/vue@1.1.4':
     resolution: {integrity: sha512-ammH7T3vyCx7pmm9OF19Wc42zrGnUw0QvLoidgypWsCLJMtGXEwY7paYIHO+K+oLC3mbWpzIHzeTVienYenlNg==}
 
-  '@fontsource-variable/noto-sans@5.0.5':
-    resolution: {integrity: sha512-SVixgckO4DIgvFJ+vTRZEj8vTvjZceuGOhKMgnETItKELl1tHzk+ZFatSTCofPJ1zjhTwqvHrHkFeCbUGiqaRg==}
+  '@fontsource-variable/noto-sans@5.1.0':
+    resolution: {integrity: sha512-mLn33cgmryVFjpHoHy/lx6/DsRvp8kbxDmfMbMNl75eY+bVubad3u6oGSCyc8izcSNZAhAlXdoFW7mCnI2l63w==}
 
   '@hapi/hoek@9.3.0':
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
@@ -4063,7 +4063,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@fontsource-variable/noto-sans@5.0.5': {}
+  '@fontsource-variable/noto-sans@5.1.0': {}
 
   '@hapi/hoek@9.3.0': {}
 

@@ -33,6 +33,8 @@ CREATE TABLE public.blogs (
     FOREIGN KEY (image_id) REFERENCES storage.objects(id)
 );
 alter table public.blogs enable row level security;
+-- create rls policy to allow read_count update anonymously
+
 -- Create the 'comments' table
 DROP TABLE  IF EXISTS public.comments CASCADE;
 CREATE TABLE public.comments (

@@ -123,42 +123,35 @@ profiles(user_metadata,email,id)
       return data
     }
   }
-  async function incrementBlogView(blogId: number, count: number) {
-    // add current user to readers of this blog if (authenticated)
-    // and increase the readers count
-    // else just increase the count
-
-    if (AuthStoreState.value.isAuth) {
-      const { error: StoreReaderError } = await supabase.from(Tables.BlogsReaders).insert({ blog_id: blogId, user_id: AuthStoreState.value.id })
-      if (StoreReaderError) throw StoreReaderError
+  async function incrementBlogView(blogId: number) {
+    // if authenticated use userId to add blog to blog_readers
+    const userId = AuthStoreState.value.isAuth ? AuthStoreState.value.id : null;
+    // trigger the function that will increment reader count and add blog to blog_readers if user logged in
+    const { error } = await supabase.rpc('increment_blog_view', {
+      current_blog_id: blogId,
+      //@ts-ignore
+      current_user_id: userId,
+    });
+    if (error) {
+      console.error('Error incrementing blog view:', error);
+      throw error;
     }
-    const { error } = await supabase.from(Tables.Blogs).update({
-      read_count: count,
-    }).eq('id', blogId)
-    if (error) throw error
-    else return true
   }
-  // Users Blogs Read/Wrote Data needed for MyAccount page 
-
   const userBlogs = reactive<
     {
-      read: Database['public']['Tables']['blogs']['Row'] | undefined;
-      wrote: Database['public']['Tables']['blogs']['Row'] | undefined;
+      read: Database['public']['Tables']['blogs']['Row'][] | undefined;
+      wrote: Database['public']['Tables']['blogs']['Row'][] | undefined;
     }>({ read: undefined, wrote: undefined })
   async function getUsersBlogs() {
-
     if (!AuthStoreState.value.isAuth)
       throw new Error('un-authenticated')
-
-
     const getBlogsReadByUserQuery = supabase
       .from(Tables.Blogs)
       .select(`${selectAllBlogsQuery} ,${Tables.BlogsReaders}!inner (user_id)`).eq(`${Tables.BlogsReaders}.user_id`, AuthStoreState.value.id)
-    // type BlogsReadByUserType = QueryData<typeof getBlogsReadByUserQuery>
+
     const getBlogsCreatedByUserQuery = supabase
       .from(Tables.Blogs)
       .select(`${selectAllBlogsQuery}`).eq('author_id', AuthStoreState.value.id)
-    // type BlogsCreatedByUserType = QueryData<typeof getBlogsCreatedByUserQuery>
 
     const { data: blogsReadByUser, error: blogsReadByUserError } = await getBlogsReadByUserQuery
     const { data: blogsCreatedByUser, error: blogsCreatedByUserError } = await getBlogsCreatedByUserQuery
@@ -169,8 +162,6 @@ profiles(user_metadata,email,id)
     if (blogsCreatedByUserError) throw blogsCreatedByUserError
     else  //@ts-ignore to avoid Error:type instantiation is excessively deep
       userBlogs.wrote = blogsCreatedByUser
-
-
   }
   return {
     blogsStoreData,

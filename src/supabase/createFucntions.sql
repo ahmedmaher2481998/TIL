@@ -156,3 +156,30 @@ CREATE TRIGGER trigger_update_profiles
 AFTER UPDATE ON auth.users
 FOR EACH ROW
 EXECUTE FUNCTION update_profiles_from_users();
+--
+---- increment readers count for blog and add to users reading list if authenticated 
+create or replace function increment_blog_view(
+  current_blog_id int,
+  current_user_id uuid
+)
+returns void
+language plpgsql
+as $$
+begin
+  -- Check if user is authenticated (current_user_id is not null)
+  if current_user_id is not null then
+    -- Check if the user has already read this blog
+    if not exists (select 1 from public.blog_readers where blog_id = current_blog_id and user_id = current_user_id) then
+      -- Add user to readers
+      insert into public.blog_readers (blog_id, user_id)
+      values (current_blog_id, current_user_id);
+    end if;
+  end if;
+
+  -- Increment the read count of the blog
+  update public.blogs
+  set read_count = read_count + 1
+  where id = current_blog_id;
+
+end;
+$$;

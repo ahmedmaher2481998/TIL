@@ -91,18 +91,31 @@
   ---
 
 ### **Upcoming Tasks**
+
 - [ ] pagination on the blog grid(home page,tags page,blog page,profile page) any where we fetch a lot of blogs 
-- [ ] Create the user profile page with activity tracking.
+
 - [ ] Add a comment section for each blog.
+
 - [ ] Support anonymous or authenticated user comments.
+
 - [ ] Display loaders for registration, sign-in, blog creation, profile updates, and tag creation.
+
 - [ ] Enable image uploads within blog content.
+
 - [ ] Allow anonymous commenting.
+
 - [ ] Add tag filters on the homepage.
+
 - [ ] Implement pagination on the homepage.
+
 - [ ] Filter blogs by author.
+
 - [ ] Add a "like" feature for blogs.
+
 - [ ] Refine the grid layout for blogs.
+
 - [ ] Resolve conflicts between TagChip component and TagChipComponent.
+
 - [ ] Write unit tests and end-to-end (e2e) tests.
+
 - [ ] Iterate and refine the project.

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Badge } from '@/components'
-import UserAvatarDisplay from '@/components/auth/userMenu/UserAvatarDisplay.vue'
+import { Badge, UserAvatarDisplay, BlogViewCount } from '@/components'
 import { useBlogs } from '@/stores'
 import { formatDisplayDate, notify } from '@/utils'
 import { MdPreview } from 'md-editor-v3'
@@ -10,6 +9,8 @@ import { computed, onBeforeMount, onBeforeUnmount, ref, type ComputedRef } from 
 import { useRoute, useRouter } from 'vue-router'
 import DisplaySingleBlogSkeleton from './DisplaySingleBlog.skeleton.vue'
 import { Eye } from 'lucide-vue-next'
+import supabase from '@/supabase'
+import { Tables } from '@/types'
 const route = useRoute()
 const id = 'preview-only'
 const blogsStore = useBlogs()
@@ -17,7 +18,7 @@ const { blogsStoreData } = storeToRefs(blogsStore)
 const blog = ref<Awaited<ReturnType<typeof blogsStore.getBlogBySlug>>>()
 const router = useRouter()
 const timer = ref()
-const duration = 1000 * 60 * 2
+const duration = 1000 * 60 * 2 //min read time is 2 min
 onBeforeMount(async () => {
   const data = await blogsStore.getBlogBySlug(route.params.slug as string ?? " ")
   if (!data) {
@@ -26,10 +27,10 @@ onBeforeMount(async () => {
     blog.value = data
     timer.value = setTimeout(async () => {
       try {
-        await blogsStore.incrementBlogView(blog.value!.id, blog.value?.read_count ?? 0 + 1)
-        console.log('read this ')
+        await blogsStore.incrementBlogView(blog.value!.id)
+        console.log('you just read this')
       } catch (error) {
-        console.error('Failed to increment blog view', error)
+        // console.error('Failed to increment blog view', error)
         notify.error({
           description: 'please verify your connection is stable',
           title: 'connection error'
@@ -45,44 +46,45 @@ onBeforeUnmount(() => {
   }
 })
 const ago = computed(() => formatDisplayDate(blog?.value?.created_at ?? '', true))
-const user: ComputedRef<{ name: string, avatar: string }> = computed(() => {
+const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed(() => {
   return {
     // @ts-ignore
-    name: blog.value?.profiles?.user_metadata?.name! ?? '', // @ts-ignore
-    avatar: blog.value?.profiles?.user_metadata?.avatar ?? ''
+    name: blog.value?.profiles?.user_metadata['name'] ?? '',
+    // @ts-ignore
+    avatar: blog.value?.profiles?.user_metadata['avatar'] ?? '',
+    // @ts-ignore
+    id: blog.value?.profiles?.user_metadata['sub'] ?? ""
   }
 })
 </script>
 <template>
   <DisplaySingleBlogSkeleton v-if="blogsStoreData.loading" />
-  <div v-else class="w-full  flex flex-col px-2">
-    <div class="container pt-4">
-      <header>
+  <div v-else class="px-0 md:px-2 w-full">
+    <div class="flex mr-auto flex-col items-start max-w-screen-lg pt-0 sm:pt-4">
+      <header class="w-full">
 
-        <h1 class=" text-primary text-2xl md:text-3xl mb-6">
+        <h1 class=" text-primary flex-wrap text-2xl md:text-3xl mb-6">
           {{ blog?.title }}
         </h1>
-        <!-- author display  -->
-        <div class="m-4 mb-10">
-          <UserAvatarDisplay :display-name="true" :avatar="user.avatar" :name="user.name" :ago="ago" size="base" />
+
+
+        <!-- author & views display  -->
+        <div class="mb-4 px-2 w-full md:px-0 md:mb-6 flex flex-row justify-between ">
+          <UserAvatarDisplay :authorId="user.id" :display-name="true" :avatar="user.avatar" :name="user.name" :ago="ago"
+            size="base" />
+          <BlogViewCount :count="blog?.read_count ?? 0" />
         </div>
+
         <!-- display tags  -->
         <div class="my-4 space-x-2  flex flex-wrap">
           <router-link v-for="tag in blog?.tags" :key="tag.id" :to="`tags/${tag.slug}`" class="">
             <Badge variant="outline" class="text-primary text-sm"> # {{ tag.title }} </Badge>
           </router-link>
         </div>
-        <p v-if="blog?.read_count">
-          <Eye />
-          <span class="text-secondary-foreground text-xs ml-2">
-            {{ blog?.read_count }}
-          </span>
-        </p>
       </header>
 
-      <img :src="blog?.image_url" :alt="blog?.description"
-        class="h-full max-w-screen-md object-cover max-h-96 rounded w-full" />
-      <div class="max-w-screen-md  pt-6">
+      <img :src="blog?.image_url" :alt="blog?.description" class="w-full object-cover max-h-96 rounded " />
+      <div class="pt-6">
         <MdPreview class="mt-0" :editor-id="id" :modelValue="blog?.content" />
       </div>
     </div>

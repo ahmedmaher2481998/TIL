@@ -249,6 +249,13 @@ export type Database = {
           updated_at: string
         }[]
       }
+      increment_blog_view: {
+        Args: {
+          current_blog_id: number
+          current_user_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

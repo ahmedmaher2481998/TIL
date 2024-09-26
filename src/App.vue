@@ -11,7 +11,7 @@ import { NavBar, PopUp, Toaster } from '@/components';
   <header class=" ">
     <NavBar />
   </header>
-  <div class="min-h-screen pt-14 bg-muted dark:bg-muted-background/10 ">
+  <div class="min-h-screen pt-14  ">
     <RouterView />
 
   </div>

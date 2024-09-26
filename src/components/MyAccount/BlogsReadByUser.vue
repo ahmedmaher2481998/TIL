@@ -27,8 +27,8 @@ const { userBlogs } = blogs
           <CardFooter class="px-6 pb-4 pt-2">
             <div class="flex items-center gap-2 text-sm text-muted-foreground">
               <Avatar class="h-6 w-6 border">
-                <AvatarImage :src="blog.profiles?.user_metadata.avatar" alt="Author" />
-                <AvatarFallback>{{ getInitials(blog.profiles?.user_metadata.name) }}</AvatarFallback>
+                <AvatarImage :src="blog.profiles?.user_metadata['avatar'] ?? ''" alt="Author" />
+                <AvatarFallback>{{ getInitials(blog.profiles?.user_metadata['name'] ?? '') }}</AvatarFallback>
               </Avatar>
               <span>{{ blog.profiles?.user_metadata.name }}</span>
               <span>•</span>

@@ -42,7 +42,8 @@ const mainFeaturedBlog = computed(() => {
         </div>
         <div class="mt-4 flex items-center gap-2 text-sm text-muted">
           <UserAvatarDisplay :name="mainFeaturedBlog?.profiles?.user_metadata.name"
-            :avatar="mainFeaturedBlog?.profiles?.user_metadata?.avatar" :ago="ago" />
+            :avatar="mainFeaturedBlog?.profiles?.user_metadata?.avatar" :ago="ago"
+            :authorId="mainFeaturedBlog?.profiles?.user_metadata.sub" />
         </div>
       </div>
     </div>

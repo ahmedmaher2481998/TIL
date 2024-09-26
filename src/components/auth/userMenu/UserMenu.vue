@@ -11,7 +11,7 @@ import {
 import { CircleUserRound, LogOut, User2Icon, UserCog } from 'lucide-vue-next';
 
 import { usePopUp } from '@/stores'
-import { Primitive } from 'radix-vue';
+import { RouterLink, useRouter } from 'vue-router';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = withDefaults(defineProps<{ name: string; avatar: string }>(), {})
@@ -29,19 +29,20 @@ const handleEditProfile = () => {
         <UserAvatarDisplay classes='hover:text-background' :name="name" :avatar="avatar" :display-name="false" />
       </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-56   ">
-      <DropdownMenuItem class="flex   cursor-pointer items-center gap-3">
-        <RouterLink to="my-account" class="flex gap-2">
+    <DropdownMenuContent class="w-56">
+      <RouterLink to="my-account" class="flex gap-2 w-full">
+        <DropdownMenuItem class="flex w-full  cursor-pointer items-center gap-3">
           <User2Icon />
           My Account
-        </RouterLink>
-      </DropdownMenuItem>
+        </DropdownMenuItem>
+      </RouterLink>
       <DropdownMenuSeparator />
+      <!-- Edit profile pop up -->
       <DropdownMenuItem @click.stop="handleEditProfile" class="flex  cursor-pointer items-center gap-3">
         <UserCog class="mr-2 h-4 w-4" />
         <span>Edit profile</span>
       </DropdownMenuItem>
-
+      <!-- log out pop up -->
       <DropdownMenuItem @click.stop="openView('logout')" class="flex   cursor-pointer items-center gap-3">
         <LogOut class="mr-2 h-4 w-4" />
         <span>Log out</span>
