@@ -74,7 +74,9 @@
   - [ ] vue router (test navigation)
   - [ ] supabase setup file and it's utilities
 
-- [ ] Create the user profile page with activity tracking.
+- [x] Create the user profile page with activity tracking.
+
+- [ ] FIX image upload functionality
 
 - [ ] write a read me for the whole app and lunch it on reddit/linked/twitter 
 
