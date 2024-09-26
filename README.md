@@ -1,6 +1,27 @@
-# Vue 3 Blogging Platform
 
-This is a feature-rich blogging platform built with Vue 3, using chadcn-vue, Supabase, and TypeScript.
+
+# Blogy - Blogging Platform
+
+![][ci] ![][views] ![][stars] ![][forks] ![][issues] ![][license] ![][repo-size]
+
+
+<!-- logo/title -->
+
+<picture>
+  <source media="(prefers-color-scheme: dark, (max-width:300px))" srcset="./public/logo-white.svg">
+  <source media="(prefers-color-scheme: light,(max-width:300px))" srcset="./public/logo.svg">
+  <img src="./public/logo.svg" width="300px" alt="Blogy Logo">
+</picture>
+
+ This is a feature-rich blogging platform built with Vue 3, using chadcn-vue, Supabase, and TypeScript.
+
+<!-- <picture>
+  <source media="(prefers-color-scheme: light)" srcset="https://graph.org/file/12ea4beff2367f40f13ce.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://graph.org/file/16937ebb693470d804f31.png">
+  <img src="https://graph.org/file/12ea4beff2367f40f13ce.png" alt="infinitunes">
+</picture> -->
+
+**[<kbd> <br> &nbsp;**Live Demo**&nbsp; <br> </kbd>][site]**
 
 ## Features
 
@@ -73,4 +94,24 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project is licensed under the [MIT License] - see the [LICENSE.md](./License) file for details.
+
+
+
+
+<!----------------------------------{ Labels }--------------------------------->
+
+[views]: https://komarev.com/ghpvc/?username=blogy-app&label=view%20counter&color=red&style=flat
+[repo-size]: https://img.shields.io/github/repo-size/ahmedmaher2481998/blogy-app
+[issues]: https://img.shields.io/github/issues-raw/ahmedmaher2481998/blogy-app
+[license]: https://img.shields.io/github/license/ahmedmaher2481998/blogy-app
+[forks]: https://img.shields.io/github/forks/ahmedmaher2481998/blogy-app?style=flat
+[stars]: https://img.shields.io/github/stars/ahmedmaher2481998/blogy-app
+[contributors]: https://contrib.rocks/image?repo=ahmedmaher2481998/blogy-app&max=500
+[contributors-graph]: https://github.com/ahmedmaher2481998/blogy-app/graphs/contributors
+[contrib-rocks]: https://contrib.rocks/preview?repo=ahmedmaher2481998%2blogy-app
+[ci]: https://github.com/rajput-hemant/infinitunes/actions/workflows/ci.yml/badge.svg
+
+<!-----------------------------------{ Links }---------------------------------->
+
+[site]: https://blogy.vercel.app
