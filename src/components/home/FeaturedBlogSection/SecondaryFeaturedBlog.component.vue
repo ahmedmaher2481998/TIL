@@ -28,10 +28,9 @@ const { isDark } = useDarkMode()
     <div class="relative h-[400px] overflow-hidden rounded-lg">
       <img :src="secondaryFeaturedBlog?.image_url" :alt="secondaryFeaturedBlog?.title" width="{600}" height="{400}"
         class="h-full w-full object-cover" :style="{ aspectRatio: '600/400', objectFit: 'cover' }" />
-      <div :class="['absolute inset-0 bg-gradient-to-tr to-transparent transition-colors duration-300 ', {
-        'group-hover:from-pink600 from-pink-600/80': !isDark,
-
-        'group-hover:from-pink-800 from-pink-800/80': isDark
+      <div :class="['absolute inset-0 bg-gradient-to-t to-transparent transition-colors duration-300 ', {
+        'group-hover:from-slate-200 from-slate-600': !isDark,
+        'group-hover:from-slate-900 from-slate-800': isDark
       }]" />
       <div class="absolute bottom-0 left-0 right-0 p-6">
         <h3 class="text-xl md:text-2xl font-bold text-primary">

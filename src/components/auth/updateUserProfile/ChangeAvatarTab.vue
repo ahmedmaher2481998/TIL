@@ -3,6 +3,7 @@ import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, Car
 import { useAuth } from '@/stores';
 import { notify } from '@/utils';
 import { toTypedSchema } from '@vee-validate/zod';
+import { UploadIcon } from 'lucide-vue-next';
 import { storeToRefs } from 'pinia';
 import { useField, useForm } from 'vee-validate';
 import { ref, watch, useTemplateRef } from 'vue';
@@ -94,6 +95,14 @@ watch(fileValue, () => {
           <span v-if="fileValue" :class="`text-sm truncate text-center ${fileValue ? 'mt-4' : ''}`">
             {{ fileValue ? fileValue.name : 'Choose image' }}
           </span>
+          <Button :for="name" v-if="!imageSrc" variant="outline" size="lg"
+            class="cursor-pointer w-full flex items-center" as="label">
+            <p class="mr-2">
+              Select Image
+            </p>
+            <UploadIcon />
+
+          </Button>
 
           <!-- Hidden file input -->
           <input accept="image/*" :id="name" type="file" class="pl-10 cursor-pointer hidden" ref="imageUploadRef"
@@ -106,7 +115,7 @@ watch(fileValue, () => {
         </FormItem>
       </CardContent>
 
-      <CardFooter>
+      <CardFooter v-if="imageSrc">
         <Button type="submit">Upload</Button>
       </CardFooter>
     </form>

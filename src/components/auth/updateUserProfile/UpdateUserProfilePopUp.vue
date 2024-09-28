@@ -23,7 +23,8 @@ const { AuthStoreState } = storeToRefs(useAuth())
   <!-- <DialogContent class="sm:max-w-[425px] md:max-w-lg flex justify-center items-center w-full border-muted  text-muted"> -->
   <Tabs default-value="name" class="w-full mt-6">
     <TabsList class="flex justify-between items-center w-full ">
-      <TabsTrigger :value="updateProfileTabs.name" class='capitalize w-full '>
+      <TabsTrigger :value="updateProfileTabs.name" class='capitalize w-full '
+        v-if="AuthStoreState.provider === 'email'">
         {{ updateProfileTabs.name }}
       </TabsTrigger>
       <TabsTrigger :value="updateProfileTabs.password" v-if="AuthStoreState.provider === 'email'"

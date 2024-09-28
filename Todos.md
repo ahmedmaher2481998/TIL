@@ -1,4 +1,4 @@
-# Blogy-App
+# TIL-App
 
 ### **App Progress**
 
@@ -81,6 +81,7 @@
 - [ ] write a read me for the whole app [ AppImage / Video ] &  lunch it on reddit /linked/twitter 
 
 - [ ] verify preCommit is working as intended 
+- [ ] error handling creating a new blog & loading indicator 
 
 - [ ] add more end to end tests for all features
   

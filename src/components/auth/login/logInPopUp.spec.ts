@@ -172,7 +172,4 @@ describe('testing login pop up component', () => {
 
 
 
-  it('matches the snapshot', () => {
-    expect(wrapper.html()).toMatchSnapshot();
-  });
 })

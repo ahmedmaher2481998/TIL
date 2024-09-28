@@ -1,6 +1,6 @@
 
 
-# Blogy - Blogging Platform
+# TIL - Blogging Platform
 
 ![][ci] ![][views] ![][stars] ![][forks] ![][issues] ![][license] ![][repo-size]
 
@@ -11,7 +11,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark, (max-width:300px))" srcset="./public/logo-white.svg">
   <source media="(prefers-color-scheme: light,(max-width:300px))" srcset="./public/logo.svg">
-  <img src="./public/logo-white.svg" width="300px" alt="Blogy Logo">
+  <img src="./public/logo-white.svg" width="300px" alt="TIL Logo">
 </picture>
 
  This is a feature-rich blogging platform built with Vue 3, using chadcn-vue, Supabase, and TypeScript.
@@ -108,11 +108,11 @@ pnpm run test:e2e
 
 ## Star History
 <div align='center'>
-<a href="https://star-history.com/#ahmedmaher2481998/blogy-app">
+<a href="https://star-history.com/#ahmedmaher2481998/TIL-app">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/blogy-app&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/blogy-app" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ahmedmaher2481998/blogy-app" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL-app&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL-app" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL-app" />
  </picture>
 </a>
 </div>
@@ -135,17 +135,17 @@ This project is licensed under the [Apace.2 License] - see the [LICENSE.md](./Li
 
 <!----------------------------------{ Labels }--------------------------------->
 
-[views]: https://komarev.com/ghpvc/?username=blogy-app&label=view%20counter&color=red&style=flat
-[repo-size]: https://img.shields.io/github/repo-size/ahmedmaher2481998/blogy-app
-[issues]: https://img.shields.io/github/issues-raw/ahmedmaher2481998/blogy-app
-[license]: https://img.shields.io/github/license/ahmedmaher2481998/blogy-app
-[forks]: https://img.shields.io/github/forks/ahmedmaher2481998/blogy-app?style=flat
-[stars]: https://img.shields.io/github/stars/ahmedmaher2481998/blogy-app
-[contributors]: https://contrib.rocks/image?repo=ahmedmaher2481998/blogy-app&max=500
-[contributors-graph]: https://github.com/ahmedmaher2481998/blogy-app/graphs/contributors
+[views]: https://komarev.com/ghpvc/?username=TIL-app&label=view%20counter&color=red&style=flat
+[repo-size]: https://img.shields.io/github/repo-size/ahmedmaher2481998/TIL-app
+[issues]: https://img.shields.io/github/issues-raw/ahmedmaher2481998/TIL-app
+[license]: https://img.shields.io/github/license/ahmedmaher2481998/TIL-app
+[forks]: https://img.shields.io/github/forks/ahmedmaher2481998/TIL-app?style=flat
+[stars]: https://img.shields.io/github/stars/ahmedmaher2481998/TIL-app
+[contributors]: https://contrib.rocks/image?repo=ahmedmaher2481998/TIL-app&max=500
+[contributors-graph]: https://github.com/ahmedmaher2481998/TIL-app/graphs/contributors
 [contrib-rocks]: https://contrib.rocks/preview?repo=ahmedmaher2481998%2blogy-app
-[ci]: https://github.com/ahmedmaher2481998/blogy-app/actions/workflows/ci.yml/badge.svg
+[ci]: https://github.com/ahmedmaher2481998/TIL-app/actions/workflows/ci.yml/badge.svg
 
 <!-----------------------------------{ Links }---------------------------------->
 
-[site]: https://blogy.vercel.app
+[site]: https://TIL.vercel.app

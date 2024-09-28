@@ -23,12 +23,11 @@ const mainFeaturedBlog = computed(() => {
     <div class="relative h-[400px] overflow-hidden rounded-lg">
       <img :src="mainFeaturedBlog?.image_url" :alt="mainFeaturedBlog?.title" width="{1200}" height="{400}"
         class="h-full w-full object-cover" :style="{ aspectRatio: '1200/400', objectFit: 'cover' }" />
-      <div :class="['absolute inset-0 bg-gradient-to-tr  to-transparent group-hover:from-secondary-background from-background',
+      <div :class="['absolute inset-0 bg-gradient-to-t  to-transparent group-hover:from-secondary-background from-background',
 
         {
-          'group-hover:from-pink600 from-pink-600/80': !isDark,
-
-          'group-hover:from-pink-800 from-pink-800/80': isDark
+          'group-hover:from-slate-200 from-slate-600': !isDark,
+          'group-hover:from-slate-900 from-slate-800': isDark
         }]" />
       <div class="absolute bottom-0 left-0 right-0 p-6">
         <h2 class="text-xl md:text-2xl font-bold text-primary">{{ mainFeaturedBlog?.title }}</h2>
