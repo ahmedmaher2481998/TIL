@@ -108,11 +108,11 @@ pnpm run test:e2e
 
 ## Star History
 <div align='center'>
-<a href="https://star-history.com/#ahmedmaher2481998/TIL-app">
+<a href="https://star-history.com/#ahmedmaher2481998/TIL">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL-app&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL-app" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL-app" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=ahmedmaher2481998/TIL" />
  </picture>
 </a>
 </div>
@@ -135,16 +135,16 @@ This project is licensed under the [Apace.2 License] - see the [LICENSE.md](./Li
 
 <!----------------------------------{ Labels }--------------------------------->
 
-[views]: https://komarev.com/ghpvc/?username=TIL-app&label=view%20counter&color=red&style=flat
-[repo-size]: https://img.shields.io/github/repo-size/ahmedmaher2481998/TIL-app
-[issues]: https://img.shields.io/github/issues-raw/ahmedmaher2481998/TIL-app
-[license]: https://img.shields.io/github/license/ahmedmaher2481998/TIL-app
-[forks]: https://img.shields.io/github/forks/ahmedmaher2481998/TIL-app?style=flat
-[stars]: https://img.shields.io/github/stars/ahmedmaher2481998/TIL-app
-[contributors]: https://contrib.rocks/image?repo=ahmedmaher2481998/TIL-app&max=500
-[contributors-graph]: https://github.com/ahmedmaher2481998/TIL-app/graphs/contributors
+[views]: https://komarev.com/ghpvc/?username=TIL&label=view%20counter&color=red&style=flat
+[repo-size]: https://img.shields.io/github/repo-size/ahmedmaher2481998/TIL
+[issues]: https://img.shields.io/github/issues-raw/ahmedmaher2481998/TIL
+[license]: https://img.shields.io/github/license/ahmedmaher2481998/TIL
+[forks]: https://img.shields.io/github/forks/ahmedmaher2481998/TIL?style=flat
+[stars]: https://img.shields.io/github/stars/ahmedmaher2481998/TIL
+[contributors]: https://contrib.rocks/image?repo=ahmedmaher2481998/TIL&max=500
+[contributors-graph]: https://github.com/ahmedmaher2481998/TIL/graphs/contributors
 [contrib-rocks]: https://contrib.rocks/preview?repo=ahmedmaher2481998%2blogy-app
-[ci]: https://github.com/ahmedmaher2481998/TIL-app/actions/workflows/ci.yml/badge.svg
+[ci]: https://github.com/ahmedmaher2481998/TIL/actions/workflows/ci.yml/badge.svg
 
 <!-----------------------------------{ Links }---------------------------------->
 

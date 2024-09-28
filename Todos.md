@@ -1,4 +1,4 @@
-# TIL-App
+# TIL
 
 ### **App Progress**
 
