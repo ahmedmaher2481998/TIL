@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Moon, Sun, NotebookPen, AudioWaveform, Waves } from 'lucide-vue-next';
 import { useDarkMode } from '@/composable/useDarkMode'
-import { Button, UserMenu } from '@/components'
+import { Button, TransitionWrapper, UserMenu } from '@/components'
 import { useAuth, usePopUp } from '@/stores'
 import { storeToRefs } from 'pinia'
 
@@ -22,10 +22,10 @@ const { toggleDark, isDark } = useDarkMode()
       <div class="text-white flex items-center justify-center">
         <!-- toggle dark mode  -->
         <Button variant="outline" class="flex justify-center items-center" size="icon" @click="toggleDark">
-          <transition name="fade" mode="out-in">
+          <TransitionWrapper>
             <Moon v-if="isDark" class="w-6 h-6 text-foreground" />
             <Sun v-else class="w-6 h-6 text-foreground" />
-          </transition>
+          </TransitionWrapper>
         </Button>
         <!-- logged-in show logout & create new blog post  -->
         <div v-if="AuthStoreState.isAuth" class="flex">

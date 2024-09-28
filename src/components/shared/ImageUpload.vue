@@ -3,7 +3,7 @@ import { FormItem, Input } from '@/components'
 import { Upload } from 'lucide-vue-next';
 import { type ClassValue } from 'clsx'
 import { useField } from 'vee-validate'
-import { ref, toRefs, watch } from 'vue'
+import { computed, ref, toRefs, watch } from 'vue'
 
 type propsType = {
   title: string
@@ -27,6 +27,7 @@ watch(value, (newValue) => {
   if (newValue instanceof File) {
     const reader = new FileReader()
     reader.onload = function (e: ProgressEvent<FileReader>) {
+      console.log('loaded image and getting url...')
       if (blogCover.value) {
         blogCover.value.src = e.target?.result as string || ''
       }
@@ -45,7 +46,7 @@ watch(value, (newValue) => {
         <Upload class="size-6 " />
       </span>
       <span class="flex flex-col items-center justify-center">
-        <img v-if="value" src="" ref="blogCover" class="shadow-lg rounded-lg object-cover"
+        <img v-if="Boolean(value)" src="" ref="blogCover" class="shadow-lg rounded-lg object-cover"
           :class="displayClasses ? displayClasses : 'w-full h-auto'" />
         <span :class="`text-sm truncate  text-center ${value ? 'mt-4' : ''}`">
           {{ value ? value.name : 'Choose image' }}

@@ -59,7 +59,7 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
 </script>
 <template>
   <DisplaySingleBlogSkeleton v-if="blogsStoreData.loading" />
-  <div v-else class="px-0 md:px-2 w-full">
+  <div v-else class="px-0 md:px-4 w-full">
     <div class="flex mr-auto flex-col items-start max-w-screen-lg pt-0 sm:pt-4">
       <header class="w-full">
 

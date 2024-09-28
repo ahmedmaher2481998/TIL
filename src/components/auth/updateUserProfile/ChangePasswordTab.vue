@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, FormInputField } from '@/components';
+import { Button, Card, CardContent, CardDescription, CardFooter, CardHeader, FormInputField, TransitionWrapper } from '@/components';
 import { useAuth } from '@/stores';
 import { notify } from '@/utils';
 import { toTypedSchema } from '@vee-validate/zod';
@@ -75,10 +75,10 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
               :required="true">
               <template #afterInput>
                 <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
-                  <transition name="fade" mode="out-in">
+                  <TransitionWrapper>
                     <EyeOffIcon v-if="showPassword" class="size-6 text-foreground " @click="toggleShowPassword" />
                     <EyeIcon class="size-6 text-foreground" v-else @click="toggleShowPassword" />
-                  </transition>
+                  </TransitionWrapper>
                 </span>
               </template>
             </FormInputField>
@@ -91,10 +91,10 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
               :required="true">
               <template #afterInput>
                 <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
-                  <transition name="fade" mode="out-in">
+                  <TransitionWrapper>
                     <EyeOff v-if="showConfirmPassword" class="size-6 " @click="toggleShowConfirmPassword" />
                     <Eye class="size-6 " v-else @click="toggleShowConfirmPassword" />
-                  </transition>
+                  </TransitionWrapper>
                 </span>
               </template>
             </FormInputField>

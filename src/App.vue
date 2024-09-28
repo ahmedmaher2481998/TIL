@@ -1,7 +1,18 @@
 <script setup lang="ts">
-import { NavBar, PopUp, Toaster } from '@/components';
+import { NavBar, PopUp, Toaster, TransitionWrapper } from '@/components';
+import Lenis from 'lenis'
+/* set up smooth scrolling with lenis  */
+const lenis = new Lenis()
+// lenis.on('scroll', (e) => {
+//   // console.log(e)
+// })
 
+function raf(time) {
+  lenis.raf(time)
+  requestAnimationFrame(raf)
+}
 
+requestAnimationFrame(raf)
 
 </script>
 
@@ -11,8 +22,12 @@ import { NavBar, PopUp, Toaster } from '@/components';
   <header class=" ">
     <NavBar />
   </header>
-  <div class="min-h-screen pt-14  ">
-    <RouterView />
+  <div class="min-h-screen pt-14 md:container">
+    <RouterView v-slot="{ Component }">
+      <TransitionWrapper>
+        <component :is="Component" />
+      </TransitionWrapper>
+    </RouterView>
 
   </div>
   <footer class="bg-muted dark:bg-muted-foreground/10 py-8">
@@ -37,4 +52,25 @@ import { NavBar, PopUp, Toaster } from '@/components';
   </footer> -->
 </template>
 
-<style scoped></style>
+<style>
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+</style>

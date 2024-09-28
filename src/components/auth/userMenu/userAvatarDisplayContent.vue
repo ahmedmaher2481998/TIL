@@ -36,7 +36,7 @@ const sizeClasses = {
       <AvatarImage :src="props.avatar" :alt="props.name" />
       <AvatarFallback>{{ getInitials(props.name) }}</AvatarFallback>
     </Avatar>
-    <span class="flex md:flex-row flex-col">
+    <span class="flex  flex-col">
       <p v-if="displayName">
         {{ props.name }}
       </p>

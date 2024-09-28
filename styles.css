@@ -33,6 +33,7 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --radius: 0.5rem;
+    --scroll-bar-thumb: #000000a2
   }
 
   .dark {
@@ -55,6 +56,7 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+    --scroll-bar-thumb: #e5e7eb
   }
 }
 
@@ -80,4 +82,26 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px var(--secondary-foreground) inset !important;
   box-shadow: 0 0 0 30px var(--secondary-foreground) inset !important;
   -webkit-text-fill-color: var(--muted) !important; /* Optional: Set the autofill text color */
+}
+/* Base scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+/* Handle (the scroll thumb) */
+::-webkit-scrollbar-thumb {
+  background-color:  var(--scroll-bar-thumb);
+  border-radius: 20px !important;  /* Rounded corners */
+}
+
+/* Track (the scroll background) */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Firefox styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-bar-thumb) transparent;
 }

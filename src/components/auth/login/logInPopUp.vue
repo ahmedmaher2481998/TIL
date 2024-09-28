@@ -3,7 +3,8 @@ import {
   Button,
   FormInputField,
   LoginWithGoogleComponent,
-  Separator
+  Separator,
+  TransitionWrapper
 } from '@/components';
 import { useAuth } from '@/stores';
 import { toTypedSchema } from '@vee-validate/zod';
@@ -79,10 +80,12 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           :type="showPassword ? 'text' : 'password'" inputClasses="pr-10" :required="true">
           <template #afterInput>
             <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
-              <transition name="fade" mode="out-in">
+              <TransitionWrapper>
+
                 <EyeOff v-if="showPassword" class="size-6 text-foreground" @click="toggleShowPassword" />
                 <Eye v-else class="size-6 text-foreground " @click="toggleShowPassword" />
-              </transition>
+
+              </TransitionWrapper>
             </span>
           </template>
         </FormInputField>
@@ -96,14 +99,14 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
   </form>
 </template>
 
-<style>
-.fade-enter-active,
-.fade-leave-active {
+<style scoped>
+.fade-eye-enter-active,
+.fade-eye-leave-active {
   transition: all 0.3s;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.fade-eye-enter-from,
+.fade-eye-leave-to {
   opacity: 0;
   scale: 0.8;
   /* transform: translateX(20px); */

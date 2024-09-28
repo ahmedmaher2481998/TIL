@@ -8,7 +8,8 @@ import {
   FormInputField,
   ImageUpload,
   LoginWithGoogleComponent,
-  Separator
+  Separator,
+  TransitionWrapper
 } from '@/components';
 import { useAuth } from '@/stores';
 import { registerSchemaZod } from '@/types';
@@ -87,12 +88,12 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
           :required="true">
           <template #afterInput>
             <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
-              <transition name="fade" mode="out-in">
+              <TransitionWrapper>
                 <EyeOffIcon data-testid="password-eye-off-1" v-if="showPassword" class="size-6 text-foreground "
                   @click="toggleShowPassword" />
                 <EyeIcon data-testid="password-eye-1" class="size-6 text-foreground " v-else
                   @click="toggleShowPassword" />
-              </transition>
+              </TransitionWrapper>
             </span>
           </template>
         </FormInputField>
@@ -105,12 +106,12 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 
           <template #afterInput>
             <span class="absolute cursor-pointer end-0 inset-y-0 flex items-center justify-center px-2">
-              <transition name="fade" mode="out-in">
+              <TransitionWrapper>
                 <EyeOff data-testid="password-eye-off-2" v-if="showConfirmPassword" class="size-6 text-foreground "
                   @click="toggleShowConfirmPassword" />
                 <Eye data-testid="password-eye-2" class="size-6 text-foreground " v-else
                   @click="toggleShowConfirmPassword" />
-              </transition>
+              </TransitionWrapper>
             </span>
           </template>
         </FormInputField>
