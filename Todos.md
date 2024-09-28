@@ -76,7 +76,7 @@
 
 - [x] Create the user profile page with activity tracking.
 
-- [ ] FIX image upload functionality
+- [x] FIX image upload functionality
 
 - [ ] write a read me for the whole app [ AppImage / Video ] &  lunch it on reddit /linked/twitter 
 
