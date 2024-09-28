@@ -22,17 +22,16 @@ const { handleBlur, handleChange, errorMessage, value } = useField<File | null>(
 const blogCover = ref<HTMLImageElement | null>(null)
 // FIXME 
 // display image when it's selected
-watch(value, (newValue) => {
-  console.log('changed')
-  if (newValue instanceof File) {
+watch(value, () => {
+
+  if (value.value instanceof File) {
     const reader = new FileReader()
     reader.onload = function (e: ProgressEvent<FileReader>) {
-      console.log('loaded image and getting url...')
       if (blogCover.value) {
         blogCover.value.src = e.target?.result as string || ''
       }
     }
-    reader.readAsDataURL(newValue)
+    reader.readAsDataURL(value.value)
   }
 })
 </script>
@@ -45,8 +44,8 @@ watch(value, (newValue) => {
       <span v-if="!value" class="h-full 00 flex items-center justify-center px-2">
         <Upload class="size-6 " />
       </span>
-      <span class="flex flex-col items-center justify-center">
-        <img v-if="Boolean(value)" src="" ref="blogCover" class="shadow-lg rounded-lg object-cover"
+      <span class="flex flex-col items-center justify-center ">
+        <img v-if="Boolean(value)" src="" ref="blogCover" class="shadow-lg rounded-lg object-cover max-w-sm"
           :class="displayClasses ? displayClasses : 'w-full h-auto'" />
         <span :class="`text-sm truncate  text-center ${value ? 'mt-4' : ''}`">
           {{ value ? value.name : 'Choose image' }}

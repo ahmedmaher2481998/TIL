@@ -78,7 +78,9 @@
 
 - [ ] FIX image upload functionality
 
-- [ ] write a read me for the whole app [ AppImage / Video ] &  lunch it on reddit/linked/twitter 
+- [ ] write a read me for the whole app [ AppImage / Video ] &  lunch it on reddit /linked/twitter 
+
+- [ ] verify preCommit is working as intended 
 
 - [ ] add more end to end tests for all features
   

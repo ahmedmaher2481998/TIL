@@ -17,26 +17,28 @@ import { createBlogZodSchema } from '@/types'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { slugify } from '@/utils'
-import { watch } from 'vue'
+import { onBeforeUnmount, onMounted, watch } from 'vue'
 import { useAuth, useBlogs } from '@/stores'
 import type { z } from 'zod'
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 const { AuthStoreState } = storeToRefs(useAuth())
+// TODO presist blog if users leaves the page
+const defaultBlogData = localStorage.getItem('blog') ?
+  JSON.parse(localStorage.getItem('blog')) as z.infer<typeof createBlogSchema> : {
+    title: '',
+    tldr: '',
+    description:
+      "",
 
-const defaultBlogData = {
-  title: '',
-  tldr: '',
-  description:
-    "",
+    slug: '',
 
-  slug: '',
-
-  content: '',
-  tags: undefined,
-  image: undefined,
-  readCount: 1,
-  author_id: AuthStoreState.value.id
-}
+    content: '',
+    tags: undefined,
+    image: undefined,
+    readCount: 1,
+    author_id: AuthStoreState.value.id
+  }
 const { toast } = useToast()
 const createBlogSchema = toTypedSchema(createBlogZodSchema)
 const {
@@ -70,18 +72,28 @@ function onInvalidSubmit({
 
 const { CreateBlogPost } = useBlogs()
 async function onSuccess(values: z.infer<typeof createBlogZodSchema>) {
+  localStorage.removeItem('blog')
   await CreateBlogPost(values)
-
-  // console.log('Form submitted!', values)
 }
 // @ts-ignore
 const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
 // create slug out of the title onchange
-watch(formValues, () => {
-  setFieldValue('slug', slugify(formValues.title ?? ''), true)
+const router = useRouter()
+watch(() => formValues.title, (newTitle) => {
+  setFieldValue('slug', slugify(newTitle ?? ''), true)
 })
-watch([AuthStoreState, formValues], () => {
-  setFieldValue('author_id', AuthStoreState.value.id, true)
+onMounted(() => {
+  if (!AuthStoreState.value.isAuth) {
+    router.push('/')
+  }
+  else {
+    setFieldValue('author_id', AuthStoreState.value.id, true)
+    setFieldValue('slug', '')
+  }
+
+})
+onBeforeUnmount(() => {
+  localStorage.setItem('blog_draft', JSON.stringify(formValues))
 })
 </script>
 
@@ -95,7 +107,6 @@ watch([AuthStoreState, formValues], () => {
     </CardHeader>
     <form @submit="onSubmit" keep-values>
       <CardContent class="space-y-4">
-        <!-- Form Fields -->
         <!-- blog Title / slug  -->
         <FormInputField field-name="title" placeholder="Subject title...." field-label="Post title" />
 
