@@ -96,6 +96,8 @@
 
 - [ ] pagination on the blog grid(home page,tags page,blog page,profile page) any where we fetch a lot of blogs 
 
+- [ ] Persist blog data on un-mounting the app 
+
 - [ ] Add a comment section for each blog.
 
 - [ ] Support anonymous or authenticated user comments.
