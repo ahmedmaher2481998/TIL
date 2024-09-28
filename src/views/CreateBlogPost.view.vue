@@ -24,21 +24,21 @@ import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 const { AuthStoreState } = storeToRefs(useAuth())
 // TODO presist blog if users leaves the page
-const defaultBlogData = localStorage.getItem('blog') ?
-  JSON.parse(localStorage.getItem('blog')) as z.infer<typeof createBlogSchema> : {
-    title: '',
-    tldr: '',
-    description:
-      "",
+// localStorage.getItem('blog') ?
+const defaultBlogData = {
+  title: '',
+  tldr: '',
+  description:
+    "",
 
-    slug: '',
+  slug: '',
 
-    content: '',
-    tags: undefined,
-    image: undefined,
-    readCount: 1,
-    author_id: AuthStoreState.value.id
-  }
+  content: '',
+  tags: undefined,
+  image: undefined,
+  readCount: 1,
+  author_id: AuthStoreState.value.id
+}
 const { toast } = useToast()
 const createBlogSchema = toTypedSchema(createBlogZodSchema)
 const {
@@ -92,9 +92,10 @@ onMounted(() => {
   }
 
 })
-onBeforeUnmount(() => {
-  localStorage.setItem('blog_draft', JSON.stringify(formValues))
-})
+// TODO 
+// onBeforeUnmount(() => {
+//   localStorage.setItem('blog_draft', JSON.stringify(formValues))
+// })
 </script>
 
 <template>
