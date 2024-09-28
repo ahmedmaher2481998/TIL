@@ -7,7 +7,7 @@ const lenis = new Lenis()
 //   // console.log(e)
 // })
 
-function raf(time) {
+function raf(time: any) {
   lenis.raf(time)
   requestAnimationFrame(raf)
 }

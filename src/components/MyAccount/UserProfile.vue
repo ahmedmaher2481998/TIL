@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang='ts'>
 import { useAuth } from '@/stores';
 import { getInitials } from '@/utils';
 import { storeToRefs } from 'pinia';

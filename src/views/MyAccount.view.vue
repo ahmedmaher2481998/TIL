@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { BlogsCreatedByUser, BlogsReadByUser, UserProfile } from '@/components';
 import { useAuth, useBlogs } from '@/stores';
 import { notify } from '@/utils';
@@ -15,7 +15,7 @@ watchEffect(async () => {
   } catch (error) {
     notify.error({
       title: 'Error loading your activity',
-      description: error.message
+      description: error?.message
     })
   }
 })
