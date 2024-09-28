@@ -128,7 +128,7 @@ _Note: It may take up to 24h for the [contrib.rocks][contrib-rocks] plugin to up
 
 ## License
 
-This project is licensed under the [MIT License] - see the [LICENSE.md](./License) file for details.
+This project is licensed under the [Apace.2 License] - see the [LICENSE.md](./License) file for details.
 
 
 
