@@ -60,7 +60,6 @@ function onInvalidSubmit({
   errors: typeof formErrors
   rest: any
 }) {
-  // console.log(errors)
   toast({
     title: 'Uh oh! please make sure all fields are valid.',
     description: `please enter: ${Object.keys(errors).join(', ')}`,

@@ -29,7 +29,6 @@ onBeforeMount(async () => {
     timer.value = setTimeout(async () => {
       try {
         await blogsStore.incrementBlogView(blog.value!.id)
-        console.log('you just read this')
       } catch (error) {
         // console.error('Failed to increment blog view', error)
         notify.error({

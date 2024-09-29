@@ -48,12 +48,17 @@ export const useAuth = defineStore('auth', () => {
 
     if (sessionError) {
       // eslint-disable-next-line
-      console.log('error getting session', sessionError)
+      return notify.error({
+        title: 'Connection error',
+        description: sessionError?.message,
+      })
       return
     } else if (userError) {
       // eslint-disable-next-line 
-      console.log('error getting session', userError)
-      return
+      return notify.error({
+        title: 'Connection error',
+        description: userError?.message,
+      })
     } else {
       state.session = sessionData.session
       state.user = userData.user
@@ -80,7 +85,6 @@ export const useAuth = defineStore('auth', () => {
   async function logout() {
     const { error } = await supabase.auth.signOut()
     if (error) {
-      console.log('log out error', error)
       notify.error({ description: error.message, title: 'logging out' })
     } else {
       state.user = null
@@ -113,7 +117,6 @@ export const useAuth = defineStore('auth', () => {
       // })
       throw error
     } else {
-      // console.log('success registered', data)
       const { id, url } = await uploadImageFile({
         img: avatar,
         str: slugify(name),
@@ -139,10 +142,9 @@ export const useAuth = defineStore('auth', () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.href
+        redirectTo: import.meta.env.PROD ? 'https://todayilearn.vercel.app/' : 'http://localhost:3000'
       }
     })
-    console.log('🚀 ~ loginWithGoogle ~ data:', data)
 
     if (error) {
       notify.error({ description: error.message, title: "couldn't signing in" })
@@ -201,7 +203,6 @@ export const useAuth = defineStore('auth', () => {
       .from(Bucket)
       .remove([oldFilePath])
 
-    console.log("🚀 ~ changeAvatar ~ DeletePreviousAvatarResponse:", DeletePreviousAvatarResponse)
     if (DeletePreviousAvatarError) throw DeletePreviousAvatarError
     // upload the new avatar
     const { id, url } = await uploadImageFile({

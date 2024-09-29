@@ -9,7 +9,6 @@ const { AuthStoreState } = storeToRefs(useAuth())
 watchEffect(async () => {
   if (!AuthStoreState.value.isAuth) return
   try {
-    console.log('get users blogs ...')
     await getUsersBlogs()
 
   } catch (error: any) {

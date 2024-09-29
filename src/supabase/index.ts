@@ -49,8 +49,6 @@ export async function uploadImageFile({
     })
   }
   if (!uploadData) {
-    console.log('error', error)
-    console.log('upload data', uploadData)
     throw new Error('upload data returned empty')
   }
   const { data: imageData } = supabase.storage.from(Bucket).getPublicUrl(uploadData?.path)
