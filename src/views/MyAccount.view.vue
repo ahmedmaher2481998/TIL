@@ -12,7 +12,7 @@ watchEffect(async () => {
     console.log('get users blogs ...')
     await getUsersBlogs()
 
-  } catch (error) {
+  } catch (error: any) {
     notify.error({
       title: 'Error loading your activity',
       description: error?.message

@@ -1,18 +1,17 @@
 import supabase from '@/supabase'
-import { Tables, type TagType } from '@/types'
+import { Tables, type TagsType } from '@/types'
 import { slugify } from '@/utils'
 import type { QueryData } from '@supabase/supabase-js'
 import { defineStore } from 'pinia'
 import { onMounted, reactive, ref } from 'vue'
 
 export const useTags = defineStore('tags', () => {
-  const tags = reactive<{ tags: TagType[] }>({ tags: [] })
+  const tags = reactive<{ tags: TagsType[] }>({ tags: [] })
   const selectAllTagsQuery = `id,title,slug,${Tables.Blogs} (*)`
   const tagsWithBlogsQuery = supabase.from(Tables.Tags).select(selectAllTagsQuery)
   type TagsWithBlogsType = QueryData<typeof tagsWithBlogsQuery>
   const selectAllBlogsByTagQuery = `*,blogs(id, title, slug, description, tldr, image_url, read_count, created_at, updated_at,
   ${Tables.Tags} (*),profiles(user_metadata,email,id))`
-  // type selectAllBlogsByTagType = QueryData<typeof selectAllBlogsByTagQuery>
   onMounted(async () => {
     await getAllTags()
   })
@@ -43,7 +42,7 @@ export const useTags = defineStore('tags', () => {
       return
     } else {
       // @ts-ignore
-      tags.tags.push(data[0] as TagType)
+      tags.tags.push(data[0] as TagsType)
       return
     }
   }

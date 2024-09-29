@@ -1,5 +1,5 @@
 import supabase, { uploadImageFile as uploadBlogCover } from '@/supabase'
-import { createBlogZodSchema, db_functions, Tables } from '@/types'
+import { createBlogZodSchema, db_functions, Tables, type BlogTypeWithTagsAndProfile } from '@/types'
 import { notify } from '@/utils'
 import type { QueryData } from '@supabase/supabase-js'
 import { defineStore, storeToRefs } from 'pinia'
@@ -21,7 +21,7 @@ profiles(user_metadata,email,id)
   type singleBlogWithTags = BlogsWithTagsType[0]
 
   const blogsStoreData = reactive<{
-    blogs: BlogsWithTagsType | null
+    blogs: BlogTypeWithTagsAndProfile[] | null
     loading: boolean
     mainFeatured: null | singleBlogWithTags,
     secondaryFeatured: null | singleBlogWithTags,
@@ -73,7 +73,7 @@ profiles(user_metadata,email,id)
     })
     if (!img) return abort('Image upload failed', 'Check your network or try again later')
 
-    const { error } = await supabase.rpc(db_functions.createBlogWithTags, {
+    const { data, error } = await supabase.rpc(db_functions.createBlogWithTags, {
       blog_title: blog.title,
       blog_slug: blog.slug,
       blog_description: blog.description ?? 'no_description',
@@ -88,9 +88,10 @@ profiles(user_metadata,email,id)
       abort('Error creating post:', error.message)
     } else {
       notify.success({
-        title: 'Post created successfully',
+        title: 'Post created successfully,will be redirected to it .',
         description: 'Check it out on your profile page'
       })
+      return data[0]
     }
   }
 
@@ -127,7 +128,7 @@ profiles(user_metadata,email,id)
     // if authenticated use userId to add blog to blog_readers
     const userId = AuthStoreState.value.isAuth ? AuthStoreState.value.id : null;
     // trigger the function that will increment reader count and add blog to blog_readers if user logged in
-    const { error } = await supabase.rpc('increment_blog_view', {
+    const { error } = await supabase.rpc(db_functions.incrementBlogViews, {
       current_blog_id: blogId,
       //@ts-ignore
       current_user_id: userId,
@@ -139,8 +140,8 @@ profiles(user_metadata,email,id)
   }
   const userBlogs = reactive<
     {
-      read: Database['public']['Tables']['blogs']['Row'][] | undefined;
-      wrote: Database['public']['Tables']['blogs']['Row'][] | undefined;
+      read: any;
+      wrote: any;
     }>({ read: undefined, wrote: undefined })
   async function getUsersBlogs() {
     if (!AuthStoreState.value.isAuth)

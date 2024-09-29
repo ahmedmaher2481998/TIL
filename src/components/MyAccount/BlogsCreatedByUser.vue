@@ -28,9 +28,9 @@ const { userBlogs } = storeToRefs(useBlogs())
             <div class="flex items-center gap-2 text-sm text-muted-foreground">
               <Avatar class="h-6 w-6 border">
                 <AvatarImage :src="blog.profiles?.user_metadata.avatar" alt="Author" />
-                <AvatarFallback>{{ getInitials(blog.profiles?.user_metadata.name) }}</AvatarFallback>
+                <AvatarFallback>{{ getInitials(blog?.profiles?.user_metadata.name) }}</AvatarFallback>
               </Avatar>
-              <span>{{ blog.profiles?.user_metadata.name }}</span>
+              <span>{{ blog.profiles?.user_metadata['name'] }}</span>
               <span>•</span>
               <span>{{ formatDisplayDate(blog.created_at, true) }}</span>
             </div>

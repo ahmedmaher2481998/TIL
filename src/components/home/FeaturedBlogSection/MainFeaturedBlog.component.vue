@@ -9,6 +9,7 @@ import { storeToRefs } from 'pinia'
 import { formatDisplayDate } from '@/utils'
 import { computed } from 'vue'
 import { useDarkMode } from '@/composable/useDarkMode'
+import type { BlogTypeWithTagsAndProfile } from '@/types'
 const { isDark } = useDarkMode()
 const { blogsStoreData } = storeToRefs(useBlogs())
 const ago = computed(() => formatDisplayDate(blogsStoreData.value.mainFeatured?.created_at ?? '', true))
@@ -40,9 +41,9 @@ const mainFeaturedBlog = computed(() => {
           </router-link>
         </div>
         <div class="mt-4 flex items-center gap-2 text-sm text-muted">
-          <UserAvatarDisplay :name="mainFeaturedBlog?.profiles?.user_metadata.name"
-            :avatar="mainFeaturedBlog?.profiles?.user_metadata?.avatar" :ago="ago"
-            :authorId="mainFeaturedBlog?.profiles?.user_metadata.sub" />
+          <UserAvatarDisplay :name="mainFeaturedBlog?.profiles?.user_metadata['name']"
+            :avatar="mainFeaturedBlog?.profiles?.user_metadata['avatar']"
+            :authorId="mainFeaturedBlog?.profiles?.user_metadata['sub']" :ago="ago" />
         </div>
       </div>
     </div>

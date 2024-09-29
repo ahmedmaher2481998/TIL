@@ -1,40 +1,15 @@
+import type { Database } from '@/supabase/database.types'
 import { z } from 'zod'
 
-export type BlogType = {
-  id: number
-  title: string
-  slug: string
-  description: string
-  tldr: string
-  content: string
-  image: string
-  image_id: string
-  comments: CommentType[]
-  // user: UserType
-  tags?: TagType[]
-  read_count: number
-  author_id: number
-  created_at: string
-  updated_at: string | null
-}
+export type BlogType = Database['public']['Tables']['blogs']['Row']
+export type ProfilesType = Database['public']['Tables']['profiles']['Row']
+export type TagsType = Database['public']['Tables']['tags']['Row']
 
-// TagType definition
-export type TagType = {
-  id: number
-  title: string
-  slug: string
-  blogPosts?: BlogType[]
-}
+export type BlogTypeWithTagsAndProfile = {
+  profiles: ProfilesType,
+  tags: TagsType[],
+} & BlogType
 
-// CommentType definition
-export type CommentType = {
-  id: number
-  content: string
-  blogPost: BlogType
-  // user: UserType
-}
-
-// Supabase Constants
 export type createBlogWithTagsType = {
   blog_title: string
   blog_slug: string
@@ -47,7 +22,8 @@ export type createBlogWithTagsType = {
   blog_tag_ids: number[]
 }
 export enum db_functions {
-  createBlogWithTags = 'create_blog_with_tags'
+  createBlogWithTags = 'create_blog_with_tags',
+  incrementBlogViews = 'increment_blog_view'
 }
 export type TableNameType = 'users' | 'blogs' | '' | 'comments' | 'tags' | 'blog_tags'
 export const Bucket = 'blogs-bucket'
@@ -138,5 +114,5 @@ export const registerSchemaZod = z
     path: ['confirmPassword']
   })
 
-// Ui Related Types
+// POP UP Ui Related Types
 export type ViewType = 'login' | 'register ' | 'logout' | 'addNewTag' | 'updateUserProfile'

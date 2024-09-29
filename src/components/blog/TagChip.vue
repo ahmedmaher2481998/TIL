@@ -2,8 +2,8 @@
   <RouterLink v-if="click.linked" :to="click.href">
     <Badge :class="{
       'border me-1 cursor-pointer glassy-feel text-slate-100 border-white text-center w-full text-sm p-2 rounded-3xl':
-        variant === 'glassy',
-      '': variant === 'default'
+        'default'
+      // variant === 'glassy',
     }">
       {{ '# ' + name }}
     </Badge>

@@ -39,7 +39,7 @@ const ago = formatDisplayDate(blog.created_at, true)
       <CardTitle class="text-primary">{{ blog.title }}</CardTitle>
 
       <div class="mb-2 flex flex-wrap gap-2">
-        <router-link v-for="tag in blog.tags" :key="tag.id" :to="`tags/${tag.slug}`">
+        <router-link v-for="tag in blog.tags" :key="tag.id" :to="`/tags/${tag.slug}`">
           <Badge variant="default"> # {{ tag.title }} </Badge>
         </router-link>
       </div>

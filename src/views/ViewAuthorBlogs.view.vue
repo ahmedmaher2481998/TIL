@@ -2,27 +2,44 @@
   import { BlogCard, BlogsGridSkeleton } from '@/components';
   import supabase from '@/supabase';
   import { Tables } from '@/types';
+  import type { QueryData } from '@supabase/supabase-js';
+  import { Table } from 'lucide-vue-next';
   import { onBeforeMount, reactive, ref } from 'vue';
-  import { useRoute } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
 
   const route = useRoute()
   const id = route.params.id;
   const author = ref('...')
-  const blogsStoreData = reactive({
+  const query = supabase.from(Tables.Blogs).select(`
+      id, title, slug, description, tldr, image_url, read_count, created_at, updated_at,
+      ${Tables.Tags}(*),profiles(user_metadata, email, id)`).eq('author_id', id)
+
+  type BlogsType = QueryData<typeof query>[number]
+
+  const blogsStoreData = reactive<{
+    blogs: BlogsType[],
+    loading: boolean,
+  }>({
     blogs: [],
     loading: true,
   });
+  const router = useRouter()
   onBeforeMount(() => {
-    supabase.from(Tables.Blogs).select(`
-      id, title, slug, description, tldr, image_url, read_count, created_at, updated_at,
-      ${Tables.Tags}(*),profiles(user_metadata, email, id)`)
-      .eq('author_id', id).then(res => {
-        blogsStoreData.blogs = res.data;
-        blogsStoreData.loading = false;
-        if (blogsStoreData.blogs.length > 0) {
-          author.value = res.data[0].profiles.user_metadata['name'];
+    query.then(res => {
+      if (res.error) {
+        console.error(res.error)
+        router.push('/404')
+        return
+      }
+      if (res.data) {
+        blogsStoreData.blogs = res.data
+        blogsStoreData.loading = false
+        if (blogsStoreData.blogs.length > 0 && res.data[0]?.profiles?.user_metadata) {
+          // @ts-ignore
+          author.value = res.data[0].profiles.user_metadata?.name as string || ''
         }
-      })
+      }
+    })
 
   })
 </script>
@@ -48,7 +65,7 @@
         tags: blog.tags,
         read_count: blog.read_count,
         created_at: blog.created_at,
-        authorId: blog.profiles.user_metadata.sub
+        authorId: blog.profiles?.user_metadata['sub']
       }" :key="blog.id" />
     </div>
     <div v-else class="container pb-20 grid gap-4 grid-cols-1 md:grid-cols-2">
