@@ -111,52 +111,63 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+---
+-- CREATE OR REPLACE FUNCTION create_profile_from_user()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--   -- Insert a new profile into the profiles table with the corresponding user_id
+--   INSERT INTO public.profiles (author_id, email, user_metadata)
+--   VALUES (NEW.id, NEW.email, NEW.raw_user_meta_data);
 
-CREATE OR REPLACE FUNCTION create_profile_from_user()
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- CREATE TRIGGER trigger_create_profile
+-- AFTER INSERT ON auth.users
+-- FOR EACH ROW
+-- EXECUTE FUNCTION create_profile_from_user();
+
+
+
+
+-- Function to create or update profile from user
+CREATE OR REPLACE FUNCTION public.create_or_update_profile_from_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  -- Insert a new profile into the profiles table with the corresponding user_id
-  INSERT INTO public.profiles (author_id, email, user_metadata)
-  VALUES (NEW.id, NEW.email, NEW.raw_user_meta_data);
+  -- Check if a profile already exists for this user
+  IF EXISTS (SELECT 1 FROM public.profiles WHERE author_id = NEW.id) THEN
+    -- Update existing profile
+    UPDATE public.profiles
+    SET 
+      email = NEW.email,
+      user_metadata = NEW.raw_user_meta_data
+    WHERE author_id = NEW.id;
+  ELSE
+    -- Insert a new profile
+    INSERT INTO public.profiles (author_id, email, user_metadata)
+    VALUES (NEW.id, NEW.email, NEW.raw_user_meta_data);
+  END IF;
 
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-
-
-
-CREATE OR REPLACE FUNCTION update_profiles_from_users()
-RETURNS TRIGGER AS $$
-BEGIN
-  -- Update the profiles table with the new data from auth.users
-  UPDATE public.profiles
-  SET
-    email = NEW.email, -- Update email or any other fields that should be synced
-    user_metadata = New.raw_user_meta_data,
-    -- Add other fields as necessary
-    updated_at = NOW() -- Optional: update a timestamp for last modification
-  WHERE
-    author_id = NEW.id; -- Assumes profiles.id matches auth.users.id
-
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
-
-
-
-CREATE TRIGGER trigger_create_profile
+-- Trigger for new user creation
+CREATE OR REPLACE TRIGGER trigger_create_profile
 AFTER INSERT ON auth.users
 FOR EACH ROW
-EXECUTE FUNCTION create_profile_from_user();
+EXECUTE FUNCTION public.create_or_update_profile_from_user();
 
-
-CREATE TRIGGER trigger_update_profiles
+-- Trigger for user updates
+CREATE OR REPLACE TRIGGER trigger_update_profile
 AFTER UPDATE ON auth.users
 FOR EACH ROW
-EXECUTE FUNCTION update_profiles_from_users();
---
+WHEN (OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE FUNCTION public.create_or_update_profile_from_user();
+
+
+
 ---- increment readers count for blog and add to users reading list if authenticated 
 create or replace function increment_blog_view(
   current_blog_id int,

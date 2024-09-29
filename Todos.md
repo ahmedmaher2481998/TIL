@@ -56,6 +56,10 @@
 
 - [x] display view counts for Each blog(card & blog page)
 
+- [ ] fix build step
+
+- [x] error handling creating a new blog & loading indicator
+
 - [ ] add more unit tests for shared components & stores 
   
   - [ ] pinia stores auth , blog , pop-up tags
@@ -81,7 +85,6 @@
 - [ ] write a read me for the whole app [ AppImage / Video ] &  lunch it on reddit /linked/twitter 
 
 - [ ] verify preCommit is working as intended 
-- [ ] error handling creating a new blog & loading indicator 
 
 - [ ] add more end to end tests for all features
   

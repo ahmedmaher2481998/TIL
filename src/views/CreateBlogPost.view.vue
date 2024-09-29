@@ -11,13 +11,13 @@ import {
   ImageUpload,
   Button,
   MarkDownContentInput,
-  useToast
+  useToast, Loader
 } from '@/components'
 import { createBlogZodSchema } from '@/types'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { slugify } from '@/utils'
-import { onBeforeUnmount, onMounted, watch } from 'vue'
+import { notify, slugify } from '@/utils'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useAuth, useBlogs } from '@/stores'
 import type { z } from 'zod'
 import { storeToRefs } from 'pinia'
@@ -30,9 +30,7 @@ const defaultBlogData = {
   tldr: '',
   description:
     "",
-
   slug: '',
-
   content: '',
   tags: undefined,
   image: undefined,
@@ -71,9 +69,16 @@ function onInvalidSubmit({
 }
 
 const { CreateBlogPost } = useBlogs()
+const loading = ref(false)
 async function onSuccess(values: z.infer<typeof createBlogZodSchema>) {
-  localStorage.removeItem('blog')
-  await CreateBlogPost(values)
+  // localStorage.removeItem('blog')
+  loading.value = true
+  CreateBlogPost(values).then(res => {
+    loading.value = false
+    resetForm()
+    const slug = res?.slug as string ?? ""
+    router.push(`/blog/${slug}`)
+  })
 }
 // @ts-ignore
 const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
@@ -124,8 +129,13 @@ onMounted(() => {
         <MarkDownContentInput />
       </CardContent>
       <CardFooter class="flex mt-10 justify-between px-6 pb-6">
-        <Button type="button" variant="destructive" @click="resetForm"> clear </Button>
-        <Button type="submit">Publish</Button>
+        <Button :disabled="loading" type="button" variant="destructive" @click="resetForm">
+          clear
+        </Button>
+        <Button :disabled="loading" type="submit">
+          Publish
+          <Loader v-if="loading" />
+        </Button>
       </CardFooter>
     </form>
   </Card>
