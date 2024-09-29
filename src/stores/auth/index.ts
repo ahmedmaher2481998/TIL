@@ -47,18 +47,9 @@ export const useAuth = defineStore('auth', () => {
     const { data: userData, error: userError } = await supabase.auth.getUser()
 
     if (sessionError) {
-      // eslint-disable-next-line
-      return notify.error({
-        title: 'Connection error',
-        description: sessionError?.message,
-      })
       return
     } else if (userError) {
-      // eslint-disable-next-line 
-      return notify.error({
-        title: 'Connection error',
-        description: userError?.message,
-      })
+      return
     } else {
       state.session = sessionData.session
       state.user = userData.user
