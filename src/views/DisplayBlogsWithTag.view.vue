@@ -2,14 +2,13 @@
 import { Badge, BlogCard, Skeleton } from '@/components'
 import { useTags } from '@/stores'
 import { notify } from '@/utils'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 const { getBlogsByTagSlug } = useTags()
 const route = useRoute()
 const tagSlug = route.params.tagSlug as string
 const router = useRouter()
-let data = ref<Awaited<ReturnType<typeof getBlogsByTagSlug>> | undefined>()
-onMounted(async () => {
+const getRouteData = async () => {
   try {
     data.value = await getBlogsByTagSlug(tagSlug)
   } catch (error) {
@@ -19,6 +18,12 @@ onMounted(async () => {
     })
     router.back()
   }
+}
+let data = ref<Awaited<ReturnType<typeof getBlogsByTagSlug>> | undefined>()
+onMounted(getRouteData)
+watch(() => route.path, async (newPath, oldPath) => {
+  // console.log(`Route changed from ${oldPath} to ${newPath}`)
+  await getRouteData()
 })
 
 
