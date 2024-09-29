@@ -12,14 +12,11 @@
 /* Styles for the entering (new) route */
 .fade-enter-from {
   opacity: 0;
-  transform: scale(.5);
-  /* Start below the viewport */
 }
 
+/* * Styles for the Leaving (old) route */
 .fade-leave-to {
   opacity: 0;
-  transform: scale(.5);
-  /* Move up and fade-route out */
 }
 
 .fade-enter-to,

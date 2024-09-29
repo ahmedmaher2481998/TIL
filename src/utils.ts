@@ -50,7 +50,7 @@ type toastParams = {
 }
 export const notify = {
   success: (t: toastParams) =>
-    toast({
+    toast()({
       title: `Success: ${t.title}`,
       description: t.description,
       variant: 'default',
@@ -65,7 +65,7 @@ export const notify = {
       )
     }),
   error: (t: toastParams) =>
-    toast({
+    toast()({
       title: `Error: ${t.title}`,
       description: t.description,
       variant: 'destructive'
@@ -80,7 +80,7 @@ export const notify = {
       // )
     }),
   warning: (t: toastParams) =>
-    toast({
+    toast()({
       title: `warning: ${t.title}`,
       description: t.description,
       variant: 'destructive'
@@ -95,7 +95,7 @@ export const notify = {
       // )
     }),
   info: (t: toastParams) =>
-    toast({
+    toast()({
       title: `${t.title}`,
       description: t.description,
       variant: 'destructive',
