@@ -16,17 +16,16 @@
 
  This is a feature-rich blogging platform built with Vue 3, using chadcn-vue, Supabase, and TypeScript.
 
-
-<video autoplay muted loop>
-  <source src="./public/dcos/TIL-promo.webp" type="video/webp">
-  Your browser does not support the video tag.
-</video>
-
-
-  **[<kbd> <br> &nbsp;**Live Demo**&nbsp; <br> </kbd>][site]**
-
 </div>
 
+<picture style="min-height:500px;">
+  <source media="(prefers-color-scheme: dark, (max-width:300px))" srcset="./public/docs/TIL-dark.png">
+  <source media="(prefers-color-scheme: light,(max-width:300px))" srcset="./public/docs/TIL-light.png">
+  <img src="./public/dcos/TIL-dark.png" width="300px" alt="TIL Logo">
+</picture>
+<div align='center'>
+  **[<kbd> <br> &nbsp;**Live Demo**&nbsp; <br> </kbd>][site]**
+</div>
 ## Features
 
 - User authentication with Google login
@@ -149,4 +148,4 @@ This project is licensed under the [Apace.2 License] - see the [LICENSE.md](./Li
 
 <!-----------------------------------{ Links }---------------------------------->
 
-[site]: https://TIL.vercel.app
+[site]: https://todayilearn.vercel.app
