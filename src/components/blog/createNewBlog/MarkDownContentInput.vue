@@ -41,6 +41,10 @@ const { value, errors, errorMessage } = useField<string>('content')
   transition: var(--md-transition);
 }
 
+#preview-only-preview {
+  word-break: keep-all !important;
+}
+
 .md-editor-toolbar {
   background-color: hsl(var(--card));
   border-bottom-color: var(--md-border-color);

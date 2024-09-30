@@ -117,7 +117,7 @@ const onSubmit = handleSubmit.withControlled(onSuccess, onInvalidSubmit)
         </FormInputField>
       </div>
     </div>
-    <div class="flex flex-col bg-green justify-center items-center gap-3">
+    <div class="flex flex-col  justify-center items-center gap-3">
       <Button type="submit" class="w-full"> Register </Button>
       <Separator label="Or" />
       <LoginWithGoogleComponent />

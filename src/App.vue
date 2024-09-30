@@ -22,7 +22,7 @@ requestAnimationFrame(raf)
   <header class=" ">
     <NavBar />
   </header>
-  <div class="min-h-screen pt-14 md:container">
+  <div class="min-h-screen pt-14 px-2 md:container">
     <RouterView v-slot="{ Component }">
       <TransitionWrapper>
         <component :is="Component" />

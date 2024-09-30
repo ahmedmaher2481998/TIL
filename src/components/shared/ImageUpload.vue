@@ -52,8 +52,8 @@ watch(value, () => {
         </span>
       </span>
 
-      <Input accept="image/*" :id="name" type="file" class="pl-10 cursor-pointer hidden bg-green-600"
-        @change="handleChange" @blur="handleBlur" />
+      <Input accept="image/*" :id="name" type="file" class="pl-10 cursor-pointer hidden " @change="handleChange"
+        @blur="handleBlur" />
     </label>
     <p v-if="Boolean(errorMessage)" class="text-sm font-medium text-destructive">
       {{ errorMessage }}

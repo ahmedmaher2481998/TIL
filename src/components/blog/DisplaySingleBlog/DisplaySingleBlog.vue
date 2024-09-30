@@ -3,7 +3,7 @@ import { Badge, BlogViewCount, UserAvatarDisplay } from '@/components'
 import { useDarkMode } from '@/composable/useDarkMode'
 import { useBlogs } from '@/stores'
 import { formatDisplayDate, notify } from '@/utils'
-import { MdPreview } from 'md-editor-v3'
+import { MdPreview, MdCatalog } from 'md-editor-v3'
 import 'md-editor-v3/lib/preview.css'
 import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, onBeforeUnmount, ref, type ComputedRef } from 'vue'
@@ -59,8 +59,8 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
 </script>
 <template>
   <DisplaySingleBlogSkeleton v-if="blogsStoreData.loading" />
-  <div v-else class="px-0 md:px-4 w-full ">
-    <div class="flex mr-auto flex-col items-start max-w-screen-lg pt-0 sm:pt-4">
+  <div v-else class=" md:px-4 w-full ">
+    <div class="flex mr-auto flex-col items-start max-w-screen-lg pt-0 ">
       <header class="w-full">
 
         <h1 class=" text-primary flex-wrap text-2xl md:text-3xl mb-6">
@@ -84,9 +84,11 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
       </header>
 
       <img :src="blog?.image_url" :alt="blog?.description" class="w-full object-cover max-h-96 rounded " />
-      <div class="pt-6 w-full">
-        <MdPreview class="mt-0" :editor-id="id" :modelValue="blog?.content" lang="en-US"
+      <div class="pt-6 w-full flex flex-col md:flex-row">
+        <MdPreview class="mt-0 -mx-4 order-2 md:order-1" :editor-id="id" :modelValue="blog?.content" lang="en-US"
           :theme="isDark ? 'light' : 'dark'" :noPrettier="true" noUploadImg />
+        <MdCatalog :editorId="id" :scrollElement="scrollElement" class="order-1 md:order-2" />
+
       </div>
     </div>
   </div>
@@ -97,8 +99,8 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
   border-radius: 20px;
 }
 
-.preview-only-preview {
-  word-break: normal !important;
+#preview-only-preview {
+  word-break: keep-all !important;
 }
 
 
@@ -148,6 +150,7 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
 
 .md-editor-content {
   background-color: var(--md-bk-color);
+
 }
 
 .md-editor-footer {
