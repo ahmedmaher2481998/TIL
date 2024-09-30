@@ -18,10 +18,10 @@
 
 </div>
 
-<picture style="min-height:500px;">
-  <source media="(prefers-color-scheme: dark, (max-width:300px))" srcset="./public/docs/TIL-dark.png">
-  <source media="(prefers-color-scheme: light,(max-width:300px))" srcset="./public/docs/TIL-light.png">
-  <img src="./public/dcos/TIL-dark.png" width="300px" alt="TIL Logo">
+<picture >
+  <source media="(prefers-color-scheme: dark, (max-width:100%))" srcset="./public/docs/TIL-dark.png">
+  <source media="(prefers-color-scheme: light,(max-width:100%))" srcset="./public/docs/TIL-light.png">
+  <img src="./public/dcos/TIL-dark.png" width="100%" alt="TIL Logo">
 </picture>
 
 <div align='center'>
