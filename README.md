@@ -19,9 +19,9 @@
 </div>
 
 <picture >
-  <source media="(prefers-color-scheme: dark, (max-width:100%))" srcset="./public/docs/TIL-dark.png">
-  <source media="(prefers-color-scheme: light,(max-width:100%))" srcset="./public/docs/TIL-light.png">
-  <img src="./public/dcos/TIL-dark.png" width="100%" alt="TIL Logo">
+  <source media="(prefers-color-scheme: dark, (max-width:100%))" srcset="https://raw.githubusercontent.com/ahmedmaher2481998/TIL/refs/heads/main/public/dcos/TIL-dark.png">
+  <source media="(prefers-color-scheme: light,(max-width:100%))" srcset="https://raw.githubusercontent.com/ahmedmaher2481998/TIL/refs/heads/main/public/dcos/TIL-light.png">
+  <img src="https://raw.githubusercontent.com/ahmedmaher2481998/TIL/refs/heads/main/public/dcos/TIL-dark.png" width="100%" alt="TIL Logo">
 </picture>
 
 <div align='center'>
