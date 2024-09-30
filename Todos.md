@@ -56,7 +56,7 @@
 
 - [x] display view counts for Each blog(card & blog page)
 
-- [ ] fix build step
+- [x] fix build step
 
 - [x] error handling creating a new blog & loading indicator
 
@@ -82,7 +82,7 @@
 
 - [x] FIX image upload functionality
 
-- [ ] write a read me for the whole app [ AppImage / Video ] &  lunch it on reddit /linked/twitter 
+- [x] write a read me for the whole app [ AppImage / Video ] &  lunch it on reddit /linked/twitter 
 
 - [ ] verify preCommit is working as intended 
 

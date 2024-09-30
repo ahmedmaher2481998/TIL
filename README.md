@@ -16,11 +16,12 @@
 
  This is a feature-rich blogging platform built with Vue 3, using chadcn-vue, Supabase, and TypeScript.
 
-<!-- <picture>
-  <source media="(prefers-color-scheme: light)" srcset="https://graph.org/file/12ea4beff2367f40f13ce.png">
-  <source media="(prefers-color-scheme: dark)" srcset="https://graph.org/file/16937ebb693470d804f31.png">
-  <img src="https://graph.org/file/12ea4beff2367f40f13ce.png" alt="infinitunes">
-</picture> -->
+
+<video autoplay muted loop>
+  <source src="./public/dcos/TIL-promo.webp" type="video/webp">
+  Your browser does not support the video tag.
+</video>
+
 
   **[<kbd> <br> &nbsp;**Live Demo**&nbsp; <br> </kbd>][site]**
 
@@ -143,7 +144,7 @@ This project is licensed under the [Apace.2 License] - see the [LICENSE.md](./Li
 [stars]: https://img.shields.io/github/stars/ahmedmaher2481998/TIL
 [contributors]: https://contrib.rocks/image?repo=ahmedmaher2481998/TIL&max=500
 [contributors-graph]: https://github.com/ahmedmaher2481998/TIL/graphs/contributors
-[contrib-rocks]: https://contrib.rocks/preview?repo=ahmedmaher2481998%2blogy-app
+[contrib-rocks]: https://contrib.rocks/preview?repo=ahmedmaher2481998%2TIL
 [ci]: https://github.com/ahmedmaher2481998/TIL/actions/workflows/ci.yml/badge.svg
 
 <!-----------------------------------{ Links }---------------------------------->
