@@ -85,9 +85,10 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
 
       <img :src="blog?.image_url" :alt="blog?.description" class="w-full object-cover max-h-96 rounded " />
       <div class="pt-6 w-full flex flex-col md:flex-row">
-        <MdPreview class="mt-0 -mx-4 order-2 md:order-1" :editor-id="id" :modelValue="blog?.content" lang="en-US"
+        <MdPreview class="mt-0 -mx-4 flex-1 order-2 md:order-1" :editor-id="id" :modelValue="blog?.content" lang="en-US"
           :theme="isDark ? 'light' : 'dark'" :noPrettier="true" noUploadImg />
-        <MdCatalog :editorId="id" :scrollElement="scrollElement" class="order-1 md:order-2" />
+        <!-- TODO  -->
+        <!-- <MdCatalog :editorId="id" :scrollElement="scrollElement" class="order-1 md:order-2" /> -->
 
       </div>
     </div>
@@ -125,6 +126,7 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
   --md-scrollbar-thumb-color: hsl(var(--muted));
   --md-scrollbar-thumb-hover-color: hsl(var(--muted-foreground));
   --md-scrollbar-thumb-active-color: hsl(var(--primary));
+  --md-editor-catalog-link-color: hsl(var(--secondary));
 
   background-color: var(--md-bk-color);
   color: var(--md-color);
@@ -178,6 +180,7 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
   --md-scrollbar-thumb-color: hsl(var(--muted));
   --md-scrollbar-thumb-hover-color: hsl(var(--muted-foreground));
   --md-scrollbar-thumb-active-color: hsl(var(--primary));
+  --md-editor-catalog-link-color: hsl(var(--secondary));
 }
 
 /* Adjustments for both themes */
@@ -199,5 +202,9 @@ const user: ComputedRef<{ name: string, avatar: string, id: string }> = computed
 .md-editor input[type="checkbox"],
 .md-editor-dark input[type="checkbox"] {
   accent-color: hsl(var(--primary));
+}
+
+.md-editor-catalog-link {
+  color: hsl(var(--md-editor-catalog-link-color)) !important;
 }
 </style>
