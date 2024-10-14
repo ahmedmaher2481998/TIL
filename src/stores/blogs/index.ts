@@ -16,7 +16,7 @@ ${Tables.Tags} (*),
 profiles(user_metadata,email,id)
 `
   const { AuthStoreState } = storeToRefs(useAuth())
-  const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery)
+  const blogsWithBlogsQuery = supabase.from(Tables.Blogs).select(selectAllBlogsQuery).eq('published', true)
   type BlogsWithTagsType = QueryData<typeof blogsWithBlogsQuery>
   type singleBlogWithTags = BlogsWithTagsType[0]
 
