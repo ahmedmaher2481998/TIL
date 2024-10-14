@@ -30,7 +30,7 @@ const handleEditProfile = () => {
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent class="w-56">
-      <RouterLink to="my-account" class="flex gap-2 w-full">
+      <RouterLink to="/my-account" class="flex gap-2 w-full">
         <DropdownMenuItem class="flex w-full  cursor-pointer items-center gap-3">
           <User2Icon />
           My Account
