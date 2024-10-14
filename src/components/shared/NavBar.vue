@@ -16,7 +16,9 @@ const { toggleDark, isDark } = useDarkMode()
       <router-link to="/" class="font-bold text-primary font-main">
         <div class="flex gap-2">
           <AudioWaveform class="h-4 w-4 md:h-6 md:w-6 " />
-          <span class="text-lg font-semibold">TIL</span>
+          <span class="text-lg font-semibold">TIL
+            <sup class="font-thin italic">Beta</sup>
+          </span>
         </div>
       </router-link>
       <div class="text-white flex items-center justify-center">
