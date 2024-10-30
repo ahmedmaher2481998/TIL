@@ -79,6 +79,7 @@ export type Database = {
           id: number
           image_id: string
           image_url: string
+          published: boolean
           read_count: number
           slug: string
           title: string
@@ -94,6 +95,7 @@ export type Database = {
           id?: number
           image_id: string
           image_url: string
+          published?: boolean
           read_count?: number
           slug: string
           title: string
@@ -109,6 +111,7 @@ export type Database = {
           id?: number
           image_id?: string
           image_url?: string
+          published?: boolean
           read_count?: number
           slug?: string
           title?: string
